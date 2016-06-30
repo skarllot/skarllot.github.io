@@ -1,111 +1,20 @@
-<!doctype html>
-<!--[if IE 9]>
-<html class="lt-ie10" lang="en"> <![endif]-->
-<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{page.title}}</title>
+<!DOCTYPE html>
+<html>
 
+  {% include head.html %}
 
-    <meta name="description"
-          content="Sou Fabrício Godoy, diretor de Tecnologia da Informação da Lepaho. Fascinado por tecnologia, filosofia e biologia."/>
+  <body>
 
-    <meta name="author" content="Fabrício Godoy"/>
-    <meta name="copyright" content="Creative Commons Attribution 4.0 International license"/>
+    {% include header.html %}
 
-    <link rel="stylesheet" href="{{page.root}}css/foundation.css"/>
-    <link rel="stylesheet" href="{{page.root}}css/font-awesome.css"/>
-    <link rel="stylesheet" href="{{page.root}}css/coderay.css"/>
-    <link rel="stylesheet" href="{{page.root}}css/asciidoctor.css"/>
-    <script src="{{page.root}}js/vendor/modernizr.js"></script>
-    <script src="{{page.root}}js/toc.js"></script>
-</head>
-<body>
-
-
-<!-- Nav Bar -->
-
-<nav class="top-bar" data-topbar>
-    <ul class="title-area">
-        <!-- Title Area -->
-        <li class="name">
-            <h1>
-                <a href="{{page.root}}">
-                    {{page.title}}
-                </a>
-            </h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-    </ul>
-</nav>
-<!-- End Nav -->
-
-
-<!-- Main Page Content and Sidebar -->
-
-<div class="row">
-
-    <!-- Main Blog Content -->
-    <div class="large-9 columns" role="content" style="margin-top: 23px;">
-
+    <div class="page-content">
+      <div class="wrapper">
         {{ content }}
-
+      </div>
     </div>
 
-    <!-- End Main Content -->
+    {% include footer.html %}
 
-    <!-- Sidebar -->
+  </body>
 
-    <aside class="large-3 columns">
-
-        <h4>Posts</h4>
-        <ul id="posts" class="posts nav">
-            {% for post in site.posts limit: 5 %}
-            <li><a href=".{{ post.url }}">{{ post.shortTitle }}</a></li>
-            {% endfor %}
-        </ul>
-
-        <div class="panel">
-            <h5>Sobre Mim</h5>
-
-            <p>Desenvolvedor C#, Java, Javascript e Go que procura sempre
-acompanhar o mercado que está em constante mutação.</p>
-        </div>
-
-    </aside>
-
-    <!-- End Sidebar -->
-</div>
-
-<!-- End Main Content and Sidebar -->
-
-
-<!-- Footer -->
-
-<footer class="row">
-    <div class="large-12 columns">
-        <hr/>
-        <div class="row">
-            <div class="large-12 columns">
-                <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Fabrício Godoy</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="{{page.root}}js/vendor/jquery.js"></script>
-<script src="{{page.root}}js/foundation.min.js"></script>
-<script>
-    $(document).foundation();
-</script>
-<script src="{{page.root}}js/vendor/jquery.js"></script>
-<script src="{{page.root}}js/foundation/foundation.js"></script>
-<script>
-    $(document).foundation();
-
-    var doc = document.documentElement;
-    doc.setAttribute('data-useragent', navigator.userAgent);
-</script>
-</body>
 </html>
