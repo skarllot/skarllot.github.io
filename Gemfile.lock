@@ -4,7 +4,6 @@ GEM
     asciidoctor (1.5.4)
     asciidoctor-diagram (1.5.0)
       asciidoctor (~> 1.5.0)
-    coderay (1.1.1)
     colorator (0.1)
     ffi (1.9.10)
     jekyll (3.1.6)
@@ -18,6 +17,7 @@ GEM
       safe_yaml (~> 1.0)
     jekyll-asciidoc (1.0.1)
       asciidoctor (>= 0.1.4)
+    jekyll-paginate (1.1.0)
     jekyll-plantuml (1.1)
       jekyll (> 2.0)
     jekyll-sass-converter (1.4.0)
@@ -30,6 +30,10 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
     mercenary (0.3.6)
+    posix-spawn (0.3.11)
+    pygments.rb (0.6.3)
+      posix-spawn (~> 0.3.6)
+      yajl-ruby (~> 1.2.0)
     rake (10.5.0)
     rake-jekyll (1.1.0)
       rake (~> 10.0)
@@ -39,6 +43,7 @@ GEM
     rouge (1.11.1)
     safe_yaml (1.0.4)
     sass (3.4.22)
+    yajl-ruby (1.2.1)
 
 PLATFORMS
   ruby
@@ -46,8 +51,9 @@ PLATFORMS
 DEPENDENCIES
   asciidoctor (~> 1.5.0)
   asciidoctor-diagram
-  coderay (~> 1.1.0)
   jekyll (~> 3.1.0)
   jekyll-asciidoc (~> 1.0.0)
+  jekyll-paginate (~> 1.1.0)
   jekyll-plantuml (~> 1.1)
+  pygments.rb (~> 0.6.3)
   rake-jekyll (~> 1.1.0)
