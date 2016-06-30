@@ -1,0 +1,207 @@
+---
+layout: default
+title: Hello World com Autotools
+documentationExpanded: false
+comments: true
+postsExpanded: true
+root: ../../../
+---
+
+Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal
+objetivo de fazer programas portáveis, possibilitando assim que o programa possa
+ser compilado em qualquer ambiente.
+
+Vou explicar como fazer um programa que exibe “Hello World!” no console
+configurado com Autotools. Não vou me ater a detalhes, ficando a cargo do leitor
+pesquisar detalhadamente sobre as ferramentas.
+
+Para continuar você precisará ter instalado as seguintes ferramentas: make,
+gcc-c++, autoconf e automake. Para Windows você precisará também do MinGW e do
+MSYS.
+
+Vamos ao projeto:
+
+1. Primeiramente crie uma pasta para o projeto (`hello-world` por exemplo).
+
+2. Agora crie a pasta src (o nome é sua escolha), ela irá conter o código fonte
+do projeto.
+
+3. Crie o arquivo `main.cpp` dentro da pasta `src`, como o código abaixo.
+
+[source,cpp]
+.main.cpp
+----
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello World!" << std::endl;
+    return 0;
+}
+----
+
+4. Dentro da pasta raíz do projeto crie o arquivo `Makefile.am`, com o conteúdo
+abaixo.
+
+.Makefile.am
+----
+SUBDIRS = src
+----
+
+Os arquivos `Makefile.am` têm instruções de compilação, mais especificamente,
+instruções para o comando `make`.
+
+No caso deste arquivo, ele indica que deve ser pesquisado o diretório src.
+
+5. Agora crie outro arquivo `Makefile.am` no diretório `src`, com o seguinte
+conteúdo:
+
+.Makefile.am
+----
+bin_PROGRAMS = hello-world
+
+hello_world_SOURCES = main.cpp
+----
+
+A primeira linha indica quais são os nomes dos programa executáveis.
+
+A segunda linha indica quais são os arquivos fontes do programa hello-world.
+Observe que todos os caracteres não alfabéticos devem der substituídos por "_",
+como em `hello_world`.
+
+6. Agora precisamos criar o arquivo `configure.ac` (no diretório raíz do
+projeto, daqui em diante iremos trabalhar apenas no diretório raíz), que irá
+conter as configurações do projeto, como nome, versão e dependências do projeto
+entre outros.
+
+Para criar um arquivo `configure.ac` preliminar execute o comando abaixo.
+
+[source,bash]
+----
+$ autoscan
+----
+
+Serão criados os arquivos `configure.scan` e `configure.log`, sendo que o
+configure.scan é o configure.ac preliminar e o configure.log contém os erros
+encontrados.
+
+Renomeie o arquivo `configure.scan` para `configure.ac`. O arquivo
+`configure.log` pode ser excluído.
+
+7. Modifique o arquivo configure.ac como abaixo.
+
+.configure.ac
+----
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.54])
+AC_INIT([Hello World], [0.1.0], [myemail@server.com], [hello-world])
+AC_CONFIG_SRCDIR([src])
+AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
+
+# Checks for programs.
+AC_PROG_CXX
+
+# Checks for libraries.
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+
+# Checks for library functions.
+
+AC_CONFIG_FILES([Makefile
+src/Makefile])
+AC_OUTPUT
+----
+
+*AC_PREREQ*: A versão mínima necessária do autoconf, geralmente é a versão 2.54.
+
+*AC_INIT*: Define o nome e versão do projeto, endereço para relatar erros e o
+nome do pacote do projeto.
+
+*AC_CONFIG_SRCDIR*: Define a pasta que contém o código fonte.
+
+*AC_CONFIG_HEADERS*: Define o nome do arquivo de definições do projeto, é
+recomendável deixar o padrão.
+
+*AM_INIT_AUTOMAKE*: É necessário para fazer uso dos `Makefile.am`. Define a
+versão mínima do `automake` e as opções `-Wall` e `-Werror` definem
+respectivamente que devem ser mostrados todos os alertas e que todos os alertas
+devem ser tratados como erros.
+
+*AC_PROG_CXX*: Verifica e exige o compilador C++ para o projeto.
+
+*AC_CONFIG_FILES*: Define os locais dos arquivo `Makefile` do projeto.
+
+*AC_OUTPUT*: Macro que executa a saída do `autoconf`.
+
+8. É necessário executar os comandos `aclocal`, `autoconf`, `autoheader` e
+`automake` para gerar o script de configuração do projeto, mas para facilitar há
+o comando `autoreconf` que executa todos os comandos necessários.
+
+Inicialmente iremos executar o comando abaixo para que os arquivos iniciais
+necessários sejam criados.
+
+[source,bash]
+----
+$ autoreconf --install
+----
+
+Serão criados vários arquivos, sendo que o arquivo `INSTALL` contém instruções
+de instalação e configuração e o arquivo `COPYING` contém a licença do programa.
+
+O automake exige os arquivos `NEWS`, `README`, `AUTHORS` e `ChangeLog`.
+Inicialmente crie-os vazios.
+
+[source,bash]
+----
+$ touch NEWS README AUTHORS ChangeLog
+----
+
+9. Execute o comando `autoreconf` e será gerado o script de configuração do
+projeto novamente, agora sem erros com o  automake.
+
+10. Execute o script `./configure` para configurar o projeto.
+
+11. Execute o comando `make` para compilar o projeto.
+
+12. Teste o executável do projeto:
+
+[source,bash]
+----
+$ src/hello-world
+----
+
+13. Para criar um pacote do projeto execute o seguinte comando:
+
+[source,bash]
+----
+$ make dist
+----
+
+E será criado um pacote distribuível para outros que queiram compilar o projeto.
+
+Para que além de ser criado o pacote o mesmo seja testado, execute o seguinte
+comando:
+
+[source,bash]
+----
+$ make distcheck
+----
+
+Pronto, é isso.
+
+Aqui só é mostrado o básico necessário para começar a usar o Autotools, as
+possibilidades vão muito além destas explicadas.
+
+O pacote final pode ser acessado neste link:
+http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz
+
+== Referências
+
+Manual do autoconf: http://www.gnu.org/software/autoconf/manual/index.html
+Manual do automake: http://www.gnu.org/software/automake/manual/index.html
+
