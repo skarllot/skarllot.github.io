@@ -8,8 +8,6 @@ postsExpanded: true
 root: ../../../
 ---
 
-= Hello World com Autotools
-
 Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal
 objetivo de fazer programas portáveis, possibilitando assim que o programa possa
 ser compilado em qualquer ambiente.
