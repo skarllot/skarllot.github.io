@@ -49,7 +49,9 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 
-        <div class="paragraph">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
 <p>Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal<br>
 objetivo de fazer programas portáveis, possibilitando assim que o programa possa<br>
 ser compilado em qualquer ambiente.</p>
@@ -78,9 +80,6 @@ do projeto.</p>
 </li>
 <li>
 <p>Crie o arquivo <code>main.cpp</code> dentro da pasta <code>src</code>, como o código abaixo.</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="title">main.cpp</div>
 <div class="content">
@@ -93,14 +92,10 @@ do projeto.</p>
 }</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Dentro da pasta raíz do projeto crie o arquivo <code>Makefile.am</code>, com o conteúdo<br>
 abaixo.</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
@@ -114,14 +109,10 @@ instruções para o comando <code>make</code>.</p>
 <div class="paragraph">
 <p>No caso deste arquivo, ele indica que deve ser pesquisado o diretório src.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Agora crie outro arquivo <code>Makefile.am</code> no diretório <code>src</code>, com o seguinte<br>
 conteúdo:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
@@ -138,16 +129,12 @@ hello_world_SOURCES = main.cpp</pre>
 Observe que todos os caracteres não alfabéticos devem der substituídos por "_",<br>
 como em <code>hello_world</code>.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Agora precisamos criar o arquivo <code>configure.ac</code> (no diretório raíz do<br>
 projeto, daqui em diante iremos trabalhar apenas no diretório raíz), que irá<br>
 conter as configurações do projeto, como nome, versão e dependências do projeto<br>
 entre outros.</p>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>Para criar um arquivo <code>configure.ac</code> preliminar execute o comando abaixo.</p>
 </div>
@@ -165,13 +152,9 @@ encontrados.</p>
 <p>Renomeie o arquivo <code>configure.scan</code> para <code>configure.ac</code>. O arquivo<br>
 <code>configure.log</code> pode ser excluído.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Modifique o arquivo configure.ac como abaixo.</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
@@ -229,15 +212,11 @@ devem ser tratados como erros.</p>
 <div class="paragraph">
 <p><strong>AC_OUTPUT</strong>: Macro que executa a saída do <code>autoconf</code>.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>É necessário executar os comandos <code>aclocal</code>, <code>autoconf</code>, <code>autoheader</code> e<br>
 <code>automake</code> para gerar o script de configuração do projeto, mas para facilitar há<br>
 o comando <code>autoreconf</code> que executa todos os comandos necessários.</p>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>Inicialmente iremos executar o comando abaixo para que os arquivos iniciais<br>
 necessários sejam criados.</p>
@@ -260,8 +239,7 @@ Inicialmente crie-os vazios.</p>
 <pre class="CodeRay highlight"><code data-lang="bash">$ touch NEWS README AUTHORS ChangeLog</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Execute o comando <code>autoreconf</code> e será gerado o script de configuração do<br>
 projeto novamente, agora sem erros com o  automake.</p>
@@ -274,21 +252,14 @@ projeto novamente, agora sem erros com o  automake.</p>
 </li>
 <li>
 <p>Teste o executável do projeto:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ src/hello-world</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Para criar um pacote do projeto execute o seguinte comando:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ make dist</code></pre>
@@ -306,6 +277,9 @@ comando:</p>
 <pre class="CodeRay highlight"><code data-lang="bash">$ make distcheck</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
 <div class="paragraph">
 <p>Pronto, é isso.</p>
 </div>
@@ -317,12 +291,20 @@ possibilidades vão muito além destas explicadas.</p>
 <p>O pacote final pode ser acessado neste link:<br>
 <a href="http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz" class="bare">http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz</a></p>
 </div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="referências">Referências</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Manual do autoconf: <a href="http://www.gnu.org/software/autoconf/manual/index.html" class="bare">http://www.gnu.org/software/autoconf/manual/index.html</a><br>
-Manual do automake: <a href="http://www.gnu.org/software/automake/manual/index.html" class="bare">http://www.gnu.org/software/automake/manual/index.html</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Manual do autoconf: <a href="http://www.gnu.org/software/autoconf/manual/index.html" class="bare">http://www.gnu.org/software/autoconf/manual/index.html</a></p>
+</li>
+<li>
+<p>Manual do automake: <a href="http://www.gnu.org/software/automake/manual/index.html" class="bare">http://www.gnu.org/software/automake/manual/index.html</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -338,7 +320,7 @@ Manual do automake: <a href="http://www.gnu.org/software/automake/manual/index.h
         <h4>Posts</h4>
         <ul id="posts" class="posts nav">
             
-            <li><a href="./2009/05/23/hello-world-com-autotools.html"></a></li>
+            <li><a href="./2009/05/23/hello-world-com-autotools.html">Introdução Autotools</a></li>
             
         </ul>
 
