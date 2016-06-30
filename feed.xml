@@ -6,8 +6,8 @@
 </description>
     <link>http://www.fgodoy.me/</link>
     <atom:link href="http://www.fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 30 Jun 2016 22:07:17 +0000</pubDate>
-    <lastBuildDate>Thu, 30 Jun 2016 22:07:17 +0000</lastBuildDate>
+    <pubDate>Thu, 30 Jun 2016 22:16:27 +0000</pubDate>
+    <lastBuildDate>Thu, 30 Jun 2016 22:16:27 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -44,13 +44,13 @@ do projeto.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;main.cpp&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
 
-&lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span style=&quot;color: #B00040&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #0000FF&quot;&gt;main&lt;/span&gt;()
+{
+    std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;cout &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;endl;
+    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;0&lt;/span&gt;;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -101,7 +101,7 @@ entre outros.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;autoscan&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;autoscan&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -184,7 +184,7 @@ necessários sejam criados.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;autoreconf --install&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;autoreconf --install&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -197,7 +197,7 @@ Inicialmente crie-os vazios.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;touch NEWS README AUTHORS ChangeLog&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;touch NEWS README AUTHORS ChangeLog&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -215,7 +215,7 @@ projeto novamente, agora sem erros com o  automake.&lt;/p&gt;
 &lt;p&gt;Teste o executável do projeto:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;src/hello-world&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;src/hello-world&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -223,7 +223,7 @@ projeto novamente, agora sem erros com o  automake.&lt;/p&gt;
 &lt;p&gt;Para criar um pacote do projeto execute o seguinte comando:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;make dist&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;make dist&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -235,7 +235,7 @@ comando:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;make distcheck&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;make distcheck&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
