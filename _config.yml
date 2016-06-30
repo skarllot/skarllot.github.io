@@ -1,6 +1,8 @@
 # jekyll configuration
 
-title: "Jekyll-asciidoc-quickstart"
+title: "Fabrício Godoy"
+name: Fabrício Godoy
+avatar: https://avatars2.githubusercontent.com/u/122178?v=3&s=460
 
 asciidoctor:
   attributes:
