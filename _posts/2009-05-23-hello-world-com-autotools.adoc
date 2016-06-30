@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Hello World com Autotools
-shortTitle: Introdução Autotools
 documentationExpanded: false
 comments: true
 postsExpanded: true
@@ -44,6 +43,7 @@ int main()
 4. Dentro da pasta raíz do projeto crie o arquivo `Makefile.am`, com o conteúdo
 abaixo.
 +
+[source,make]
 .Makefile.am
 ----
 SUBDIRS = src
@@ -57,6 +57,7 @@ No caso deste arquivo, ele indica que deve ser pesquisado o diretório src.
 5. Agora crie outro arquivo `Makefile.am` no diretório `src`, com o seguinte
 conteúdo:
 +
+[source,make]
 .Makefile.am
 ----
 bin_PROGRAMS = hello-world
@@ -91,6 +92,7 @@ Renomeie o arquivo `configure.scan` para `configure.ac`. O arquivo
 
 7. Modifique o arquivo configure.ac como abaixo.
 +
+[source,m4]
 .configure.ac
 ----
 #                                               -*- Autoconf -*-
