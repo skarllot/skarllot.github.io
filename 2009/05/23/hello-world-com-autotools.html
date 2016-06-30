@@ -1,0 +1,387 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Hello World com Autotools</title>
+
+
+    <meta name="description"
+          content="Sou Fabrício Godoy, diretor de Tecnologia da Informação da Lepaho. Fascinado por tecnologia, filosofia e biologia."/>
+
+    <meta name="author" content="Fabrício Godoy"/>
+    <meta name="copyright" content="Creative Commons Attribution 4.0 International license"/>
+
+    <link rel="stylesheet" href="../../../css/foundation.css"/>
+    <link rel="stylesheet" href="../../../css/font-awesome.css"/>
+    <link rel="stylesheet" href="../../../css/coderay.css"/>
+    <link rel="stylesheet" href="../../../css/asciidoctor.css"/>
+    <script src="../../../js/vendor/modernizr.js"></script>
+    <script src="../../../js/toc.js"></script>
+</head>
+<body>
+
+
+<!-- Nav Bar -->
+
+<nav class="top-bar" data-topbar>
+    <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+            <h1>
+                <a href="../../../">
+                    Hello World com Autotools
+                </a>
+            </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+
+        <div class="paragraph">
+<p>Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal<br>
+objetivo de fazer programas portáveis, possibilitando assim que o programa possa<br>
+ser compilado em qualquer ambiente.</p>
+</div>
+<div class="paragraph">
+<p>Vou explicar como fazer um programa que exibe “Hello World!” no console<br>
+configurado com Autotools. Não vou me ater a detalhes, ficando a cargo do leitor<br>
+pesquisar detalhadamente sobre as ferramentas.</p>
+</div>
+<div class="paragraph">
+<p>Para continuar você precisará ter instalado as seguintes ferramentas: make,<br>
+gcc-c++, autoconf e automake. Para Windows você precisará também do MinGW e do<br>
+MSYS.</p>
+</div>
+<div class="paragraph">
+<p>Vamos ao projeto:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Primeiramente crie uma pasta para o projeto (<code>hello-world</code> por exemplo).</p>
+</li>
+<li>
+<p>Agora crie a pasta src (o nome é sua escolha), ela irá conter o código fonte<br>
+do projeto.</p>
+</li>
+<li>
+<p>Crie o arquivo <code>main.cpp</code> dentro da pasta <code>src</code>, como o código abaixo.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">main.cpp</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+
+<span class="predefined-type">int</span> main()
+{
+    std::cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World!</span><span class="delimiter">&quot;</span></span> &lt;&lt; std::endl;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dentro da pasta raíz do projeto crie o arquivo <code>Makefile.am</code>, com o conteúdo<br>
+abaixo.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Makefile.am</div>
+<div class="content">
+<pre>SUBDIRS = src</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Os arquivos <code>Makefile.am</code> têm instruções de compilação, mais especificamente,<br>
+instruções para o comando <code>make</code>.</p>
+</div>
+<div class="paragraph">
+<p>No caso deste arquivo, ele indica que deve ser pesquisado o diretório src.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Agora crie outro arquivo <code>Makefile.am</code> no diretório <code>src</code>, com o seguinte<br>
+conteúdo:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Makefile.am</div>
+<div class="content">
+<pre>bin_PROGRAMS = hello-world
+
+hello_world_SOURCES = main.cpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A primeira linha indica quais são os nomes dos programa executáveis.</p>
+</div>
+<div class="paragraph">
+<p>A segunda linha indica quais são os arquivos fontes do programa hello-world.<br>
+Observe que todos os caracteres não alfabéticos devem der substituídos por "_",<br>
+como em <code>hello_world</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Agora precisamos criar o arquivo <code>configure.ac</code> (no diretório raíz do<br>
+projeto, daqui em diante iremos trabalhar apenas no diretório raíz), que irá<br>
+conter as configurações do projeto, como nome, versão e dependências do projeto<br>
+entre outros.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Para criar um arquivo <code>configure.ac</code> preliminar execute o comando abaixo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ autoscan</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Serão criados os arquivos <code>configure.scan</code> e <code>configure.log</code>, sendo que o<br>
+configure.scan é o configure.ac preliminar e o configure.log contém os erros<br>
+encontrados.</p>
+</div>
+<div class="paragraph">
+<p>Renomeie o arquivo <code>configure.scan</code> para <code>configure.ac</code>. O arquivo<br>
+<code>configure.log</code> pode ser excluído.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Modifique o arquivo configure.ac como abaixo.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">configure.ac</div>
+<div class="content">
+<pre>#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.54])
+AC_INIT([Hello World], [0.1.0], [myemail@server.com], [hello-world])
+AC_CONFIG_SRCDIR([src])
+AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
+
+# Checks for programs.
+AC_PROG_CXX
+
+# Checks for libraries.
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+
+# Checks for library functions.
+
+AC_CONFIG_FILES([Makefile
+src/Makefile])
+AC_OUTPUT</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>AC_PREREQ</strong>: A versão mínima necessária do autoconf, geralmente é a versão 2.54.</p>
+</div>
+<div class="paragraph">
+<p><strong>AC_INIT</strong>: Define o nome e versão do projeto, endereço para relatar erros e o<br>
+nome do pacote do projeto.</p>
+</div>
+<div class="paragraph">
+<p><strong>AC_CONFIG_SRCDIR</strong>: Define a pasta que contém o código fonte.</p>
+</div>
+<div class="paragraph">
+<p><strong>AC_CONFIG_HEADERS</strong>: Define o nome do arquivo de definições do projeto, é<br>
+recomendável deixar o padrão.</p>
+</div>
+<div class="paragraph">
+<p><strong>AM_INIT_AUTOMAKE</strong>: É necessário para fazer uso dos <code>Makefile.am</code>. Define a<br>
+versão mínima do <code>automake</code> e as opções <code>-Wall</code> e <code>-Werror</code> definem<br>
+respectivamente que devem ser mostrados todos os alertas e que todos os alertas<br>
+devem ser tratados como erros.</p>
+</div>
+<div class="paragraph">
+<p><strong>AC_PROG_CXX</strong>: Verifica e exige o compilador C++ para o projeto.</p>
+</div>
+<div class="paragraph">
+<p><strong>AC_CONFIG_FILES</strong>: Define os locais dos arquivo <code>Makefile</code> do projeto.</p>
+</div>
+<div class="paragraph">
+<p><strong>AC_OUTPUT</strong>: Macro que executa a saída do <code>autoconf</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>É necessário executar os comandos <code>aclocal</code>, <code>autoconf</code>, <code>autoheader</code> e<br>
+<code>automake</code> para gerar o script de configuração do projeto, mas para facilitar há<br>
+o comando <code>autoreconf</code> que executa todos os comandos necessários.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Inicialmente iremos executar o comando abaixo para que os arquivos iniciais<br>
+necessários sejam criados.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ autoreconf --install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Serão criados vários arquivos, sendo que o arquivo <code>INSTALL</code> contém instruções<br>
+de instalação e configuração e o arquivo <code>COPYING</code> contém a licença do programa.</p>
+</div>
+<div class="paragraph">
+<p>O automake exige os arquivos <code>NEWS</code>, <code>README</code>, <code>AUTHORS</code> e <code>ChangeLog</code>.<br>
+Inicialmente crie-os vazios.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ touch NEWS README AUTHORS ChangeLog</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Execute o comando <code>autoreconf</code> e será gerado o script de configuração do<br>
+projeto novamente, agora sem erros com o  automake.</p>
+</li>
+<li>
+<p>Execute o script <code>./configure</code> para configurar o projeto.</p>
+</li>
+<li>
+<p>Execute o comando <code>make</code> para compilar o projeto.</p>
+</li>
+<li>
+<p>Teste o executável do projeto:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ src/hello-world</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Para criar um pacote do projeto execute o seguinte comando:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ make dist</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>E será criado um pacote distribuível para outros que queiram compilar o projeto.</p>
+</div>
+<div class="paragraph">
+<p>Para que além de ser criado o pacote o mesmo seja testado, execute o seguinte<br>
+comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ make distcheck</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pronto, é isso.</p>
+</div>
+<div class="paragraph">
+<p>Aqui só é mostrado o básico necessário para começar a usar o Autotools, as<br>
+possibilidades vão muito além destas explicadas.</p>
+</div>
+<div class="paragraph">
+<p>O pacote final pode ser acessado neste link:<br>
+<a href="http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz" class="bare">http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz</a></p>
+</div>
+<div class="sect1">
+<h2 id="referências">Referências</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Manual do autoconf: <a href="http://www.gnu.org/software/autoconf/manual/index.html" class="bare">http://www.gnu.org/software/autoconf/manual/index.html</a><br>
+Manual do automake: <a href="http://www.gnu.org/software/automake/manual/index.html" class="bare">http://www.gnu.org/software/automake/manual/index.html</a></p>
+</div>
+</div>
+</div>
+
+    </div>
+
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+
+    <aside class="large-3 columns">
+
+        <h4>Posts</h4>
+        <ul id="posts" class="posts nav">
+            
+            <li><a href="./2009/05/23/hello-world-com-autotools.html"></a></li>
+            
+        </ul>
+
+        <div class="panel">
+            <h5>Sobre Mim</h5>
+
+            <p>Desenvolvedor C#, Java, Javascript e Go que procura sempre
+acompanhar o mercado que está em constante mutação.</p>
+        </div>
+
+    </aside>
+
+    <!-- End Sidebar -->
+</div>
+
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+
+<footer class="row">
+    <div class="large-12 columns">
+        <hr/>
+        <div class="row">
+            <div class="large-12 columns">
+                <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Fabrício Godoy</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../../../js/vendor/jquery.js"></script>
+<script src="../../../js/foundation.min.js"></script>
+<script>
+    $(document).foundation();
+</script>
+<script src="../../../js/vendor/jquery.js"></script>
+<script src="../../../js/foundation/foundation.js"></script>
+<script>
+    $(document).foundation();
+
+    var doc = document.documentElement;
+    doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+</body>
+</html>
