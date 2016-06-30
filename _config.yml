@@ -16,10 +16,16 @@ markdown: kramdown
 permalink: /:year/:month/:title/
 paginate: 10
 
+gems:
+  - jekyll-asciidoc
+  - pygments
+  - jekyll-paginate
+
 asciidoctor:
   attributes:
     - idseparator=_
     - source-highlighter=pygments
     - icons=font
+    - pygments-css=style
 
 # end of configuration
