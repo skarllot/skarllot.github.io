@@ -19,7 +19,7 @@ paginate: 10
 asciidoctor:
   attributes:
     - idseparator=_
-    - source-highlighter=coderay
+    - source-highlighter=pygments
     - icons=font
 
 # end of configuration
