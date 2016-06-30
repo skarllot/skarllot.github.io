@@ -28,7 +28,8 @@
   <meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/asciidoctor.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://www.fgodoy.me/2009/05/hello-world-com-autotools/">
@@ -77,9 +78,15 @@
       <div class="wrapper">
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
+
+
+
+
+
+
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Hello World com Autotools</h1>
-    <p class="post-meta"><time datetime="2009-05-23T00:00:00+00:00" itemprop="datePublished">May 23, 2009</time></p>
+    <p class="post-meta"><time datetime="2009-05-23T00:00:00+00:00" itemprop="datePublished">23 de Maio de 2009</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -131,7 +138,7 @@ abaixo.</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre>SUBDIRS = src</pre>
+<pre class="pygments highlight"><code data-lang="make"><span style="color: #19177C">SUBDIRS</span> <span style="color: #666666">=</span> src</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -148,9 +155,9 @@ conteúdo:</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre>bin_PROGRAMS = hello-world
+<pre class="pygments highlight"><code data-lang="make"><span style="color: #19177C">bin_PROGRAMS</span> <span style="color: #666666">=</span> hello-world
 
-hello_world_SOURCES = main.cpp</pre>
+<span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -190,7 +197,7 @@ encontrados.</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre>#                                               -*- Autoconf -*-
+<pre class="pygments highlight"><code data-lang="m4">#                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.54])
@@ -212,7 +219,7 @@ AC_PROG_CXX
 
 AC_CONFIG_FILES([Makefile
 src/Makefile])
-AC_OUTPUT</pre>
+AC_OUTPUT</code></pre>
 </div>
 </div>
 <div class="paragraph">
