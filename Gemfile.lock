@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     asciidoctor (1.5.4)
+    asciidoctor-diagram (1.5.0)
+      asciidoctor (~> 1.5.0)
     coderay (1.1.1)
     colorator (0.1)
     ffi (1.9.10)
@@ -16,6 +18,8 @@ GEM
       safe_yaml (~> 1.0)
     jekyll-asciidoc (1.0.1)
       asciidoctor (>= 0.1.4)
+    jekyll-plantuml (1.1)
+      jekyll (> 2.0)
     jekyll-sass-converter (1.4.0)
       sass (~> 3.4)
     jekyll-watch (1.4.0)
@@ -41,7 +45,9 @@ PLATFORMS
 
 DEPENDENCIES
   asciidoctor (~> 1.5.0)
+  asciidoctor-diagram
   coderay (~> 1.1.0)
   jekyll (~> 3.1.0)
   jekyll-asciidoc (~> 1.0.0)
+  jekyll-plantuml (~> 1.1)
   rake-jekyll (~> 1.1.0)
