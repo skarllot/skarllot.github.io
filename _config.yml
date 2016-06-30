@@ -2,6 +2,7 @@
 
 # Site settings
 title: Blog do Fabrício Godoy
+author: Fabrício Godoy
 email: skarllot@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Desenvolvedor C#, Java, Javascript e Go que procura sempre
