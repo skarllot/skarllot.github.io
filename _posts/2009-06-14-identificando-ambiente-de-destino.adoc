@@ -6,11 +6,12 @@ tags:
   - automake
   - autotools
   - mingw
+title: Identificando o ambiente de destino com Autotools
 excerpt: >
   Nesse post explicarei como identificar qual o ambiente de destino de
   compilação, ou seja, o ambiente no qual será executado o binário.
 ---
-= Identificando ambiente de destino com Autotools
+= Identificando o ambiente de destino com Autotools
 Fabrício Godoy <contato@fgodoy.me>
 v1.0, 2009-06-14
 :lang: pt-BR

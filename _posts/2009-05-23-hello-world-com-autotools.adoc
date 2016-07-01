@@ -9,6 +9,7 @@ tags:
   - make
 categories:
   - Programação
+title: Hello World com Autotools
 excerpt: >
   Nesse post irei explicar como fazer um programa que exibe "Hello World!" no
   console configurado com Autotools.
