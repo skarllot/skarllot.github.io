@@ -1,0 +1,7 @@
+https://github.com/havvg/havvg.github.com
+https://github.com/csswizardry/csswizardry.github.com
+https://github.com/danhaywood/danhaywood.github.io
+https://github.com/gacha/gacha.id.lv
+
+https://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/
+http://jekyllbootstrap.com/
