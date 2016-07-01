@@ -3,6 +3,8 @@ rvm:
   - 2.2.0
 sudo: false
 script:
+  - git config --global user.email "robot@travis-ci.org"
+  - git config --global user.name "Travis"
   - bundle exec jekyll build
   - bundle exec rake deploy
 addons:
