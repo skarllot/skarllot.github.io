@@ -6,12 +6,12 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jul 2016 15:52:21 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Jul 2016 15:52:21 +0000</lastBuildDate>
+    <pubDate>Fri, 01 Jul 2016 16:03:31 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Jul 2016 16:03:31 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
-        <title>Autotools Identificando Ambiente De Destino</title>
+        <title>Identificando Ambiente De Destino</title>
         <description>&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -207,8 +207,8 @@ multi-plataforma.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
         <pubDate>Sun, 14 Jun 2009 00:00:00 +0000</pubDate>
-        <link>https://fgodoy.me/2009/06/autotools-identificando-ambiente-de-destino/</link>
-        <guid isPermaLink="true">https://fgodoy.me/2009/06/autotools-identificando-ambiente-de-destino/</guid>
+        <link>https://fgodoy.me/2009/06/identificando-ambiente-de-destino/</link>
+        <guid isPermaLink="true">https://fgodoy.me/2009/06/identificando-ambiente-de-destino/</guid>
         
         <category>automake</category>
         
