@@ -6,12 +6,12 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jul 2016 16:06:10 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Jul 2016 16:06:10 +0000</lastBuildDate>
+    <pubDate>Fri, 01 Jul 2016 16:08:31 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Jul 2016 16:08:31 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
-        <title>Identificando Ambiente De Destino</title>
+        <title>Identificando o ambiente de destino com Autotools</title>
         <description>&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -222,7 +222,7 @@ multi-plataforma.&lt;/p&gt;
       </item>
     
       <item>
-        <title>Hello World Com Autotools</title>
+        <title>Hello World com Autotools</title>
         <description>&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
