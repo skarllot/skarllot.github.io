@@ -1,0 +1,64 @@
+= Sobre Mim
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2016-06-30
+:page-layout: page
+:page-permalink: /about/
+:site-root: ../../../
+:lang: pt-BR
+:revdate: 2016-06-30 23:19:03-03:00
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+
+Olá, me chamo Fabrício e trabalho com desenvolvimento de software e
+administração de redes. E apesar de dedicar grande parte do meu tempo na área
+da ciência e tecnologia, também gosto de estudar sobre política, psicologia e
+biologia.
+
+Tenho como hobby lutar karatê e participar em projetos da comunidade de software
+livre, principalmente tradução de softwares. É uma experiência bem interessante
+participar de tais projetos, pois há a oportunidade de ter contato com pessoas
+de diversos países e observar como projetos com pessoas sem contato físico é
+coordenado.
+
+Já tenho 9 anos de experiência na área de ciência e tecnologia, e já trabalhei
+com:
+
+== Desenvolvimento de Software
+
+* *Linguagens de Programação*: ASP.Net, C#, C++, Go, Java, Javascript, Shell;
+
+* *Plataformas*: Android, AngularJS, Bootstrap, Express, Heroku, .Net Framework,
+Node.js, Jasmine, Protractor;
+
+* *Ferramentas*: Brackets, Git, NPM, Subversion, Visual Studio,
+Visual Studio Code;
+
+* *Banco de Dados*: MariaDB, MongoDB, MySQL, SQL Server.
+
+== Administração de Redes
+
+* *Sistemas Operacionais*: Windows Server, GNU/Linux Debian, GNU/Linux CentOS;
+
+* *Virtualização*: Citrix Xen Server, KVM, VMware ESXi, VMware vCenter;
+
+* *Tecnologias*: DFS, DNS, FTP, HTTP, iSCSI, OSPF, SSL, VPN;
+
+* *Ferramentas*: Bacula, Bash, Shell Script, Zabbix;
+
+* *Servidores de Rede*: Active Directory, Apache HTTP, Dell SonicWall,
+Fortinet FortiGate, FreeNAS, IIS, Microsoft Exchange, Pacemaker, pfSense, Samba.
+
+== Certificações
+
+* MongoDB Certified Developer
+
+== Cursos
+
+* Learn and Understand AngularJS
+* Learn and Understand Node.js
+* Javascript: Understanding the Weird Parts
+* Android from Beginner to Professional
+* M101N: MongoDB for .NET Developers
+* Java Design Patterns and Architecture
+

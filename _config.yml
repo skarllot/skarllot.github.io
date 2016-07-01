@@ -3,12 +3,12 @@
 # Site settings
 title: Blog do Fabrício Godoy
 author: Fabrício Godoy
-email: skarllot@gmail.com
+email: contato@fgodoy.me
 description: > # this means to ignore newlines until "baseurl:"
   Desenvolvedor C#, Java, Javascript e Go que procura sempre
   acompanhar o mercado que está em constante mutação.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://www.fgodoy.me" # the base hostname & protocol for your site
+url: "https://fgodoy.me" # the base hostname & protocol for your site
 twitter_username: skarllot
 github_username:  skarllot
 exclude: [Gemfile, Gemfile.lock, Rakefile]
