@@ -2,12 +2,16 @@
 layout: page
 permalink: /about/
 title: Sobre Mim
+sitemap:
+  priority: 1.0
+  changefreq: 'weekly'
+  lastmod: 2016-07-01
 ---
 = Sobre Mim
 Fabrício Godoy <contato@fgodoy.me>
-v1.0, 2016-06-30
+v1.0, 2016-07-01
 :lang: pt-BR
-:revdate: 2016-06-30 23:19:03-03:00
+:revdate: 2016-07-01 10:49:12-03:00
 :author: Fabrício Godoy
 :creator: Fabrício Godoy
 :producer: Fabrício Godoy
