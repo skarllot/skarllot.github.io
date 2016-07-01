@@ -25,6 +25,7 @@ gems:
 asciidoctor:
   attributes:
     - idseparator=_
+    - imagesdir=/images
     - source-highlighter=pygments
     - icons=font
     - pygments-css=style
