@@ -1,0 +1,170 @@
+---
+layout: post
+categories:
+  - Programação
+tags:
+  - automake
+  - autotools
+  - mingw
+excerpt: >
+  Nesse post explicarei como identificar qual o ambiente de destino de
+  compilação, ou seja, o ambiente no qual será executado o binário.
+---
+= [Autotools] Identificando ambiente de destino
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2009-06-14
+:lang: pt-BR
+:revdate: 2009-06-14 21:07:52+00:00
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+
+Explicarei aqui como identificar qual o ambiente de destino de compilação, ou
+seja, o ambiente no qual será executado o binário.
+
+Para isso tomarei como exemplo o projeto hello-world do post anterior.
+
+Você pode baixar o pacote final do projeto do post anterior em
+http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz.
+
+No arquivo _configure.ac_, é necessário adicionar a seguinte macro:
+
+[source,make]
+.configure.ac
+----
+AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
+
+# Check build environment
+AC_CANONICAL_HOST
+
+# Checks for programs.
+----
+
+Com essa macro serão criados os arquivos de script _config.guess_ e _config.sub_
+que serão usados para identificar o ambiente de destino.
+
+Serão definidas quatro variáveis de ambiente, que são: _host_, _host_cpu_,
+_host_vendor_, _host_os_. Com essas variáveis é possível condicionar a
+compilação para cada ambiente.
+
+Caso o ambiente de destino seja o MinGW de 32 bits para PC, normalmente, a
+variável _host_ teria o valor _i686-pc-mingw32_ e como consequência as variáveis
+_host_cpu_, _host_vendor_ e _host_os_ teriam os valores _i686_, _pc_ e _mingw32_
+respectivamente. Assim podemos dizer que "host=$host_cpu-$host_vendor-$host_os".
+
+Criarei uma verificação para definir a variável _OS_WIN32_ caso a variável
+_host_os_ tenha a palavra "mingw". Para isso adicionarei o seguinte script no
+arquivo _configure.ac_:
+
+[source,bash]
+.configure.ac
+----
+# ------------------------------------------------------------------------------
+# Check OS-specific platform
+# ------------------------------------------------------------------------------
+AC_MSG_CHECKING([for native Win32])
+case "$host_os" in
+  *mingw*)
+    iswin32=yes
+  ;;
+  *)
+    iswin32=no
+  ;;
+esac
+AC_MSG_RESULT([$iswin32])
+
+AM_CONDITIONAL(OS_WIN32, [test "$iswin32" = "yes"])
+----
+
+A macro _AC_MSG_CHECKING_ faz imprimir na tela a mensagem "checking for native
+Win32..." indicando que está sendo feita a verificação por uma característica
+específica.
+
+Em seguida é verificada a variável de ambiente pela palavra "mingw", caso
+encontre a variável local _iswin32_ será definida para o valor "yes", senão para
+o valor "no" (Leia sobre http://aurelio.net/shell/[Bash]).
+
+A macro _AC_MSG_RESULT_ imprime na tela o resultado da última macro
+_AC_MSG_CHECKING_. Imprime "checking for native Win32... yes", caso a variável
+_iswin32_ tenha o valor "yes".
+
+A macro _AM_CONDITIONAL_ de maneira condicional define ou não a variável
+_OS_WIN32_ a qual será compartilhada a todos Makefiles. Caso a variável local
+_iswin32_ tenha o valor "yes" a variável _OS_WIN32_ será definida.
+
+Adicionarei o seguinte conteúdo no arquivo _Makefile.am_:
+
+[source,make]
+.Makefile.am
+----
+hello_world_SOURCES = main.cpp
+if OS_WIN32
+hello_world_SOURCES += windowsdef.h
+endif
+----
+
+Assim o arquivo _windowsdef.h_ só será compilado caso esteja definida a variável
+_OS_WIN32_.
+
+Criarei o arquivo _windowsdef.h_ com o seguinte conteúdo:
+
+[source,cpp]
+.windowsdef.h
+----
+#ifndef _WINDOWSDEF_H
+#define _WINDOWSDEF_H
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#ifndef WINVER
+// Windows Server 2003 with SP1, Windows XP with SP2
+// See http://msdn.microsoft.com/en-us/library/aa383745.aspx
+#define WINVER 0x0502
+#endif /* WINVER */
+
+#include <windows.h>
+
+#endif    /* _WINDOWSDEF_H */
+----
+
+Definindo a variável _WINVER_ para o valor _0x0502_ estaremos limitando o
+executável ao Windows XP SP2 ou Windows Server 2003 SP1 no mínimo.
+
+Adicionarei o seguinte conteúdo ao arquivo _main.cpp_:
+
+[source,cpp]
+.main.cpp
+----
+#ifdef WINNT
+#include "windowsdef.h"
+#endif
+
+#include <iostream>
+----
+
+O compilador só referenciará o arquivo windowsdef.h caso a variável WINNT esteja
+definida. A variável WINNT é definida automaticamente pelo compilador caso o
+mesmo esteja sendo executado em um ambiente do Windows NT.
+
+Para consultar as variáveis automaticamente definidas pelo seu compilador
+execute o seguinte comando "gcc -E -dM - < /dev/null | sort", sendo que "| sort"
+é para ordenar a saída em ordem alfabética.
+
+Com essas instruções já se tem o básico para construir um programa
+multi-plataforma.
+
+O pacote final pode ser acessado neste link:
+http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz
+
+== Referências
+
+* http://www.gnu.org/software/hello/manual/autoconf/Canonicalizing.html
+* http://www.gnu.org/software/hello/manual/autoconf/Printing-Messages.html
+* http://www.gnu.org/software/hello/manual/automake/Usage-of-Conditionals.html
+* http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html
+* http://git.gnome.org/cgit/gtk+/tree/configure.in#n127
+* https://svn.win.tue.nl/viewcvs/MCRL2/trunk/src/configure.ac?rev=808&view=markup
+* http://www.rtems.com/ml/rtems-users/1998/march/msg00046.html
+
