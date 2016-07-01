@@ -57,6 +57,10 @@
       <div class="trigger">
         
           
+          <a class="page-link" href="/404/">404 - Not found</a>
+          
+        
+          
           <a class="page-link" href="/about/">Sobre</a>
           
         
@@ -93,18 +97,18 @@
     <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal<br>
-objetivo de fazer programas portáveis, possibilitando assim que o programa possa<br>
+<p>Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal
+objetivo de fazer programas portáveis, possibilitando assim que o programa possa
 ser compilado em qualquer ambiente.</p>
 </div>
 <div class="paragraph">
-<p>Vou explicar como fazer um programa que exibe “Hello World!” no console<br>
-configurado com Autotools. Não vou me ater a detalhes, ficando a cargo do leitor<br>
+<p>Vou explicar como fazer um programa que exibe “Hello World!” no console
+configurado com Autotools. Não vou me ater a detalhes, ficando a cargo do leitor
 pesquisar detalhadamente sobre as ferramentas.</p>
 </div>
 <div class="paragraph">
-<p>Para continuar você precisará ter instalado as seguintes ferramentas: make,<br>
-gcc-c++, autoconf e automake. Para Windows você precisará também do MinGW e do<br>
+<p>Para continuar você precisará ter instalado as seguintes ferramentas: make,
+gcc-c++, autoconf e automake. Para Windows você precisará também do MinGW e do
 MSYS.</p>
 </div>
 <div class="paragraph">
@@ -116,7 +120,7 @@ MSYS.</p>
 <p>Primeiramente crie uma pasta para o projeto (<em>hello-world</em> por exemplo).</p>
 </li>
 <li>
-<p>Agora crie a pasta src (o nome é sua escolha), ela irá conter o código fonte<br>
+<p>Agora crie a pasta src (o nome é sua escolha), ela irá conter o código fonte
 do projeto.</p>
 </li>
 <li>
@@ -135,7 +139,7 @@ do projeto.</p>
 </div>
 </li>
 <li>
-<p>Dentro da pasta raíz do projeto crie o arquivo <em>Makefile.am</em>, com o conteúdo<br>
+<p>Dentro da pasta raíz do projeto crie o arquivo <em>Makefile.am</em>, com o conteúdo
 abaixo.</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
@@ -144,7 +148,7 @@ abaixo.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Os arquivos <em>Makefile.am</em> têm instruções de compilação, mais especificamente,<br>
+<p>Os arquivos <em>Makefile.am</em> têm instruções de compilação, mais especificamente,
 instruções para o comando <em>make</em>.</p>
 </div>
 <div class="paragraph">
@@ -152,7 +156,7 @@ instruções para o comando <em>make</em>.</p>
 </div>
 </li>
 <li>
-<p>Agora crie outro arquivo <em>Makefile.am</em> no diretório <em>src</em>, com o seguinte<br>
+<p>Agora crie outro arquivo <em>Makefile.am</em> no diretório <em>src</em>, com o seguinte
 conteúdo:</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
@@ -166,15 +170,15 @@ conteúdo:</p>
 <p>A primeira linha indica quais são os nomes dos programa executáveis.</p>
 </div>
 <div class="paragraph">
-<p>A segunda linha indica quais são os arquivos fontes do programa hello-world.<br>
-Observe que todos os caracteres não alfabéticos devem der substituídos por "<em>",<br>
+<p>A segunda linha indica quais são os arquivos fontes do programa hello-world.
+Observe que todos os caracteres não alfabéticos devem der substituídos por "<em>",
 como em _hello_world</em>.</p>
 </div>
 </li>
 <li>
-<p>Agora precisamos criar o arquivo <em>configure.ac</em> (no diretório raíz do<br>
-projeto, daqui em diante iremos trabalhar apenas no diretório raíz), que irá<br>
-conter as configurações do projeto, como nome, versão e dependências do projeto<br>
+<p>Agora precisamos criar o arquivo <em>configure.ac</em> (no diretório raíz do
+projeto, daqui em diante iremos trabalhar apenas no diretório raíz), que irá
+conter as configurações do projeto, como nome, versão e dependências do projeto
 entre outros.</p>
 <div class="paragraph">
 <p>Para criar um arquivo <em>configure.ac</em> preliminar execute o comando abaixo.</p>
@@ -185,12 +189,12 @@ entre outros.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Serão criados os arquivos <em>configure.scan</em> e <em>configure.log</em>, sendo que o<br>
-configure.scan é o configure.ac preliminar e o configure.log contém os erros<br>
+<p>Serão criados os arquivos <em>configure.scan</em> e <em>configure.log</em>, sendo que o
+configure.scan é o configure.ac preliminar e o configure.log contém os erros
 encontrados.</p>
 </div>
 <div class="paragraph">
-<p>Renomeie o arquivo <em>configure.scan</em> para <em>configure.ac</em>. O arquivo<br>
+<p>Renomeie o arquivo <em>configure.scan</em> para <em>configure.ac</em>. O arquivo
 <em>configure.log</em> pode ser excluído.</p>
 </div>
 </li>
@@ -228,20 +232,20 @@ AC_OUTPUT</code></pre>
 <p><strong>AC_PREREQ</strong>: A versão mínima necessária do autoconf, geralmente é a versão 2.54.</p>
 </div>
 <div class="paragraph">
-<p><strong>AC_INIT</strong>: Define o nome e versão do projeto, endereço para relatar erros e o<br>
+<p><strong>AC_INIT</strong>: Define o nome e versão do projeto, endereço para relatar erros e o
 nome do pacote do projeto.</p>
 </div>
 <div class="paragraph">
 <p><strong>AC_CONFIG_SRCDIR</strong>: Define a pasta que contém o código fonte.</p>
 </div>
 <div class="paragraph">
-<p><strong>AC_CONFIG_HEADERS</strong>: Define o nome do arquivo de definições do projeto, é<br>
+<p><strong>AC_CONFIG_HEADERS</strong>: Define o nome do arquivo de definições do projeto, é
 recomendável deixar o padrão.</p>
 </div>
 <div class="paragraph">
-<p><strong>AM_INIT_AUTOMAKE</strong>: É necessário para fazer uso dos <em>Makefile.am</em>. Define a<br>
-versão mínima do <em>automake</em> e as opções <em>-Wall</em> e <em>-Werror</em> definem<br>
-respectivamente que devem ser mostrados todos os alertas e que todos os alertas<br>
+<p><strong>AM_INIT_AUTOMAKE</strong>: É necessário para fazer uso dos <em>Makefile.am</em>. Define a
+versão mínima do <em>automake</em> e as opções <em>-Wall</em> e <em>-Werror</em> definem
+respectivamente que devem ser mostrados todos os alertas e que todos os alertas
 devem ser tratados como erros.</p>
 </div>
 <div class="paragraph">
@@ -255,11 +259,11 @@ devem ser tratados como erros.</p>
 </div>
 </li>
 <li>
-<p>É necessário executar os comandos <em>aclocal</em>, <em>autoconf</em>, <em>autoheader</em> e<br>
-<em>automake</em> para gerar o script de configuração do projeto, mas para facilitar há<br>
+<p>É necessário executar os comandos <em>aclocal</em>, <em>autoconf</em>, <em>autoheader</em> e
+<em>automake</em> para gerar o script de configuração do projeto, mas para facilitar há
 o comando <em>autoreconf</em> que executa todos os comandos necessários.</p>
 <div class="paragraph">
-<p>Inicialmente iremos executar o comando abaixo para que os arquivos iniciais<br>
+<p>Inicialmente iremos executar o comando abaixo para que os arquivos iniciais
 necessários sejam criados.</p>
 </div>
 <div class="listingblock">
@@ -268,11 +272,11 @@ necessários sejam criados.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Serão criados vários arquivos, sendo que o arquivo <em>INSTALL</em> contém instruções<br>
+<p>Serão criados vários arquivos, sendo que o arquivo <em>INSTALL</em> contém instruções
 de instalação e configuração e o arquivo <em>COPYING</em> contém a licença do programa.</p>
 </div>
 <div class="paragraph">
-<p>O automake exige os arquivos <em>NEWS</em>, <em>README</em>, <em>AUTHORS</em> e <em>ChangeLog</em>.<br>
+<p>O automake exige os arquivos <em>NEWS</em>, <em>README</em>, <em>AUTHORS</em> e <em>ChangeLog</em>.
 Inicialmente crie-os vazios.</p>
 </div>
 <div class="listingblock">
@@ -282,7 +286,7 @@ Inicialmente crie-os vazios.</p>
 </div>
 </li>
 <li>
-<p>Execute o comando <em>autoreconf</em> e será gerado o script de configuração do<br>
+<p>Execute o comando <em>autoreconf</em> e será gerado o script de configuração do
 projeto novamente, agora sem erros com o  automake.</p>
 </li>
 <li>
@@ -310,7 +314,7 @@ projeto novamente, agora sem erros com o  automake.</p>
 <p>E será criado um pacote distribuível para outros que queiram compilar o projeto.</p>
 </div>
 <div class="paragraph">
-<p>Para que além de ser criado o pacote o mesmo seja testado, execute o seguinte<br>
+<p>Para que além de ser criado o pacote o mesmo seja testado, execute o seguinte
 comando:</p>
 </div>
 <div class="listingblock">
@@ -325,11 +329,11 @@ comando:</p>
 <p>Pronto, é isso.</p>
 </div>
 <div class="paragraph">
-<p>Aqui só é mostrado o básico necessário para começar a usar o Autotools, as<br>
+<p>Aqui só é mostrado o básico necessário para começar a usar o Autotools, as
 possibilidades vão muito além destas explicadas.</p>
 </div>
 <div class="paragraph">
-<p>O pacote final pode ser acessado neste link:<br>
+<p>O pacote final pode ser acessado neste link:
 <a href="http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz" class="bare">http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz</a></p>
 </div>
 </div>

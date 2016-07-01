@@ -6,8 +6,8 @@
 </description>
     <link>http://www.fgodoy.me/</link>
     <atom:link href="http://www.fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jul 2016 00:14:43 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Jul 2016 00:14:43 +0000</lastBuildDate>
+    <pubDate>Fri, 01 Jul 2016 00:34:42 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Jul 2016 00:34:42 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -15,18 +15,18 @@
         <description>&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal&lt;br&gt;
-objetivo de fazer programas portáveis, possibilitando assim que o programa possa&lt;br&gt;
+&lt;p&gt;Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal
+objetivo de fazer programas portáveis, possibilitando assim que o programa possa
 ser compilado em qualquer ambiente.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Vou explicar como fazer um programa que exibe “Hello World!” no console&lt;br&gt;
-configurado com Autotools. Não vou me ater a detalhes, ficando a cargo do leitor&lt;br&gt;
+&lt;p&gt;Vou explicar como fazer um programa que exibe “Hello World!” no console
+configurado com Autotools. Não vou me ater a detalhes, ficando a cargo do leitor
 pesquisar detalhadamente sobre as ferramentas.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Para continuar você precisará ter instalado as seguintes ferramentas: make,&lt;br&gt;
-gcc-c++, autoconf e automake. Para Windows você precisará também do MinGW e do&lt;br&gt;
+&lt;p&gt;Para continuar você precisará ter instalado as seguintes ferramentas: make,
+gcc-c++, autoconf e automake. Para Windows você precisará também do MinGW e do
 MSYS.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -38,7 +38,7 @@ MSYS.&lt;/p&gt;
 &lt;p&gt;Primeiramente crie uma pasta para o projeto (&lt;em&gt;hello-world&lt;/em&gt; por exemplo).&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Agora crie a pasta src (o nome é sua escolha), ela irá conter o código fonte&lt;br&gt;
+&lt;p&gt;Agora crie a pasta src (o nome é sua escolha), ela irá conter o código fonte
 do projeto.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -57,7 +57,7 @@ do projeto.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Dentro da pasta raíz do projeto crie o arquivo &lt;em&gt;Makefile.am&lt;/em&gt;, com o conteúdo&lt;br&gt;
+&lt;p&gt;Dentro da pasta raíz do projeto crie o arquivo &lt;em&gt;Makefile.am&lt;/em&gt;, com o conteúdo
 abaixo.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
@@ -66,7 +66,7 @@ abaixo.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Os arquivos &lt;em&gt;Makefile.am&lt;/em&gt; têm instruções de compilação, mais especificamente,&lt;br&gt;
+&lt;p&gt;Os arquivos &lt;em&gt;Makefile.am&lt;/em&gt; têm instruções de compilação, mais especificamente,
 instruções para o comando &lt;em&gt;make&lt;/em&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -74,7 +74,7 @@ instruções para o comando &lt;em&gt;make&lt;/em&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Agora crie outro arquivo &lt;em&gt;Makefile.am&lt;/em&gt; no diretório &lt;em&gt;src&lt;/em&gt;, com o seguinte&lt;br&gt;
+&lt;p&gt;Agora crie outro arquivo &lt;em&gt;Makefile.am&lt;/em&gt; no diretório &lt;em&gt;src&lt;/em&gt;, com o seguinte
 conteúdo:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
@@ -88,15 +88,15 @@ conteúdo:&lt;/p&gt;
 &lt;p&gt;A primeira linha indica quais são os nomes dos programa executáveis.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A segunda linha indica quais são os arquivos fontes do programa hello-world.&lt;br&gt;
-Observe que todos os caracteres não alfabéticos devem der substituídos por &quot;&lt;em&gt;&quot;,&lt;br&gt;
+&lt;p&gt;A segunda linha indica quais são os arquivos fontes do programa hello-world.
+Observe que todos os caracteres não alfabéticos devem der substituídos por &quot;&lt;em&gt;&quot;,
 como em _hello_world&lt;/em&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Agora precisamos criar o arquivo &lt;em&gt;configure.ac&lt;/em&gt; (no diretório raíz do&lt;br&gt;
-projeto, daqui em diante iremos trabalhar apenas no diretório raíz), que irá&lt;br&gt;
-conter as configurações do projeto, como nome, versão e dependências do projeto&lt;br&gt;
+&lt;p&gt;Agora precisamos criar o arquivo &lt;em&gt;configure.ac&lt;/em&gt; (no diretório raíz do
+projeto, daqui em diante iremos trabalhar apenas no diretório raíz), que irá
+conter as configurações do projeto, como nome, versão e dependências do projeto
 entre outros.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Para criar um arquivo &lt;em&gt;configure.ac&lt;/em&gt; preliminar execute o comando abaixo.&lt;/p&gt;
@@ -107,12 +107,12 @@ entre outros.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Serão criados os arquivos &lt;em&gt;configure.scan&lt;/em&gt; e &lt;em&gt;configure.log&lt;/em&gt;, sendo que o&lt;br&gt;
-configure.scan é o configure.ac preliminar e o configure.log contém os erros&lt;br&gt;
+&lt;p&gt;Serão criados os arquivos &lt;em&gt;configure.scan&lt;/em&gt; e &lt;em&gt;configure.log&lt;/em&gt;, sendo que o
+configure.scan é o configure.ac preliminar e o configure.log contém os erros
 encontrados.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Renomeie o arquivo &lt;em&gt;configure.scan&lt;/em&gt; para &lt;em&gt;configure.ac&lt;/em&gt;. O arquivo&lt;br&gt;
+&lt;p&gt;Renomeie o arquivo &lt;em&gt;configure.scan&lt;/em&gt; para &lt;em&gt;configure.ac&lt;/em&gt;. O arquivo
 &lt;em&gt;configure.log&lt;/em&gt; pode ser excluído.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -150,20 +150,20 @@ AC_OUTPUT&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;AC_PREREQ&lt;/strong&gt;: A versão mínima necessária do autoconf, geralmente é a versão 2.54.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;AC_INIT&lt;/strong&gt;: Define o nome e versão do projeto, endereço para relatar erros e o&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;AC_INIT&lt;/strong&gt;: Define o nome e versão do projeto, endereço para relatar erros e o
 nome do pacote do projeto.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;strong&gt;AC_CONFIG_SRCDIR&lt;/strong&gt;: Define a pasta que contém o código fonte.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;AC_CONFIG_HEADERS&lt;/strong&gt;: Define o nome do arquivo de definições do projeto, é&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;AC_CONFIG_HEADERS&lt;/strong&gt;: Define o nome do arquivo de definições do projeto, é
 recomendável deixar o padrão.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;AM_INIT_AUTOMAKE&lt;/strong&gt;: É necessário para fazer uso dos &lt;em&gt;Makefile.am&lt;/em&gt;. Define a&lt;br&gt;
-versão mínima do &lt;em&gt;automake&lt;/em&gt; e as opções &lt;em&gt;-Wall&lt;/em&gt; e &lt;em&gt;-Werror&lt;/em&gt; definem&lt;br&gt;
-respectivamente que devem ser mostrados todos os alertas e que todos os alertas&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;AM_INIT_AUTOMAKE&lt;/strong&gt;: É necessário para fazer uso dos &lt;em&gt;Makefile.am&lt;/em&gt;. Define a
+versão mínima do &lt;em&gt;automake&lt;/em&gt; e as opções &lt;em&gt;-Wall&lt;/em&gt; e &lt;em&gt;-Werror&lt;/em&gt; definem
+respectivamente que devem ser mostrados todos os alertas e que todos os alertas
 devem ser tratados como erros.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -177,11 +177,11 @@ devem ser tratados como erros.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;É necessário executar os comandos &lt;em&gt;aclocal&lt;/em&gt;, &lt;em&gt;autoconf&lt;/em&gt;, &lt;em&gt;autoheader&lt;/em&gt; e&lt;br&gt;
-&lt;em&gt;automake&lt;/em&gt; para gerar o script de configuração do projeto, mas para facilitar há&lt;br&gt;
+&lt;p&gt;É necessário executar os comandos &lt;em&gt;aclocal&lt;/em&gt;, &lt;em&gt;autoconf&lt;/em&gt;, &lt;em&gt;autoheader&lt;/em&gt; e
+&lt;em&gt;automake&lt;/em&gt; para gerar o script de configuração do projeto, mas para facilitar há
 o comando &lt;em&gt;autoreconf&lt;/em&gt; que executa todos os comandos necessários.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Inicialmente iremos executar o comando abaixo para que os arquivos iniciais&lt;br&gt;
+&lt;p&gt;Inicialmente iremos executar o comando abaixo para que os arquivos iniciais
 necessários sejam criados.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -190,11 +190,11 @@ necessários sejam criados.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Serão criados vários arquivos, sendo que o arquivo &lt;em&gt;INSTALL&lt;/em&gt; contém instruções&lt;br&gt;
+&lt;p&gt;Serão criados vários arquivos, sendo que o arquivo &lt;em&gt;INSTALL&lt;/em&gt; contém instruções
 de instalação e configuração e o arquivo &lt;em&gt;COPYING&lt;/em&gt; contém a licença do programa.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;O automake exige os arquivos &lt;em&gt;NEWS&lt;/em&gt;, &lt;em&gt;README&lt;/em&gt;, &lt;em&gt;AUTHORS&lt;/em&gt; e &lt;em&gt;ChangeLog&lt;/em&gt;.&lt;br&gt;
+&lt;p&gt;O automake exige os arquivos &lt;em&gt;NEWS&lt;/em&gt;, &lt;em&gt;README&lt;/em&gt;, &lt;em&gt;AUTHORS&lt;/em&gt; e &lt;em&gt;ChangeLog&lt;/em&gt;.
 Inicialmente crie-os vazios.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -204,7 +204,7 @@ Inicialmente crie-os vazios.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Execute o comando &lt;em&gt;autoreconf&lt;/em&gt; e será gerado o script de configuração do&lt;br&gt;
+&lt;p&gt;Execute o comando &lt;em&gt;autoreconf&lt;/em&gt; e será gerado o script de configuração do
 projeto novamente, agora sem erros com o  automake.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -232,7 +232,7 @@ projeto novamente, agora sem erros com o  automake.&lt;/p&gt;
 &lt;p&gt;E será criado um pacote distribuível para outros que queiram compilar o projeto.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Para que além de ser criado o pacote o mesmo seja testado, execute o seguinte&lt;br&gt;
+&lt;p&gt;Para que além de ser criado o pacote o mesmo seja testado, execute o seguinte
 comando:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -247,11 +247,11 @@ comando:&lt;/p&gt;
 &lt;p&gt;Pronto, é isso.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Aqui só é mostrado o básico necessário para começar a usar o Autotools, as&lt;br&gt;
+&lt;p&gt;Aqui só é mostrado o básico necessário para começar a usar o Autotools, as
 possibilidades vão muito além destas explicadas.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;O pacote final pode ser acessado neste link:&lt;br&gt;
+&lt;p&gt;O pacote final pode ser acessado neste link:
 &lt;a href=&quot;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz&quot; class=&quot;bare&quot;&gt;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
