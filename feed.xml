@@ -6,8 +6,8 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jul 2016 16:03:31 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Jul 2016 16:03:31 +0000</lastBuildDate>
+    <pubDate>Fri, 01 Jul 2016 16:06:10 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Jul 2016 16:06:10 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -31,10 +31,10 @@ seja, o ambiente no qual será executado o binário.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;AM_INIT_AUTOMAKE([1.9&lt;/span&gt; &lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;-Wall&lt;/span&gt; &lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;-Werror])&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;AM_INIT_AUTOMAKE&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;1.9 -Wall -Werror&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
 
 &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check build environment&lt;/span&gt;
-&lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;AC_CANONICAL_HOST&lt;/span&gt;
+AC_CANONICAL_HOST
 
 &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for programs.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -62,9 +62,9 @@ arquivo &lt;em&gt;configure.ac&lt;/em&gt;:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# ------------------------------------------------------------------------------&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
 &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check OS-specific platform&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# ------------------------------------------------------------------------------&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
 AC_MSG_CHECKING&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;for&lt;/span&gt; native Win32&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
 &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;$host_os&amp;quot;&lt;/span&gt; in
   *mingw*&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt;
@@ -105,10 +105,10 @@ o valor &quot;no&quot; (Leia sobre &lt;a href=&quot;http://aurelio.net/shell/&qu
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; main.cpp
-&lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;OS_WIN32&lt;/span&gt;
-&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;+=&lt;/span&gt; windowsdef.h
-&lt;span style=&quot;color: #BC7A00&quot;&gt;endif&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; main.cpp
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;if&lt;/span&gt; OS_WIN32
+hello_world_SOURCES +&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; windowsdef.h
+endif&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;

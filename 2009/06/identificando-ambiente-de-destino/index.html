@@ -123,10 +123,10 @@ seja, o ambiente no qual será executado o binário.</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="make"><span style="border: 1px solid #FF0000">AM_INIT_AUTOMAKE([1.9</span> <span style="border: 1px solid #FF0000">-Wall</span> <span style="border: 1px solid #FF0000">-Werror])</span>
+<pre class="pygments highlight"><code data-lang="bash">AM_INIT_AUTOMAKE<span style="color: #666666">([</span>1.9 -Wall -Werror<span style="color: #666666">])</span>
 
 <span style="color: #408080; font-style: italic"># Check build environment</span>
-<span style="border: 1px solid #FF0000">AC_CANONICAL_HOST</span>
+AC_CANONICAL_HOST
 
 <span style="color: #408080; font-style: italic"># Checks for programs.</span></code></pre>
 </div>
@@ -154,9 +154,9 @@ arquivo <em>configure.ac</em>:</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># ------------------------------------------------------------------------------</span>
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
 <span style="color: #408080; font-style: italic"># Check OS-specific platform</span>
-<span style="color: #408080; font-style: italic"># ------------------------------------------------------------------------------</span>
+<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
 AC_MSG_CHECKING<span style="color: #666666">([</span><span style="color: #008000; font-weight: bold">for</span> native Win32<span style="color: #666666">])</span>
 <span style="color: #008000; font-weight: bold">case</span> <span style="color: #BA2121">&quot;$host_os&quot;</span> in
   *mingw*<span style="color: #666666">)</span>
@@ -197,10 +197,10 @@ o valor "no" (Leia sobre <a href="http://aurelio.net/shell/">Bash</a>).</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="make"><span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp
-<span style="border: 1px solid #FF0000">if</span> <span style="border: 1px solid #FF0000">OS_WIN32</span>
-<span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">+=</span> windowsdef.h
-<span style="color: #BC7A00">endif</span></code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp
+<span style="color: #008000; font-weight: bold">if</span> OS_WIN32
+hello_world_SOURCES +<span style="color: #666666">=</span> windowsdef.h
+endif</code></pre>
 </div>
 </div>
 <div class="paragraph">
