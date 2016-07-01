@@ -6,8 +6,8 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jul 2016 04:11:45 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Jul 2016 04:11:45 +0000</lastBuildDate>
+    <pubDate>Fri, 01 Jul 2016 04:22:56 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Jul 2016 04:22:56 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -275,6 +275,20 @@ possibilidades vão muito além destas explicadas.&lt;/p&gt;
         <link>https://fgodoy.me/2009/05/hello-world-com-autotools/</link>
         <guid isPermaLink="true">https://fgodoy.me/2009/05/hello-world-com-autotools/</guid>
         
+        <category>autoconf,</category>
+        
+        <category>automake,</category>
+        
+        <category>autoreconf,</category>
+        
+        <category>autoscan,</category>
+        
+        <category>autotools,</category>
+        
+        <category>make</category>
+        
+        
+        <category>Programação</category>
         
       </item>
     
