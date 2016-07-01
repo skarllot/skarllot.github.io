@@ -10,6 +10,7 @@ v1.0, 2009-05-24
 :author: Fabrício Godoy
 :creator: Fabrício Godoy
 :producer: Fabrício Godoy
+:page-excerpt: Nesse post irei explicar como fazer um programa que exibe "Hello World!" no console configurado com Autotools.
 
 Para quem não conhece o Autotools, as ferramentas do mesmo têm o principal
 objetivo de fazer programas portáveis, possibilitando assim que o programa possa

@@ -11,6 +11,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://www.fgodoy.me" # the base hostname & protocol for your site
 twitter_username: skarllot
 github_username:  skarllot
+exclude: [Gemfile, Gemfile.lock, Rakefile]
 
 # Build settings
 markdown: kramdown
@@ -29,5 +30,6 @@ asciidoctor:
     - source-highlighter=pygments
     - icons=font
     - pygments-css=style
+    - hardbreaks!
 
 # end of configuration
