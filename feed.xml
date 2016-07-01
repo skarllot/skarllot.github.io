@@ -6,9 +6,220 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jul 2016 15:16:51 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Jul 2016 15:16:51 +0000</lastBuildDate>
+    <pubDate>Fri, 01 Jul 2016 15:52:21 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Jul 2016 15:52:21 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Autotools Identificando Ambiente De Destino</title>
+        <description>&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Explicarei aqui como identificar qual o ambiente de destino de compilação, ou
+seja, o ambiente no qual será executado o binário.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Para isso tomarei como exemplo o projeto hello-world do post anterior.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Você pode baixar o pacote final do projeto do post anterior em
+&lt;a href=&quot;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz&quot; class=&quot;bare&quot;&gt;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;No arquivo &lt;em&gt;configure.ac&lt;/em&gt;, é necessário adicionar a seguinte macro:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;AM_INIT_AUTOMAKE([1.9&lt;/span&gt; &lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;-Wall&lt;/span&gt; &lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;-Werror])&lt;/span&gt;
+
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check build environment&lt;/span&gt;
+&lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;AC_CANONICAL_HOST&lt;/span&gt;
+
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for programs.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Com essa macro serão criados os arquivos de script &lt;em&gt;config.guess&lt;/em&gt; e &lt;em&gt;config.sub&lt;/em&gt;
+que serão usados para identificar o ambiente de destino.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Serão definidas quatro variáveis de ambiente, que são: &lt;em&gt;host&lt;/em&gt;, &lt;em&gt;host_cpu&lt;/em&gt;,
+&lt;em&gt;host_vendor&lt;/em&gt;, &lt;em&gt;host_os&lt;/em&gt;. Com essas variáveis é possível condicionar a
+compilação para cada ambiente.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Caso o ambiente de destino seja o MinGW de 32 bits para PC, normalmente, a
+variável &lt;em&gt;host&lt;/em&gt; teria o valor &lt;em&gt;i686-pc-mingw32&lt;/em&gt; e como consequência as variáveis
+&lt;em&gt;host_cpu&lt;/em&gt;, &lt;em&gt;host_vendor&lt;/em&gt; e &lt;em&gt;host_os&lt;/em&gt; teriam os valores &lt;em&gt;i686&lt;/em&gt;, &lt;em&gt;pc&lt;/em&gt; e &lt;em&gt;mingw32&lt;/em&gt;
+respectivamente. Assim podemos dizer que &quot;host=$host_cpu-$host_vendor-$host_os&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Criarei uma verificação para definir a variável &lt;em&gt;OS_WIN32&lt;/em&gt; caso a variável
+&lt;em&gt;host_os&lt;/em&gt; tenha a palavra &quot;mingw&quot;. Para isso adicionarei o seguinte script no
+arquivo &lt;em&gt;configure.ac&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# ------------------------------------------------------------------------------&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check OS-specific platform&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# ------------------------------------------------------------------------------&lt;/span&gt;
+AC_MSG_CHECKING&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;for&lt;/span&gt; native Win32&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;$host_os&amp;quot;&lt;/span&gt; in
+  *mingw*&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color: #19177C&quot;&gt;iswin32&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt;yes
+  ;;
+  *&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color: #19177C&quot;&gt;iswin32&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt;no
+  ;;
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;esac&lt;/span&gt;
+AC_MSG_RESULT&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$iswin32&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+
+AM_CONDITIONAL&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;OS_WIN32, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;test&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;$iswin32&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A macro &lt;em&gt;AC_MSG_CHECKING&lt;/em&gt; faz imprimir na tela a mensagem &quot;checking for native
+Win32&amp;#8230;&amp;#8203;&quot; indicando que está sendo feita a verificação por uma característica
+específica.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Em seguida é verificada a variável de ambiente pela palavra &quot;mingw&quot;, caso
+encontre a variável local &lt;em&gt;iswin32&lt;/em&gt; será definida para o valor &quot;yes&quot;, senão para
+o valor &quot;no&quot; (Leia sobre &lt;a href=&quot;http://aurelio.net/shell/&quot;&gt;Bash&lt;/a&gt;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A macro &lt;em&gt;AC_MSG_RESULT&lt;/em&gt; imprime na tela o resultado da última macro
+&lt;em&gt;AC_MSG_CHECKING&lt;/em&gt;. Imprime &quot;checking for native Win32&amp;#8230;&amp;#8203; yes&quot;, caso a variável
+&lt;em&gt;iswin32&lt;/em&gt; tenha o valor &quot;yes&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A macro &lt;em&gt;AM_CONDITIONAL&lt;/em&gt; de maneira condicional define ou não a variável
+&lt;em&gt;OS_WIN32&lt;/em&gt; a qual será compartilhada a todos Makefiles. Caso a variável local
+&lt;em&gt;iswin32&lt;/em&gt; tenha o valor &quot;yes&quot; a variável &lt;em&gt;OS_WIN32&lt;/em&gt; será definida.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Adicionarei o seguinte conteúdo no arquivo &lt;em&gt;Makefile.am&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; main.cpp
+&lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;border: 1px solid #FF0000&quot;&gt;OS_WIN32&lt;/span&gt;
+&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;+=&lt;/span&gt; windowsdef.h
+&lt;span style=&quot;color: #BC7A00&quot;&gt;endif&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Assim o arquivo &lt;em&gt;windowsdef.h&lt;/em&gt; só será compilado caso esteja definida a variável
+&lt;em&gt;OS_WIN32&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Criarei o arquivo &lt;em&gt;windowsdef.h&lt;/em&gt; com o seguinte conteúdo:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;windowsdef.h&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifndef _WINDOWSDEF_H&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#define _WINDOWSDEF_H&lt;/span&gt;
+
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef HAVE_CONFIG_H&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;config.h&amp;gt;&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifndef WINVER&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;// Windows Server 2003 with SP1, Windows XP with SP2&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;// See http://msdn.microsoft.com/en-us/library/aa383745.aspx&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#define WINVER 0x0502&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif &lt;/span&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;/* WINVER */&lt;/span&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;&lt;/span&gt;
+
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;windows.h&amp;gt;&lt;/span&gt;
+
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif    &lt;/span&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;/* _WINDOWSDEF_H */&lt;/span&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Definindo a variável &lt;em&gt;WINVER&lt;/em&gt; para o valor &lt;em&gt;0x0502&lt;/em&gt; estaremos limitando o
+executável ao Windows XP SP2 ou Windows Server 2003 SP1 no mínimo.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Adicionarei o seguinte conteúdo ao arquivo &lt;em&gt;main.cpp&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;main.cpp&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef WINNT&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;quot;windowsdef.h&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O compilador só referenciará o arquivo windowsdef.h caso a variável WINNT esteja
+definida. A variável WINNT é definida automaticamente pelo compilador caso o
+mesmo esteja sendo executado em um ambiente do Windows NT.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Para consultar as variáveis automaticamente definidas pelo seu compilador
+execute o seguinte comando &quot;gcc -E -dM - &amp;lt; /dev/null | sort&quot;, sendo que &quot;| sort&quot;
+é para ordenar a saída em ordem alfabética.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Com essas instruções já se tem o básico para construir um programa
+multi-plataforma.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O pacote final pode ser acessado neste link:
+&lt;a href=&quot;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz&quot; class=&quot;bare&quot;&gt;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/software/hello/manual/autoconf/Canonicalizing.html&quot; class=&quot;bare&quot;&gt;http://www.gnu.org/software/hello/manual/autoconf/Canonicalizing.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/software/hello/manual/autoconf/Printing-Messages.html&quot; class=&quot;bare&quot;&gt;http://www.gnu.org/software/hello/manual/autoconf/Printing-Messages.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/software/hello/manual/automake/Usage-of-Conditionals.html&quot; class=&quot;bare&quot;&gt;http://www.gnu.org/software/hello/manual/automake/Usage-of-Conditionals.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html&quot; class=&quot;bare&quot;&gt;http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://git.gnome.org/cgit/gtk+/tree/configure.in#n127&quot; class=&quot;bare&quot;&gt;http://git.gnome.org/cgit/gtk+/tree/configure.in#n127&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://svn.win.tue.nl/viewcvs/MCRL2/trunk/src/configure.ac?rev=808&amp;amp;view=markup&quot; class=&quot;bare&quot;&gt;https://svn.win.tue.nl/viewcvs/MCRL2/trunk/src/configure.ac?rev=808&amp;amp;view=markup&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.rtems.com/ml/rtems-users/1998/march/msg00046.html&quot; class=&quot;bare&quot;&gt;http://www.rtems.com/ml/rtems-users/1998/march/msg00046.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sun, 14 Jun 2009 00:00:00 +0000</pubDate>
+        <link>https://fgodoy.me/2009/06/autotools-identificando-ambiente-de-destino/</link>
+        <guid isPermaLink="true">https://fgodoy.me/2009/06/autotools-identificando-ambiente-de-destino/</guid>
+        
+        <category>automake</category>
+        
+        <category>autotools</category>
+        
+        <category>mingw</category>
+        
+        
+        <category>Programação</category>
+        
+      </item>
     
       <item>
         <title>Hello World Com Autotools</title>

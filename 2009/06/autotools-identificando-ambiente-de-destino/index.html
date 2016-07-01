@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Autotools Identificando Ambiente De Destino</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/images/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/images/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+  
+  <meta itemprop="datePublished" content="14 June 2009" />
+
+
+  <meta itemprop="keywords" content="automake, autotools, mingw" />
+
+<meta itemprop="url" content="https://fgodoy.me/2009/06/autotools-identificando-ambiente-de-destino/" />
+
+<meta name="description" content="Nesse post explicarei como identificar qual o ambiente de destino de compilação, ou seja, o ambiente no qual será executado o binário.">
+<link rel="canonical" href="https://fgodoy.me/2009/06/autotools-identificando-ambiente-de-destino/">
+<link rel="alternate" type="application/rss+xml" title="Blog do Fabrício" href="https://fgodoy.me/feed.xml">
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Blog do Fabrício</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+          <a class="page-link" href="/about/">Sobre Mim</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+
+
+
+
+
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Autotools Identificando Ambiente De Destino</h1>
+    <p class="post-meta"><time datetime="2009-06-14T00:00:00+00:00" itemprop="datePublished">14 de Junho de 2009</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Fabrício Godoy</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Explicarei aqui como identificar qual o ambiente de destino de compilação, ou
+seja, o ambiente no qual será executado o binário.</p>
+</div>
+<div class="paragraph">
+<p>Para isso tomarei como exemplo o projeto hello-world do post anterior.</p>
+</div>
+<div class="paragraph">
+<p>Você pode baixar o pacote final do projeto do post anterior em
+<a href="http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz" class="bare">http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.1.0.tar.gz</a>.</p>
+</div>
+<div class="paragraph">
+<p>No arquivo <em>configure.ac</em>, é necessário adicionar a seguinte macro:</p>
+</div>
+<div class="listingblock">
+<div class="title">configure.ac</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="make"><span style="border: 1px solid #FF0000">AM_INIT_AUTOMAKE([1.9</span> <span style="border: 1px solid #FF0000">-Wall</span> <span style="border: 1px solid #FF0000">-Werror])</span>
+
+<span style="color: #408080; font-style: italic"># Check build environment</span>
+<span style="border: 1px solid #FF0000">AC_CANONICAL_HOST</span>
+
+<span style="color: #408080; font-style: italic"># Checks for programs.</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Com essa macro serão criados os arquivos de script <em>config.guess</em> e <em>config.sub</em>
+que serão usados para identificar o ambiente de destino.</p>
+</div>
+<div class="paragraph">
+<p>Serão definidas quatro variáveis de ambiente, que são: <em>host</em>, <em>host_cpu</em>,
+<em>host_vendor</em>, <em>host_os</em>. Com essas variáveis é possível condicionar a
+compilação para cada ambiente.</p>
+</div>
+<div class="paragraph">
+<p>Caso o ambiente de destino seja o MinGW de 32 bits para PC, normalmente, a
+variável <em>host</em> teria o valor <em>i686-pc-mingw32</em> e como consequência as variáveis
+<em>host_cpu</em>, <em>host_vendor</em> e <em>host_os</em> teriam os valores <em>i686</em>, <em>pc</em> e <em>mingw32</em>
+respectivamente. Assim podemos dizer que "host=$host_cpu-$host_vendor-$host_os".</p>
+</div>
+<div class="paragraph">
+<p>Criarei uma verificação para definir a variável <em>OS_WIN32</em> caso a variável
+<em>host_os</em> tenha a palavra "mingw". Para isso adicionarei o seguinte script no
+arquivo <em>configure.ac</em>:</p>
+</div>
+<div class="listingblock">
+<div class="title">configure.ac</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># ------------------------------------------------------------------------------</span>
+<span style="color: #408080; font-style: italic"># Check OS-specific platform</span>
+<span style="color: #408080; font-style: italic"># ------------------------------------------------------------------------------</span>
+AC_MSG_CHECKING<span style="color: #666666">([</span><span style="color: #008000; font-weight: bold">for</span> native Win32<span style="color: #666666">])</span>
+<span style="color: #008000; font-weight: bold">case</span> <span style="color: #BA2121">&quot;$host_os&quot;</span> in
+  *mingw*<span style="color: #666666">)</span>
+    <span style="color: #19177C">iswin32</span><span style="color: #666666">=</span>yes
+  ;;
+  *<span style="color: #666666">)</span>
+    <span style="color: #19177C">iswin32</span><span style="color: #666666">=</span>no
+  ;;
+<span style="color: #008000; font-weight: bold">esac</span>
+AC_MSG_RESULT<span style="color: #666666">([</span><span style="color: #19177C">$iswin32</span><span style="color: #666666">])</span>
+
+AM_CONDITIONAL<span style="color: #666666">(</span>OS_WIN32, <span style="color: #666666">[</span><span style="color: #008000">test</span> <span style="color: #BA2121">&quot;$iswin32&quot;</span> <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;yes&quot;</span><span style="color: #666666">])</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A macro <em>AC_MSG_CHECKING</em> faz imprimir na tela a mensagem "checking for native
+Win32&#8230;&#8203;" indicando que está sendo feita a verificação por uma característica
+específica.</p>
+</div>
+<div class="paragraph">
+<p>Em seguida é verificada a variável de ambiente pela palavra "mingw", caso
+encontre a variável local <em>iswin32</em> será definida para o valor "yes", senão para
+o valor "no" (Leia sobre <a href="http://aurelio.net/shell/">Bash</a>).</p>
+</div>
+<div class="paragraph">
+<p>A macro <em>AC_MSG_RESULT</em> imprime na tela o resultado da última macro
+<em>AC_MSG_CHECKING</em>. Imprime "checking for native Win32&#8230;&#8203; yes", caso a variável
+<em>iswin32</em> tenha o valor "yes".</p>
+</div>
+<div class="paragraph">
+<p>A macro <em>AM_CONDITIONAL</em> de maneira condicional define ou não a variável
+<em>OS_WIN32</em> a qual será compartilhada a todos Makefiles. Caso a variável local
+<em>iswin32</em> tenha o valor "yes" a variável <em>OS_WIN32</em> será definida.</p>
+</div>
+<div class="paragraph">
+<p>Adicionarei o seguinte conteúdo no arquivo <em>Makefile.am</em>:</p>
+</div>
+<div class="listingblock">
+<div class="title">Makefile.am</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="make"><span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp
+<span style="border: 1px solid #FF0000">if</span> <span style="border: 1px solid #FF0000">OS_WIN32</span>
+<span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">+=</span> windowsdef.h
+<span style="color: #BC7A00">endif</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Assim o arquivo <em>windowsdef.h</em> só será compilado caso esteja definida a variável
+<em>OS_WIN32</em>.</p>
+</div>
+<div class="paragraph">
+<p>Criarei o arquivo <em>windowsdef.h</em> com o seguinte conteúdo:</p>
+</div>
+<div class="listingblock">
+<div class="title">windowsdef.h</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#ifndef _WINDOWSDEF_H</span>
+<span style="color: #BC7A00">#define _WINDOWSDEF_H</span>
+
+<span style="color: #BC7A00">#ifdef HAVE_CONFIG_H</span>
+<span style="color: #BC7A00">#include &lt;config.h&gt;</span>
+<span style="color: #BC7A00">#endif</span>
+
+<span style="color: #BC7A00">#ifndef WINVER</span>
+<span style="color: #408080; font-style: italic">// Windows Server 2003 with SP1, Windows XP with SP2</span>
+<span style="color: #408080; font-style: italic">// See http://msdn.microsoft.com/en-us/library/aa383745.aspx</span>
+<span style="color: #BC7A00">#define WINVER 0x0502</span>
+<span style="color: #BC7A00">#endif </span><span style="color: #408080; font-style: italic">/* WINVER */</span><span style="color: #BC7A00"></span>
+
+<span style="color: #BC7A00">#include &lt;windows.h&gt;</span>
+
+<span style="color: #BC7A00">#endif    </span><span style="color: #408080; font-style: italic">/* _WINDOWSDEF_H */</span><span style="color: #BC7A00"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Definindo a variável <em>WINVER</em> para o valor <em>0x0502</em> estaremos limitando o
+executável ao Windows XP SP2 ou Windows Server 2003 SP1 no mínimo.</p>
+</div>
+<div class="paragraph">
+<p>Adicionarei o seguinte conteúdo ao arquivo <em>main.cpp</em>:</p>
+</div>
+<div class="listingblock">
+<div class="title">main.cpp</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#ifdef WINNT</span>
+<span style="color: #BC7A00">#include &quot;windowsdef.h&quot;</span>
+<span style="color: #BC7A00">#endif</span>
+
+<span style="color: #BC7A00">#include &lt;iostream&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O compilador só referenciará o arquivo windowsdef.h caso a variável WINNT esteja
+definida. A variável WINNT é definida automaticamente pelo compilador caso o
+mesmo esteja sendo executado em um ambiente do Windows NT.</p>
+</div>
+<div class="paragraph">
+<p>Para consultar as variáveis automaticamente definidas pelo seu compilador
+execute o seguinte comando "gcc -E -dM - &lt; /dev/null | sort", sendo que "| sort"
+é para ordenar a saída em ordem alfabética.</p>
+</div>
+<div class="paragraph">
+<p>Com essas instruções já se tem o básico para construir um programa
+multi-plataforma.</p>
+</div>
+<div class="paragraph">
+<p>O pacote final pode ser acessado neste link:
+<a href="http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz" class="bare">http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referências">Referências</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.gnu.org/software/hello/manual/autoconf/Canonicalizing.html" class="bare">http://www.gnu.org/software/hello/manual/autoconf/Canonicalizing.html</a></p>
+</li>
+<li>
+<p><a href="http://www.gnu.org/software/hello/manual/autoconf/Printing-Messages.html" class="bare">http://www.gnu.org/software/hello/manual/autoconf/Printing-Messages.html</a></p>
+</li>
+<li>
+<p><a href="http://www.gnu.org/software/hello/manual/automake/Usage-of-Conditionals.html" class="bare">http://www.gnu.org/software/hello/manual/automake/Usage-of-Conditionals.html</a></p>
+</li>
+<li>
+<p><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html" class="bare">http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html</a></p>
+</li>
+<li>
+<p><a href="http://git.gnome.org/cgit/gtk+/tree/configure.in#n127" class="bare">http://git.gnome.org/cgit/gtk+/tree/configure.in#n127</a></p>
+</li>
+<li>
+<p><a href="https://svn.win.tue.nl/viewcvs/MCRL2/trunk/src/configure.ac?rev=808&amp;view=markup" class="bare">https://svn.win.tue.nl/viewcvs/MCRL2/trunk/src/configure.ac?rev=808&amp;view=markup</a></p>
+</li>
+<li>
+<p><a href="http://www.rtems.com/ml/rtems-users/1998/march/msg00046.html" class="bare">http://www.rtems.com/ml/rtems-users/1998/march/msg00046.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Blog do Fabrício</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Fabrício Godoy</li>
+          <li><a href="mailto:contato@fgodoy.me">contato@fgodoy.me</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/skarllot"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">skarllot</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/skarllot"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">skarllot</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Desenvolvedor C#, Java, Javascript e Go que procura sempre acompanhar o mercado que está em constante mutação.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80191858-1', 'auto');
+ga('send', 'pageview');
+
+  </script>
+
+</footer>
+
+
+  </body>
+
+</html>
