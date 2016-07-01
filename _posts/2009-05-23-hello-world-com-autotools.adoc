@@ -1,7 +1,14 @@
 ---
 layout: post
-tags: autoconf, automake, autoreconf, autoscan, autotools, make
-categories: Programação
+tags:
+  - autoconf
+  - automake
+  - autoreconf
+  - autoscan
+  - autotools
+  - make
+categories:
+  - Programação
 excerpt: >
   Nesse post irei explicar como fazer um programa que exibe "Hello World!" no
   console configurado com Autotools.
