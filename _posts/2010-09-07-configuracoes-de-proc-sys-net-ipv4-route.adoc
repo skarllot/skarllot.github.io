@@ -1,0 +1,124 @@
+---
+layout: post
+categories:
+  - Linha de comando
+  - Linux
+tags:
+  - advanced
+  - linux
+  - net
+  - proc
+  - route
+  - routing
+title: Configurações de /proc/sys/net/ipv4/route
+excerpt: >
+  Nesse post abordarei  um pouco das configurações de roteamento disponíveis em
+  /proc/sys/net/ipv4/route.
+comments: true
+---
+= Configurações de /proc/sys/net/ipv4/route
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2010-09-07
+:lang: pt-BR
+:revdate: 2010-09-07 01:46:08+00:00
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+:icons: font
+:source-highlighter: pygments
+
+Vou falar um pouco das configurações de roteamento disponíveis em
+_/proc/sys/net/ipv4/route_.
+
+* *error_burst*: Define, em interrupções de timer, o tempo máximo
+contabilizado para exibir uma mensagem. O valor predefinido corresponde
+a 5 segundos.
+
+* *error_cost*: Define, em interrupções de timer, o tempo mínimo para
+exibir uma mensagem. O valor predefinido corresponde a 1 segundo.
++
+Os valores predefinidos de _error_burst_ e _error_cost_ limitam a uma
+mensagem a cada 5 segundos.
+
+* *flush*: Escrever nesse arquivo faz com que o cache de roteamento seja
+descartado.
+
+* *gc_elasticity*: É usado para definir o tamanho médio da lista de
+rotas, quando excedido a coleta de lixo na tabela de rotas se torna
+muito agressiva
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1178].
+
+* *gc_interval*: Define, em segundos, o intervalo entre coletas lixo na
+tabela de rotas. Existe uma recomendação para que a coleta não seja
+muito frequente pois é uma operação muito pesada
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L950].
+
+* *gc_min_interval*: Obsoleto, usar gc_min_interval_ms
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L3109].
+
+* *gc_min_interval_ms*: Define, em milissegundos, o intervalo mínimo
+entre coletas
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L957].
+Predefinido em 500 milissegundos.
+
+* *gc_thresh*: Define a quantidade mínima de rotas para que rotas
+comecem a ser descartadas na coleta de rotas
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L967].
+
+* *gc_timeout*: Define, em segundos, o tempo máximo que uma rota é mantida. A
+rota é descartada mesmo se está em uso
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L842].
+Predefinido em 300 segundos.
+
+* *max_size*: Define o número máximo de rotas a serem mantidas. As rotas
+mais antigas serão descartadas quando o número máximo é alcançado.
+
+* *min_adv_mss*: Define, em bytes, a quantidade mínima de dados pode ser
+enviada em um segmento
+footnote:[http://www.tcpipguide.com/free/t_TCPMaximumSegmentSizeMSSandRelationshiptoIPDatagra.htm].
+Predefinido em 256 bytes.
+
+* *min_pmtu*: Define, em bytes, o valor mínimo de PMTU permitido. Se o
+valor descoberto for menor então o valor mínimo definido aqui prevalece
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1701].
+Predefinido em 552 bytes.
+
+* *mtu_expires*: Define, em segundos, o tempo que o PMTU de uma rota é
+mantido em cache
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1706].
+Predefinido em 600 segundos.
+
+* *redirect_load*: Define um tempo mínimo entre tentativas de
+redirecionamentos ICMP, por rota
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1557].
+
+* *redirect_number*: Define o número máximo de redirecionamentos ICMP
+ignorados, por rota
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1549]
+footnote:[http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1512].
+
+* *redirect_silence*: Define, em interrupções de timer, o tempo máximo
+de espera por um redirecionamento ICMP. Após esse tempo é enviada um
+novo redirecionamento, mesmo que o mesmo tenha sido ignorado por causa
+de _redirect_load_ ou __redirect_number__. Predefinido em 20,48
+segundos.
+
+* *secret_interval*: Define, em segundos, o intervalo entre
+descarregamento de cache. Predefinido em 600 segundos.
+
+As informações encontradas aqui podem estar incorretas, pois se baseiam
+em minhas conclusões.
+
+== Referências
+
+* Documentação do sistema de arquivos /proc:
+http://www.linuxinsight.com/proc_sys_net_ipv4_route.html
+
+* Configurações
+do kernel obscuras: http://lartc.org/howto/lartc.kernel.obscure.html
+
+* Determinando a quantidade de interrupções de timer:
+http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1005802
+
+* PMTU: http://www.netheaven.com/pmtu.html
+
