@@ -1,0 +1,105 @@
+---
+layout: post
+categories:
+  - Programação
+tags:
+  - git
+  - linux
+  - ssh
+title: Como criar um repositório Git remoto usando o SSH
+excerpt: >
+  Nesse post abordarei a criação de um repositório Git remoto usando o SSH num
+  ambiente Linux.
+comments: true
+---
+= Como criar um repositório Git remoto usando o SSH
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2009-11-15
+:lang: pt-BR
+:revdate: 2009-11-15 02:59:25+00:00
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+:icons: font
+:source-highlighter: pygments
+
+Abordarei a criação de um repositório Git remoto usando o SSH num
+ambiente Linux.
+
+Não incluirei detalhes da configuração do SSH.
+
+É necessário que os seguintes pacotes estejam instalados: *git*,
+*openssh-server* e *openssh-client*.
+
+Primeiro configure o SSH editando o arquivo */etc/ssh/sshd_config*.
+
+Eu recomendo algumas configurações
+footnote:[http://linux.die.net/man/5/sshd_config ou *man 5 sshd_config*.]:
+
+[source,bash]
+.sshd_config
+----
+Protocol 2    # Permite apenas a versão 2 do protocolo (mais seguro)
+PermitRootLogin no    # Não permite login como root
+PasswordAuthentication no    # Não permite login por senha
+----
+
+Não esqueça de iniciar ou *reiniciar* o servidor SSH.
+
+Agora é necessário criar um usuário para acesso ao Git através do SSH.
+
+Eu recomendo que o nome do usuário seja *git* e que seja criado com o
+seguinte comando
+footnote:[http://linux.die.net/man/8/useradd ou *man 8 useradd*.]:
+
+[source,bash]
+useradd -r -m --shell /usr/bin/git-shell git
+
+Definindo o shell do usuário para */usr/bin/git-shell* o acesso do
+usuário será restrito aos comandos do Git
+footnote:[http://linux.die.net/man/1/git-shell ou *man 1 git-shell*.].
+
+O diretório pessoal do usuário git será criado em */home/git*.
+
+Se você não tem uma chave para o SSH, crie-a com o comando *ssh-keygen*
+(usando seu usuário).
+
+Será criada uma chave pública e privada em *~/.ssh*, a chave pública
+tem o sufixo *.pub* (nunca compartilhe sua chave privada).
+
+Agora é necessário adicionar sua chave pública a lista de chaves
+autorizadas do usuário **git**, para isso faça o seguinte:
+
+[source,bash]
+----
+mkdir /home/git/.ssh
+cat /home/seu_usuario/.ssh/id_rsa.pub >> /home/git/.ssh/authorized_keys
+----
+
+Supondo que o nome de sua chave pública seja *id_rsa.pub*.
+
+Agora será necessário criar um repositório no diretório pessoal do
+usuário *git*.
+
+Para criar um repositório para o projeto *ProjetoTeste*, faça o
+seguinte:
+
+[source,bash]
+mkdir /home/git/ProjetoTeste cd /home/git/ProjetoTeste git init --bare
+
+Agora é necessário garantir que tudo pertença ao usuário git, faça o
+seguinte:
+
+[source,bash]
+----
+cd /home/git chown -R git.git . <1>
+----
+<1> Não esqueça do ponto no final
+
+Isso é tudo.
+
+Para clonar o repositório use o seguinte comando:
+
+[source,bash]
+git clone git@ip_do_servidor:ProjetoTeste
+
