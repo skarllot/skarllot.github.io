@@ -10,7 +10,8 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/asciidoc.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="stylesheet" href="/css/main.css">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
@@ -123,12 +124,12 @@ seja, o ambiente no qual será executado o binário.</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">AM_INIT_AUTOMAKE<span style="color: #666666">([</span>1.9 -Wall -Werror<span style="color: #666666">])</span>
+<pre class="pygments highlight"><code data-lang="bash">AM_INIT_AUTOMAKE<span class="tok-o">([</span>1.9 -Wall -Werror<span class="tok-o">])</span>
 
-<span style="color: #408080; font-style: italic"># Check build environment</span>
+<span class="tok-c"># Check build environment</span>
 AC_CANONICAL_HOST
 
-<span style="color: #408080; font-style: italic"># Checks for programs.</span></code></pre>
+<span class="tok-c"># Checks for programs.</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -154,21 +155,21 @@ arquivo <em>configure.ac</em>:</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
-<span style="color: #408080; font-style: italic"># Check OS-specific platform</span>
-<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
-AC_MSG_CHECKING<span style="color: #666666">([</span><span style="color: #008000; font-weight: bold">for</span> native Win32<span style="color: #666666">])</span>
-<span style="color: #008000; font-weight: bold">case</span> <span style="color: #BA2121">&quot;$host_os&quot;</span> in
-  *mingw*<span style="color: #666666">)</span>
-    <span style="color: #19177C">iswin32</span><span style="color: #666666">=</span>yes
-  ;;
-  *<span style="color: #666666">)</span>
-    <span style="color: #19177C">iswin32</span><span style="color: #666666">=</span>no
-  ;;
-<span style="color: #008000; font-weight: bold">esac</span>
-AC_MSG_RESULT<span style="color: #666666">([</span><span style="color: #19177C">$iswin32</span><span style="color: #666666">])</span>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-c"># -------------------------------------------------</span>
+<span class="tok-c"># Check OS-specific platform</span>
+<span class="tok-c"># -------------------------------------------------</span>
+AC_MSG_CHECKING<span class="tok-o">([</span><span class="tok-k">for</span> native Win32<span class="tok-o">])</span>
+<span class="tok-k">case</span> <span class="tok-s2">&quot;$host_os&quot;</span> in
+  *mingw*<span class="tok-o">)</span>
+    <span class="tok-nv">iswin32</span><span class="tok-o">=</span>yes
+  <span class="tok-p">;;</span>
+  *<span class="tok-o">)</span>
+    <span class="tok-nv">iswin32</span><span class="tok-o">=</span>no
+  <span class="tok-p">;;</span>
+<span class="tok-k">esac</span>
+AC_MSG_RESULT<span class="tok-o">([</span><span class="tok-nv">$iswin32</span><span class="tok-o">])</span>
 
-AM_CONDITIONAL<span style="color: #666666">(</span>OS_WIN32, <span style="color: #666666">[</span><span style="color: #008000">test</span> <span style="color: #BA2121">&quot;$iswin32&quot;</span> <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;yes&quot;</span><span style="color: #666666">])</span></code></pre>
+AM_CONDITIONAL<span class="tok-o">(</span>OS_WIN32, <span class="tok-o">[</span><span class="tok-nb">test</span> <span class="tok-s2">&quot;$iswin32&quot;</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;yes&quot;</span><span class="tok-o">])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -197,9 +198,9 @@ o valor "no" (Leia sobre <a href="http://aurelio.net/shell/">Bash</a>).</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp
-<span style="color: #008000; font-weight: bold">if</span> OS_WIN32
-hello_world_SOURCES +<span style="color: #666666">=</span> windowsdef.h
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">hello_world_SOURCES</span> <span class="tok-o">=</span> main.cpp
+<span class="tok-k">if</span> OS_WIN32
+hello_world_SOURCES +<span class="tok-o">=</span> windowsdef.h
 endif</code></pre>
 </div>
 </div>
@@ -213,22 +214,22 @@ endif</code></pre>
 <div class="listingblock">
 <div class="title">windowsdef.h</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#ifndef _WINDOWSDEF_H</span>
-<span style="color: #BC7A00">#define _WINDOWSDEF_H</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-cp">#ifndef _WINDOWSDEF_H</span>
+<span class="tok-cp">#define _WINDOWSDEF_H</span>
 
-<span style="color: #BC7A00">#ifdef HAVE_CONFIG_H</span>
-<span style="color: #BC7A00">#include &lt;config.h&gt;</span>
-<span style="color: #BC7A00">#endif</span>
+<span class="tok-cp">#ifdef HAVE_CONFIG_H</span>
+<span class="tok-cp">#include &lt;config.h&gt;</span>
+<span class="tok-cp">#endif</span>
 
-<span style="color: #BC7A00">#ifndef WINVER</span>
-<span style="color: #408080; font-style: italic">// Windows Server 2003 with SP1, Windows XP with SP2</span>
-<span style="color: #408080; font-style: italic">// See http://msdn.microsoft.com/en-us/library/aa383745.aspx</span>
-<span style="color: #BC7A00">#define WINVER 0x0502</span>
-<span style="color: #BC7A00">#endif </span><span style="color: #408080; font-style: italic">/* WINVER */</span><span style="color: #BC7A00"></span>
+<span class="tok-cp">#ifndef WINVER</span>
+<span class="tok-c1">// Windows Server 2003 with SP1, Windows XP with SP2</span>
+<span class="tok-c1">// See http://msdn.microsoft.com/en-us/library/aa383745.aspx</span>
+<span class="tok-cp">#define WINVER 0x0502</span>
+<span class="tok-cp">#endif </span><span class="tok-cm">/* WINVER */</span><span class="tok-cp"></span>
 
-<span style="color: #BC7A00">#include &lt;windows.h&gt;</span>
+<span class="tok-cp">#include &lt;windows.h&gt;</span>
 
-<span style="color: #BC7A00">#endif    </span><span style="color: #408080; font-style: italic">/* _WINDOWSDEF_H */</span><span style="color: #BC7A00"></span></code></pre>
+<span class="tok-cp">#endif    </span><span class="tok-cm">/* _WINDOWSDEF_H */</span><span class="tok-cp"></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -241,11 +242,11 @@ executável ao Windows XP SP2 ou Windows Server 2003 SP1 no mínimo.</p>
 <div class="listingblock">
 <div class="title">main.cpp</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#ifdef WINNT</span>
-<span style="color: #BC7A00">#include &quot;windowsdef.h&quot;</span>
-<span style="color: #BC7A00">#endif</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-cp">#ifdef WINNT</span>
+<span class="tok-cp">#include &quot;windowsdef.h&quot;</span>
+<span class="tok-cp">#endif</span>
 
-<span style="color: #BC7A00">#include &lt;iostream&gt;</span></code></pre>
+<span class="tok-cp">#include &lt;iostream&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

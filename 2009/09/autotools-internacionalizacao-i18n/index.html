@@ -10,7 +10,8 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/asciidoc.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="stylesheet" href="/css/main.css">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
@@ -126,26 +127,26 @@ traduzível.</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># Checks for libraries.</span>
-PKG_CHECK_MODULES<span style="color: #666666">([</span>DEPS<span style="color: #666666">]</span>,<span style="color: #666666">[</span>glib-2.0<span style="color: #666666">])</span> <i class="conum" data-value="1"></i><b>(1)</b>
-AC_SUBST<span style="color: #666666">(</span>DEPS_CFLAGS<span style="color: #666666">)</span> <i class="conum" data-value="2"></i><b>(2)</b>
-AC_SUBST<span style="color: #666666">(</span>DEPS_LIBS<span style="color: #666666">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-c"># Checks for libraries.</span>
+PKG_CHECK_MODULES<span class="tok-o">([</span>DEPS<span class="tok-o">]</span>,<span class="tok-o">[</span>glib-2.0<span class="tok-o">])</span> <i class="conum" data-value="1"></i><b>(1)</b>
+AC_SUBST<span class="tok-o">(</span>DEPS_CFLAGS<span class="tok-o">)</span> <i class="conum" data-value="2"></i><b>(2)</b>
+AC_SUBST<span class="tok-o">(</span>DEPS_LIBS<span class="tok-o">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
 
-<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
-<span style="color: #408080; font-style: italic"># Internationalization</span>
-<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
-<span style="color: #19177C">GETTEXT_PACKAGE</span><span style="color: #666666">=</span>hello-world <i class="conum" data-value="4"></i><b>(4)</b>
-AC_SUBST<span style="color: #666666">(</span>GETTEXT_PACKAGE<span style="color: #666666">)</span> <i class="conum" data-value="5"></i><b>(5)</b>
-AC_DEFINE_UNQUOTED<span style="color: #666666">([</span>GETTEXT_PACKAGE<span style="color: #666666">]</span>, <span style="color: #666666">[</span><span style="color: #BA2121">&quot;$GETTEXT_PACKAGE&quot;</span><span style="color: #666666">]</span>,
- <span style="color: #666666">[</span>the gettext translation domain<span style="color: #666666">])</span> <i class="conum" data-value="6"></i><b>(6)</b>
+<span class="tok-c"># -------------------------------------------------</span>
+<span class="tok-c"># Internationalization</span>
+<span class="tok-c"># -------------------------------------------------</span>
+<span class="tok-nv">GETTEXT_PACKAGE</span><span class="tok-o">=</span>hello-world <i class="conum" data-value="4"></i><b>(4)</b>
+AC_SUBST<span class="tok-o">(</span>GETTEXT_PACKAGE<span class="tok-o">)</span> <i class="conum" data-value="5"></i><b>(5)</b>
+AC_DEFINE_UNQUOTED<span class="tok-o">([</span>GETTEXT_PACKAGE<span class="tok-o">]</span>, <span class="tok-o">[</span><span class="tok-s2">&quot;$GETTEXT_PACKAGE&quot;</span><span class="tok-o">]</span>,
+ <span class="tok-o">[</span>the gettext translation domain<span class="tok-o">])</span> <i class="conum" data-value="6"></i><b>(6)</b>
 
 AM_GLIB_GNU_GETTEXT <i class="conum" data-value="7"></i><b>(7)</b>
-GLIB_DEFINE_LOCALEDIR<span style="color: #666666">(</span>HELLO_WORLD_LOCALEDIR<span style="color: #666666">)</span> <i class="conum" data-value="8"></i><b>(8)</b>
+GLIB_DEFINE_LOCALEDIR<span class="tok-o">(</span>HELLO_WORLD_LOCALEDIR<span class="tok-o">)</span> <i class="conum" data-value="8"></i><b>(8)</b>
 
-IT_PROG_INTLTOOL<span style="color: #666666">([</span>0.35.1<span style="color: #666666">])</span> <i class="conum" data-value="9"></i><b>(9)</b>
+IT_PROG_INTLTOOL<span class="tok-o">([</span>0.35.1<span class="tok-o">])</span> <i class="conum" data-value="9"></i><b>(9)</b>
 
-<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
-<span style="color: #408080; font-style: italic"># Check OS-specific platform</span></code></pre>
+<span class="tok-c"># -------------------------------------------------</span>
+<span class="tok-c"># Check OS-specific platform</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -206,9 +207,9 @@ no diretório <em>po</em> fará parte da compilação.</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">AC_CONFIG_FILES<span style="color: #666666">([</span>Makefile
+<pre class="pygments highlight"><code data-lang="bash">AC_CONFIG_FILES<span class="tok-o">([</span>Makefile
     src/Makefile
-    po/Makefile.in<span style="color: #666666">])</span></code></pre>
+    po/Makefile.in<span class="tok-o">])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -220,15 +221,15 @@ como abaixo:</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">bin_PROGRAMS</span> <span style="color: #666666">=</span> hello-world
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">bin_PROGRAMS</span> <span class="tok-o">=</span> hello-world
 
-<span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp
-<span style="color: #008000; font-weight: bold">if</span> OS_WIN32
-hello_world_SOURCES +<span style="color: #666666">=</span> windowsdef.h
+<span class="tok-nv">hello_world_SOURCES</span> <span class="tok-o">=</span> main.cpp
+<span class="tok-k">if</span> OS_WIN32
+hello_world_SOURCES +<span class="tok-o">=</span> windowsdef.h
 endif
 
-<span style="color: #19177C">hello_world_LDADD</span> <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">$(</span>DEPS_LIBS<span style="color: #008000; font-weight: bold">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span style="color: #19177C">hello_world_CXXFLAGS</span> <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">$(</span>DEPS_CFLAGS<span style="color: #008000; font-weight: bold">)</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<span class="tok-nv">hello_world_LDADD</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>DEPS_LIBS<span class="tok-k">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-nv">hello_world_CXXFLAGS</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>DEPS_CFLAGS<span class="tok-k">)</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -263,7 +264,7 @@ diretório <em>po</em> em <em>SUBDIRS</em>.</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">SUBDIRS</span> <span style="color: #666666">=</span> src po</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">SUBDIRS</span> <span class="tok-o">=</span> src po</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -274,20 +275,20 @@ distribuição, para isso adicione o código  abaixo ao arquivo
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">SUBDIRS</span> <span style="color: #666666">=</span> src po
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">SUBDIRS</span> <span class="tok-o">=</span> src po
 
-<span style="color: #19177C">INTLTOOL_FILES</span> <span style="color: #666666">=</span> <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
- intltool-extract.in <span style="color: #BB6622; font-weight: bold">\</span>
- intltool-merge.in <span style="color: #BB6622; font-weight: bold">\</span>
+<span class="tok-nv">INTLTOOL_FILES</span> <span class="tok-o">=</span> <span class="tok-se">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
+ intltool-extract.in <span class="tok-se">\</span>
+ intltool-merge.in <span class="tok-se">\</span>
  intltool-update.in
 
-<span style="color: #19177C">EXTRA_DIST</span> <span style="color: #666666">=</span> <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="2"></i><b>(2)</b>
- <span style="color: #008000; font-weight: bold">$(</span>INTLTOOL_FILES<span style="color: #008000; font-weight: bold">)</span>
+<span class="tok-nv">EXTRA_DIST</span> <span class="tok-o">=</span> <span class="tok-se">\ </span><i class="conum" data-value="2"></i><b>(2)</b>
+ <span class="tok-k">$(</span>INTLTOOL_FILES<span class="tok-k">)</span>
 
-<span style="color: #19177C">DISTCLEANFILES</span> <span style="color: #666666">=</span> <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="3"></i><b>(3)</b>
- intltool-extract <span style="color: #BB6622; font-weight: bold">\</span>
- intltool-merge <span style="color: #BB6622; font-weight: bold">\</span>
- intltool-update <span style="color: #BB6622; font-weight: bold">\</span>
+<span class="tok-nv">DISTCLEANFILES</span> <span class="tok-o">=</span> <span class="tok-se">\ </span><i class="conum" data-value="3"></i><b>(3)</b>
+ intltool-extract <span class="tok-se">\</span>
+ intltool-merge <span class="tok-se">\</span>
+ intltool-update <span class="tok-se">\</span>
  po/.intltool-merge-cache</code></pre>
 </div>
 </div>
@@ -324,28 +325,28 @@ traduzíveis. Para isso modifique o arquivo <em>main.cpp</em> como a seguir:</p>
 <div class="listingblock">
 <div class="title">main.cpp</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#ifdef HAVE_CONFIG_H</span>
-<span style="color: #BC7A00">#include &lt;config.h&gt; </span><i class="conum" data-value="1"></i><b>(1)</b>
-<span style="color: #BC7A00">#endif</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-cp">#ifdef HAVE_CONFIG_H</span>
+<span class="tok-cp">#include &lt;config.h&gt; </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-cp">#endif</span>
 
-<span style="color: #BC7A00">#ifdef WINNT</span>
-<span style="color: #BC7A00">#include &quot;windowsdef.h&quot;</span>
-<span style="color: #BC7A00">#endif</span>
+<span class="tok-cp">#ifdef WINNT</span>
+<span class="tok-cp">#include &quot;windowsdef.h&quot;</span>
+<span class="tok-cp">#endif</span>
 
-<span style="color: #BC7A00">#include &lt;iostream&gt;</span>
-<span style="color: #BC7A00">#include &lt;glib/gi18n.h&gt; </span><i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-cp">#include &lt;iostream&gt;</span>
+<span class="tok-cp">#include &lt;glib/gi18n.h&gt; </span><i class="conum" data-value="2"></i><b>(2)</b>
 
-<span style="color: #B00040">int</span> <span style="color: #0000FF">main</span>()
-{
-  <span style="color: #408080; font-style: italic">// Gettext initialization</span>
-  setlocale(LC_ALL, <span style="color: #BA2121">&quot;&quot;</span>); <i class="conum" data-value="3"></i><b>(3)</b>
-  bindtextdomain(GETTEXT_PACKAGE, HELLO_WORLD_LOCALEDIR); <i class="conum" data-value="4"></i><b>(4)</b>
-  bind_textdomain_codeset(GETTEXT_PACKAGE, <span style="color: #BA2121">&quot;UTF-8&quot;</span>); <i class="conum" data-value="5"></i><b>(5)</b>
-  textdomain(GETTEXT_PACKAGE); <i class="conum" data-value="6"></i><b>(6)</b>
+<span class="tok-kt">int</span> <span class="tok-nf">main</span><span class="tok-p">()</span>
+<span class="tok-p">{</span>
+  <span class="tok-c1">// Gettext initialization</span>
+  <span class="tok-n">setlocale</span><span class="tok-p">(</span><span class="tok-n">LC_ALL</span><span class="tok-p">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="tok-n">bindtextdomain</span><span class="tok-p">(</span><span class="tok-n">GETTEXT_PACKAGE</span><span class="tok-p">,</span> <span class="tok-n">HELLO_WORLD_LOCALEDIR</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+  <span class="tok-n">bind_textdomain_codeset</span><span class="tok-p">(</span><span class="tok-n">GETTEXT_PACKAGE</span><span class="tok-p">,</span> <span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+  <span class="tok-n">textdomain</span><span class="tok-p">(</span><span class="tok-n">GETTEXT_PACKAGE</span><span class="tok-p">);</span> <i class="conum" data-value="6"></i><b>(6)</b>
 
-  std<span style="color: #666666">::</span>cout <span style="color: #666666">&lt;&lt;</span> _(<span style="color: #BA2121">&quot;Hello World!&quot;</span>) <span style="color: #666666">&lt;&lt;</span> std<span style="color: #666666">::</span>endl; <i class="conum" data-value="7"></i><b>(7)</b>
-  <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">0</span>;
-}</code></pre>
+  <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">_</span><span class="tok-p">(</span><span class="tok-s">&quot;Hello World!&quot;</span><span class="tok-p">)</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-n">endl</span><span class="tok-p">;</span> <i class="conum" data-value="7"></i><b>(7)</b>
+  <span class="tok-k">return</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">

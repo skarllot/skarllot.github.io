@@ -10,7 +10,8 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/asciidoc.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="stylesheet" href="/css/main.css">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
@@ -138,13 +139,13 @@ do projeto.</p>
 <div class="listingblock">
 <div class="title">main.cpp</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#include &lt;iostream&gt;</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-cp">#include &lt;iostream&gt;</span>
 
-<span style="color: #B00040">int</span> <span style="color: #0000FF">main</span>()
-{
-    std<span style="color: #666666">::</span>cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #BA2121">&quot;Hello World!&quot;</span> <span style="color: #666666">&lt;&lt;</span> std<span style="color: #666666">::</span>endl;
-    <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">0</span>;
-}</code></pre>
+<span class="tok-kt">int</span> <span class="tok-nf">main</span><span class="tok-p">()</span>
+<span class="tok-p">{</span>
+    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Hello World!&quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-n">endl</span><span class="tok-p">;</span>
+    <span class="tok-k">return</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 </li>
@@ -154,7 +155,7 @@ abaixo.</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="make"><span style="color: #19177C">SUBDIRS</span> <span style="color: #666666">=</span> src</code></pre>
+<pre class="pygments highlight"><code data-lang="make"><span class="tok-nv">SUBDIRS</span> <span class="tok-o">=</span> src</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -171,9 +172,9 @@ conteúdo:</p>
 <div class="listingblock">
 <div class="title">Makefile.am</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="make"><span style="color: #19177C">bin_PROGRAMS</span> <span style="color: #666666">=</span> hello-world
+<pre class="pygments highlight"><code data-lang="make"><span class="tok-nv">bin_PROGRAMS</span> <span class="tok-o">=</span> hello-world
 
-<span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp</code></pre>
+<span class="tok-nv">hello_world_SOURCES</span> <span class="tok-o">=</span> main.cpp</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -195,7 +196,7 @@ entre outros.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">$ </span>autoscan</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">$ </span>autoscan</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -213,28 +214,28 @@ encontrados.</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic">#                                               -*- Autoconf -*-</span>
-<span style="color: #408080; font-style: italic"># Process this file with autoconf to produce a configure script.</span>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-c">#                                               -*- Autoconf -*-</span>
+<span class="tok-c"># Process this file with autoconf to produce a configure script.</span>
 
-AC_PREREQ<span style="color: #666666">([</span>2.54<span style="color: #666666">])</span>
-AC_INIT<span style="color: #666666">([</span>Hello World<span style="color: #666666">]</span>, <span style="color: #666666">[</span>0.1.0<span style="color: #666666">]</span>, <span style="color: #666666">[</span>myemail@server.com<span style="color: #666666">]</span>, <span style="color: #666666">[</span>hello-world<span style="color: #666666">])</span>
-AC_CONFIG_SRCDIR<span style="color: #666666">([</span>src<span style="color: #666666">])</span>
-AC_CONFIG_HEADERS<span style="color: #666666">([</span>config.h<span style="color: #666666">])</span>
-AM_INIT_AUTOMAKE<span style="color: #666666">([</span>1.9 -Wall -Werror<span style="color: #666666">])</span>
+AC_PREREQ<span class="tok-o">([</span>2.54<span class="tok-o">])</span>
+AC_INIT<span class="tok-o">([</span>Hello World<span class="tok-o">]</span>, <span class="tok-o">[</span>0.1.0<span class="tok-o">]</span>, <span class="tok-o">[</span>myemail@server.com<span class="tok-o">]</span>, <span class="tok-o">[</span>hello-world<span class="tok-o">])</span>
+AC_CONFIG_SRCDIR<span class="tok-o">([</span>src<span class="tok-o">])</span>
+AC_CONFIG_HEADERS<span class="tok-o">([</span>config.h<span class="tok-o">])</span>
+AM_INIT_AUTOMAKE<span class="tok-o">([</span>1.9 -Wall -Werror<span class="tok-o">])</span>
 
-<span style="color: #408080; font-style: italic"># Checks for programs.</span>
+<span class="tok-c"># Checks for programs.</span>
 AC_PROG_CXX
 
-<span style="color: #408080; font-style: italic"># Checks for libraries.</span>
+<span class="tok-c"># Checks for libraries.</span>
 
-<span style="color: #408080; font-style: italic"># Checks for header files.</span>
+<span class="tok-c"># Checks for header files.</span>
 
-<span style="color: #408080; font-style: italic"># Checks for typedefs, structures, and compiler characteristics.</span>
+<span class="tok-c"># Checks for typedefs, structures, and compiler characteristics.</span>
 
-<span style="color: #408080; font-style: italic"># Checks for library functions.</span>
+<span class="tok-c"># Checks for library functions.</span>
 
-AC_CONFIG_FILES<span style="color: #666666">([</span>Makefile
-src/Makefile<span style="color: #666666">])</span>
+AC_CONFIG_FILES<span class="tok-o">([</span>Makefile
+src/Makefile<span class="tok-o">])</span>
 AC_OUTPUT</code></pre>
 </div>
 </div>
@@ -278,7 +279,7 @@ necessários sejam criados.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">$ </span>autoreconf --install</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">$ </span>autoreconf --install</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -291,7 +292,7 @@ Inicialmente crie-os vazios.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">$ </span>touch NEWS README AUTHORS ChangeLog</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">$ </span>touch NEWS README AUTHORS ChangeLog</code></pre>
 </div>
 </div>
 </li>
@@ -309,7 +310,7 @@ projeto novamente, agora sem erros com o  automake.</p>
 <p>Teste o executável do projeto:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">$ </span>src/hello-world</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">$ </span>src/hello-world</code></pre>
 </div>
 </div>
 </li>
@@ -317,7 +318,7 @@ projeto novamente, agora sem erros com o  automake.</p>
 <p>Para criar um pacote do projeto execute o seguinte comando:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">$ </span>make dist</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">$ </span>make dist</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -329,7 +330,7 @@ comando:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">$ </span>make distcheck</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">$ </span>make distcheck</code></pre>
 </div>
 </div>
 </li>

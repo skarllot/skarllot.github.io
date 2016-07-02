@@ -6,8 +6,8 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 Jul 2016 04:37:50 +0000</pubDate>
-    <lastBuildDate>Sat, 02 Jul 2016 04:37:50 +0000</lastBuildDate>
+    <pubDate>Sat, 02 Jul 2016 04:49:45 +0000</pubDate>
+    <lastBuildDate>Sat, 02 Jul 2016 04:49:45 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -64,26 +64,26 @@ traduzível.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for libraries.&lt;/span&gt;
-PKG_CHECK_MODULES&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;DEPS&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;glib-2.0&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-AC_SUBST&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;DEPS_CFLAGS&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-AC_SUBST&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;DEPS_LIBS&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-c&quot;&gt;# Checks for libraries.&lt;/span&gt;
+PKG_CHECK_MODULES&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;DEPS&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;,&lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;glib-2.0&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+AC_SUBST&lt;span class=&quot;tok-o&quot;&gt;(&lt;/span&gt;DEPS_CFLAGS&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+AC_SUBST&lt;span class=&quot;tok-o&quot;&gt;(&lt;/span&gt;DEPS_LIBS&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Internationalization&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
-&lt;span style=&quot;color: #19177C&quot;&gt;GETTEXT_PACKAGE&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt;hello-world &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;
-AC_SUBST&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;GETTEXT_PACKAGE&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;(5)&lt;/b&gt;
-AC_DEFINE_UNQUOTED&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;GETTEXT_PACKAGE&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;$GETTEXT_PACKAGE&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;,
- &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;the gettext translation domain&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;(6)&lt;/b&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Internationalization&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;tok-nv&quot;&gt;GETTEXT_PACKAGE&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;hello-world &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;
+AC_SUBST&lt;span class=&quot;tok-o&quot;&gt;(&lt;/span&gt;GETTEXT_PACKAGE&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;(5)&lt;/b&gt;
+AC_DEFINE_UNQUOTED&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;GETTEXT_PACKAGE&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$GETTEXT_PACKAGE&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;,
+ &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;the gettext translation domain&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;(6)&lt;/b&gt;
 
 AM_GLIB_GNU_GETTEXT &lt;i class=&quot;conum&quot; data-value=&quot;7&quot;&gt;&lt;/i&gt;&lt;b&gt;(7)&lt;/b&gt;
-GLIB_DEFINE_LOCALEDIR&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;HELLO_WORLD_LOCALEDIR&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;8&quot;&gt;&lt;/i&gt;&lt;b&gt;(8)&lt;/b&gt;
+GLIB_DEFINE_LOCALEDIR&lt;span class=&quot;tok-o&quot;&gt;(&lt;/span&gt;HELLO_WORLD_LOCALEDIR&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;8&quot;&gt;&lt;/i&gt;&lt;b&gt;(8)&lt;/b&gt;
 
-IT_PROG_INTLTOOL&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;0.35.1&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;9&quot;&gt;&lt;/i&gt;&lt;b&gt;(9)&lt;/b&gt;
+IT_PROG_INTLTOOL&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;0.35.1&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;9&quot;&gt;&lt;/i&gt;&lt;b&gt;(9)&lt;/b&gt;
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check OS-specific platform&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Check OS-specific platform&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -144,9 +144,9 @@ no diretório &lt;em&gt;po&lt;/em&gt; fará parte da compilação.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;AC_CONFIG_FILES&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;Makefile
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;AC_CONFIG_FILES&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;Makefile
     src/Makefile
-    po/Makefile.in&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    po/Makefile.in&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -158,15 +158,15 @@ como abaixo:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;bin_PROGRAMS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; hello-world
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;bin_PROGRAMS&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; hello-world
 
-&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; main.cpp
-&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;if&lt;/span&gt; OS_WIN32
-hello_world_SOURCES +&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; windowsdef.h
+&lt;span class=&quot;tok-nv&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; main.cpp
+&lt;span class=&quot;tok-k&quot;&gt;if&lt;/span&gt; OS_WIN32
+hello_world_SOURCES +&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; windowsdef.h
 endif
 
-&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_LDADD&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$(&lt;/span&gt;DEPS_LIBS&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_CXXFLAGS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$(&lt;/span&gt;DEPS_CFLAGS&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tok-nv&quot;&gt;hello_world_LDADD&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;$(&lt;/span&gt;DEPS_LIBS&lt;span class=&quot;tok-k&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+&lt;span class=&quot;tok-nv&quot;&gt;hello_world_CXXFLAGS&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;$(&lt;/span&gt;DEPS_CFLAGS&lt;span class=&quot;tok-k&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -201,7 +201,7 @@ diretório &lt;em&gt;po&lt;/em&gt; em &lt;em&gt;SUBDIRS&lt;/em&gt;.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; src po&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; src po&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -212,20 +212,20 @@ distribuição, para isso adicione o código  abaixo ao arquivo
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; src po
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; src po
 
-&lt;span style=&quot;color: #19177C&quot;&gt;INTLTOOL_FILES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
- intltool-extract.in &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
- intltool-merge.in &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;tok-nv&quot;&gt;INTLTOOL_FILES&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+ intltool-extract.in &lt;span class=&quot;tok-se&quot;&gt;\&lt;/span&gt;
+ intltool-merge.in &lt;span class=&quot;tok-se&quot;&gt;\&lt;/span&gt;
  intltool-update.in
 
-&lt;span style=&quot;color: #19177C&quot;&gt;EXTRA_DIST&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
- &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$(&lt;/span&gt;INTLTOOL_FILES&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nv&quot;&gt;EXTRA_DIST&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+ &lt;span class=&quot;tok-k&quot;&gt;$(&lt;/span&gt;INTLTOOL_FILES&lt;span class=&quot;tok-k&quot;&gt;)&lt;/span&gt;
 
-&lt;span style=&quot;color: #19177C&quot;&gt;DISTCLEANFILES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
- intltool-extract &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
- intltool-merge &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
- intltool-update &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;tok-nv&quot;&gt;DISTCLEANFILES&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+ intltool-extract &lt;span class=&quot;tok-se&quot;&gt;\&lt;/span&gt;
+ intltool-merge &lt;span class=&quot;tok-se&quot;&gt;\&lt;/span&gt;
+ intltool-update &lt;span class=&quot;tok-se&quot;&gt;\&lt;/span&gt;
  po/.intltool-merge-cache&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -262,28 +262,28 @@ traduzíveis. Para isso modifique o arquivo &lt;em&gt;main.cpp&lt;/em&gt; como a
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;main.cpp&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef HAVE_CONFIG_H&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;config.h&amp;gt; &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-cp&quot;&gt;#ifdef HAVE_CONFIG_H&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;config.h&amp;gt; &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#endif&lt;/span&gt;
 
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef WINNT&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;quot;windowsdef.h&amp;quot;&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#ifdef WINNT&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;quot;windowsdef.h&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#endif&lt;/span&gt;
 
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;glib/gi18n.h&amp;gt; &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;glib/gi18n.h&amp;gt; &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
 
-&lt;span style=&quot;color: #B00040&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #0000FF&quot;&gt;main&lt;/span&gt;()
-{
-  &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;// Gettext initialization&lt;/span&gt;
-  setlocale(LC_ALL, &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;); &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
-  bindtextdomain(GETTEXT_PACKAGE, HELLO_WORLD_LOCALEDIR); &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;
-  bind_textdomain_codeset(GETTEXT_PACKAGE, &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;UTF-8&amp;quot;&lt;/span&gt;); &lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;(5)&lt;/b&gt;
-  textdomain(GETTEXT_PACKAGE); &lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;(6)&lt;/b&gt;
+&lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;tok-c1&quot;&gt;// Gettext initialization&lt;/span&gt;
+  &lt;span class=&quot;tok-n&quot;&gt;setlocale&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;LC_ALL&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+  &lt;span class=&quot;tok-n&quot;&gt;bindtextdomain&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;GETTEXT_PACKAGE&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;HELLO_WORLD_LOCALEDIR&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;
+  &lt;span class=&quot;tok-n&quot;&gt;bind_textdomain_codeset&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;GETTEXT_PACKAGE&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;UTF-8&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;(5)&lt;/b&gt;
+  &lt;span class=&quot;tok-n&quot;&gt;textdomain&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;GETTEXT_PACKAGE&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;(6)&lt;/b&gt;
 
-  std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;cout &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; _(&lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt;) &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;endl; &lt;i class=&quot;conum&quot; data-value=&quot;7&quot;&gt;&lt;/i&gt;&lt;b&gt;(7)&lt;/b&gt;
-  &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;0&lt;/span&gt;;
-}&lt;/code&gt;&lt;/pre&gt;
+  &lt;span class=&quot;tok-n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;7&quot;&gt;&lt;/i&gt;&lt;b&gt;(7)&lt;/b&gt;
+  &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -397,12 +397,12 @@ seja, o ambiente no qual será executado o binário.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;AM_INIT_AUTOMAKE&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;1.9 -Wall -Werror&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;AM_INIT_AUTOMAKE&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;1.9 -Wall -Werror&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check build environment&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Check build environment&lt;/span&gt;
 AC_CANONICAL_HOST
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for programs.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Checks for programs.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -428,21 +428,21 @@ arquivo &lt;em&gt;configure.ac&lt;/em&gt;:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check OS-specific platform&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
-AC_MSG_CHECKING&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;for&lt;/span&gt; native Win32&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
-&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;$host_os&amp;quot;&lt;/span&gt; in
-  *mingw*&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color: #19177C&quot;&gt;iswin32&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt;yes
-  ;;
-  *&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color: #19177C&quot;&gt;iswin32&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt;no
-  ;;
-&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;esac&lt;/span&gt;
-AC_MSG_RESULT&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$iswin32&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-c&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Check OS-specific platform&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+AC_MSG_CHECKING&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;for&lt;/span&gt; native Win32&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;tok-k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$host_os&amp;quot;&lt;/span&gt; in
+  *mingw*&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;tok-nv&quot;&gt;iswin32&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;yes
+  &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+  *&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;tok-nv&quot;&gt;iswin32&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;no
+  &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;tok-k&quot;&gt;esac&lt;/span&gt;
+AC_MSG_RESULT&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$iswin32&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
 
-AM_CONDITIONAL&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;OS_WIN32, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;test&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;$iswin32&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+AM_CONDITIONAL&lt;span class=&quot;tok-o&quot;&gt;(&lt;/span&gt;OS_WIN32, &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$iswin32&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -471,9 +471,9 @@ o valor &quot;no&quot; (Leia sobre &lt;a href=&quot;http://aurelio.net/shell/&qu
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; main.cpp
-&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;if&lt;/span&gt; OS_WIN32
-hello_world_SOURCES +&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; windowsdef.h
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; main.cpp
+&lt;span class=&quot;tok-k&quot;&gt;if&lt;/span&gt; OS_WIN32
+hello_world_SOURCES +&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; windowsdef.h
 endif&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -487,22 +487,22 @@ endif&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;windowsdef.h&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifndef _WINDOWSDEF_H&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#define _WINDOWSDEF_H&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-cp&quot;&gt;#ifndef _WINDOWSDEF_H&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#define _WINDOWSDEF_H&lt;/span&gt;
 
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef HAVE_CONFIG_H&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;config.h&amp;gt;&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#ifdef HAVE_CONFIG_H&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;config.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#endif&lt;/span&gt;
 
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifndef WINVER&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;// Windows Server 2003 with SP1, Windows XP with SP2&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;// See http://msdn.microsoft.com/en-us/library/aa383745.aspx&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#define WINVER 0x0502&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif &lt;/span&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;/* WINVER */&lt;/span&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#ifndef WINVER&lt;/span&gt;
+&lt;span class=&quot;tok-c1&quot;&gt;// Windows Server 2003 with SP1, Windows XP with SP2&lt;/span&gt;
+&lt;span class=&quot;tok-c1&quot;&gt;// See http://msdn.microsoft.com/en-us/library/aa383745.aspx&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#define WINVER 0x0502&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#endif &lt;/span&gt;&lt;span class=&quot;tok-cm&quot;&gt;/* WINVER */&lt;/span&gt;&lt;span class=&quot;tok-cp&quot;&gt;&lt;/span&gt;
 
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;windows.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;windows.h&amp;gt;&lt;/span&gt;
 
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif    &lt;/span&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;/* _WINDOWSDEF_H */&lt;/span&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#endif    &lt;/span&gt;&lt;span class=&quot;tok-cm&quot;&gt;/* _WINDOWSDEF_H */&lt;/span&gt;&lt;span class=&quot;tok-cp&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -515,11 +515,11 @@ executável ao Windows XP SP2 ou Windows Server 2003 SP1 no mínimo.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;main.cpp&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef WINNT&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;quot;windowsdef.h&amp;quot;&lt;/span&gt;
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-cp&quot;&gt;#ifdef WINNT&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;quot;windowsdef.h&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#endif&lt;/span&gt;
 
-&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -623,13 +623,13 @@ do projeto.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;main.cpp&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-cp&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
 
-&lt;span style=&quot;color: #B00040&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #0000FF&quot;&gt;main&lt;/span&gt;()
-{
-    std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;cout &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;endl;
-    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;0&lt;/span&gt;;
-}&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -639,7 +639,7 @@ abaixo.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; src&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; src&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -656,9 +656,9 @@ conteúdo:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;bin_PROGRAMS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; hello-world
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;make&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;bin_PROGRAMS&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; hello-world
 
-&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; main.cpp&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tok-nv&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; main.cpp&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -680,7 +680,7 @@ entre outros.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;autoscan&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;autoscan&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -698,28 +698,28 @@ encontrados.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;#                                               -*- Autoconf -*-&lt;/span&gt;
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Process this file with autoconf to produce a configure script.&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-c&quot;&gt;#                                               -*- Autoconf -*-&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Process this file with autoconf to produce a configure script.&lt;/span&gt;
 
-AC_PREREQ&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;2.54&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
-AC_INIT&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;Hello World&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;0.1.0&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;myemail@server.com&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;hello-world&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
-AC_CONFIG_SRCDIR&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;src&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
-AC_CONFIG_HEADERS&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;config.h&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
-AM_INIT_AUTOMAKE&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;1.9 -Wall -Werror&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+AC_PREREQ&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;2.54&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
+AC_INIT&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;Hello World&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;0.1.0&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;myemail@server.com&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;hello-world&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
+AC_CONFIG_SRCDIR&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;src&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
+AC_CONFIG_HEADERS&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;config.h&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
+AM_INIT_AUTOMAKE&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;1.9 -Wall -Werror&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for programs.&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Checks for programs.&lt;/span&gt;
 AC_PROG_CXX
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for libraries.&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Checks for libraries.&lt;/span&gt;
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for header files.&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Checks for header files.&lt;/span&gt;
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for typedefs, structures, and compiler characteristics.&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Checks for typedefs, structures, and compiler characteristics.&lt;/span&gt;
 
-&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for library functions.&lt;/span&gt;
+&lt;span class=&quot;tok-c&quot;&gt;# Checks for library functions.&lt;/span&gt;
 
-AC_CONFIG_FILES&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;Makefile
-src/Makefile&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+AC_CONFIG_FILES&lt;span class=&quot;tok-o&quot;&gt;([&lt;/span&gt;Makefile
+src/Makefile&lt;span class=&quot;tok-o&quot;&gt;])&lt;/span&gt;
 AC_OUTPUT&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -763,7 +763,7 @@ necessários sejam criados.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;autoreconf --install&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;autoreconf --install&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -776,7 +776,7 @@ Inicialmente crie-os vazios.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;touch NEWS README AUTHORS ChangeLog&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;touch NEWS README AUTHORS ChangeLog&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -794,7 +794,7 @@ projeto novamente, agora sem erros com o  automake.&lt;/p&gt;
 &lt;p&gt;Teste o executável do projeto:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;src/hello-world&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;src/hello-world&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -802,7 +802,7 @@ projeto novamente, agora sem erros com o  automake.&lt;/p&gt;
 &lt;p&gt;Para criar um pacote do projeto execute o seguinte comando:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;make dist&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;make dist&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -814,7 +814,7 @@ comando:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$ &lt;/span&gt;make distcheck&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;make distcheck&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
