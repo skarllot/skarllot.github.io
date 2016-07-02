@@ -1,0 +1,80 @@
+---
+layout: post
+categories:
+  - Linha de comando
+  - Linux
+tags:
+  - cortar
+  - crop
+  - dividir
+  - double
+  - linux
+  - page
+  - pagina
+  - pdf
+  - split
+title: Dividir um PDF com página dupla em dois
+excerpt: >
+  Nesse post explicarei como dividir a página de um arquivo PDF que contém
+  duas páginas em uma.
+comments: true
+---
+= Dividir um PDF com página dupla em dois
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2010-07-18
+:lang: pt-BR
+:revdate: 2010-07-18 02:47:27+00:00
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+:icons: font
+:source-highlighter: pygments
+
+Abaixo publico um código Perl que divide verticalmente cada página em
+duas páginas.
+
+Um caminho para o arquivo PDF deve ser fornecido como argumento e o
+arquivo dividido será criado no mesmo local.
+
+Instale o http://search.cpan.org/dist/PDF-API2/[PDF-API2] (pacote
+*libpdf-api2-perl* no Debian/Ubuntu ou *perl-PDF-API2* no
+RHEL/CentOS/Fedora).
+
+[source,perl]
+.split_pdf.pl
+----
+#!/usr/bin/env perl
+use strict; use warnings;
+use PDF::API2;
+
+my $filename = shift || 'test.pdf';
+my $oldpdf = PDF::API2->open($filename);
+my $newpdf = PDF::API2->new;
+
+for my $page_nb (1..$oldpdf->pages) {
+  my ($page, @cropdata);
+
+  $page = $newpdf->importpage($oldpdf, $page_nb);
+  @cropdata = $page->get_mediabox;
+  $cropdata[2] /= 2;
+  $page->cropbox(@cropdata);
+  $page->trimbox(@cropdata);
+  $page->mediabox(@cropdata);
+
+  $page = $newpdf->importpage($oldpdf, $page_nb);
+  @cropdata = $page->get_mediabox;
+  $cropdata[0] = $cropdata[2] / 2;
+  $page->cropbox(@cropdata);
+  $page->trimbox(@cropdata);
+  $page->mediabox(@cropdata);
+}
+
+(my $newfilename = $filename) =~ s/(.*)\.(\w+)$/$1.clean.$2/;
+$newpdf->saveas($newfilename);
+
+___END___
+----
+
+Esse post foi baseado no post em
+http://snipplr.com/view/18924/split-crop-double-page-pdfs-in-two/
+
