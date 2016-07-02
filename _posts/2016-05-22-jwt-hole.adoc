@@ -1,0 +1,56 @@
+---
+layout: post
+categories:
+  - Programação
+tags:
+  - vulnerabilidade
+  - segurança
+  - seguranca
+  - bug
+  - jwt
+  - criptografia
+  - json
+title: Entendendo a vulnerabilidade de segurança do JWT
+excerpt: >
+  Em março de 2015 Tim McLean publicou em um {Auth0Blog} que após analisar
+  várias implementações do JSON Web Token ({JWT}) descobriu vulnerabilidades que
+  permitiam que a etapa de verificação pudesse ser burlada.
+---
+= Entendendo a vulnerabilidade de segurança do JWT
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2016-05-22
+:doctype: article
+:lang: pt-BR
+:revdate: 2016-05-22
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+:keywords: vulnerabilidade, segurança, seguranca, bug, jwt, criptografia, json
+:copyright: CC-BY-SA 3.0
+:data-uri:
+:icons: font
+:source-highlighter: pygments
+:theme: flask
+:toc2:
+:toclevels: 2
+:imagesdir: images
+ifdef::ebook-format[:front-cover-image: image:cover.png[width=793,height=1122]]
+ifndef::ebook-format[:leveloffset: 1]
+
+// Translation
+:toc-title: Sumário
+:caution-caption: Cuidado
+:important-caption: Importante
+:note-caption: Nota
+:tip-caption: Dica
+:warning-caption: Aviso
+:appendix-caption: Apêndice
+:example-caption: Exemplo
+:figure-caption: Figura
+:table-caption: Tabela
+
+include::jwt-hole/intro.adoc[]
+include::jwt-hole/base-concepts.adoc[]
+include::jwt-hole/analysis.adoc[]
+
+// vim: ts=4 sw=4 et
