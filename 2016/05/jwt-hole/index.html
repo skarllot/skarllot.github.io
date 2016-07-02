@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Blog do Fabrício</title>
+  <title>Entendendo a vulnerabilidade de segurança do JWT</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -32,12 +32,15 @@
 <meta name="theme-color" content="#ffffff">
 
   
+  <meta itemprop="datePublished" content="22 May 2016" />
 
-<meta itemprop="url" content="https://fgodoy.me/" />
 
-<meta name="description" content="Desenvolvedor C#, Java, Javascript e Go que procura sempre acompanhar o mercado que está em constante mutação.
-">
-<link rel="canonical" href="https://fgodoy.me/">
+  <meta itemprop="keywords" content="vulnerabilidade, segurança, seguranca, bug, jwt, criptografia, json" />
+
+<meta itemprop="url" content="https://fgodoy.me/2016/05/jwt-hole/" />
+
+<meta name="description" content="Em março de 2015 Tim McLean publicou em um {Auth0Blog} que após analisar várias implementações do JSON Web Token ({JWT}) descobriu vulnerabilidades que permi...">
+<link rel="canonical" href="https://fgodoy.me/2016/05/jwt-hole/">
 <link rel="alternate" type="application/rss+xml" title="Blog do Fabrício" href="https://fgodoy.me/feed.xml">
 
 
@@ -87,85 +90,28 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Posts</h1>
 
-  <ul class="post-list">
-    
 
-    
-    
-    
-    
-    
 
-      <li>
-        <span class="post-meta">22/Mai/2016</span>
 
-        <h2>
-          <a class="post-link" href="/2016/05/jwt-hole/">Entendendo a vulnerabilidade de segurança do JWT</a>
-        </h2>
-        <p>Em março de 2015 Tim McLean publicou em um {Auth0Blog} que após analisar várias implementações do JSON Web Token ({JWT}) descobriu vulnerabilidades que permitiam que a etapa de verificação pudesse ser burlada.
-</p>
-      </li>
-    
 
-    
-    
-    
-    
-    
 
-      <li>
-        <span class="post-meta">14/Set/2009</span>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Entendendo a vulnerabilidade de segurança do JWT</h1>
+    <p class="post-meta"><time datetime="2016-05-22T00:00:00+00:00" itemprop="datePublished">22 de Maio de 2016</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Fabrício Godoy</span></span></p>
+  </header>
 
-        <h2>
-          <a class="post-link" href="/2009/09/autotools-internacionalizacao-i18n/">Internacionalização (I18n) com Autotools</a>
-        </h2>
-        <p>Nesse post explicarei como internacionalizar, ou seja, tornar um programa traduzível.
-</p>
-      </li>
-    
-
-    
-    
-    
-    
-    
-
-      <li>
-        <span class="post-meta">14/Jun/2009</span>
-
-        <h2>
-          <a class="post-link" href="/2009/06/identificando-ambiente-de-destino/">Identificando o ambiente de destino com Autotools</a>
-        </h2>
-        <p>Nesse post explicarei como identificar qual o ambiente de destino de compilação, ou seja, o ambiente no qual será executado o binário.
-</p>
-      </li>
-    
-
-    
-    
-    
-    
-    
-
-      <li>
-        <span class="post-meta">23/Mai/2009</span>
-
-        <h2>
-          <a class="post-link" href="/2009/05/hello-world-com-autotools/">Hello World com Autotools</a>
-        </h2>
-        <p>Nesse post irei explicar como fazer um programa que exibe "Hello World!" no console configurado com Autotools.
-</p>
-      </li>
-    
-  </ul>
-
-  <p class="rss-subscribe">assine <a href="/feed.xml">via RSS</a></p>
-
+  <div class="post-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>Unresolved directive in &lt;stdin&gt; - include::jwt-hole/intro.adoc[]
+Unresolved directive in &lt;stdin&gt; - include::jwt-hole/base-concepts.adoc[]
+Unresolved directive in &lt;stdin&gt; - include::jwt-hole/analysis.adoc[]</p>
 </div>
+  </div>
+
+</article>
 
       </div>
     </div>
