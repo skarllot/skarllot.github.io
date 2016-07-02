@@ -13,9 +13,6 @@
   <link rel="stylesheet" href="/css/asciidoctor.css">
   <link rel="stylesheet" href="/css/main.css">
 
-  <link rel="stylesheet" href="/css/asciidoc.css">
-  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
-
   <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72.png">
@@ -341,10 +338,10 @@ tipo de token e outro que define o algoritmo utilizado. O tipo de token sempre �
 <div class="listingblock">
 <div class="title">Exemplo de cabeçalho JWT (RSA + SHA-384)</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
-    <span class="tok-nt">&quot;alg&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;RS384&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;typ&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;JWT&quot;</span>
-<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json">{
+    <span style="color: #008000; font-weight: bold">&quot;alg&quot;</span>: <span style="color: #BA2121">&quot;RS384&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;typ&quot;</span>: <span style="color: #BA2121">&quot;JWT&quot;</span>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -367,14 +364,14 @@ adicionais.</p>
 <div class="listingblock">
 <div class="title">Exemplo de <em>payload</em> JWT</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
-    <span class="tok-nt">&quot;iss&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;accounts.google.com&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;sub&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;110169484474386276334&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;aud&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;1008719970978-hb24n2dstb40o45d4feuo2ukqmcc6381.apps.googleusercontent.com&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;iat&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;1433978353&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;exp&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;1433981953&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;email&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;testuser@gmail.com&quot;</span>
-<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json">{
+    <span style="color: #008000; font-weight: bold">&quot;iss&quot;</span>: <span style="color: #BA2121">&quot;accounts.google.com&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;sub&quot;</span>: <span style="color: #BA2121">&quot;110169484474386276334&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;aud&quot;</span>: <span style="color: #BA2121">&quot;1008719970978-hb24n2dstb40o45d4feuo2ukqmcc6381.apps.googleusercontent.com&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;iat&quot;</span>: <span style="color: #BA2121">&quot;1433978353&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;exp&quot;</span>: <span style="color: #BA2121">&quot;1433981953&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;email&quot;</span>: <span style="color: #BA2121">&quot;testuser@gmail.com&quot;</span>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -392,11 +389,11 @@ criptografia e um algoritmo de soma Hash e criptografia.</p>
 <div class="listingblock">
 <div class="title">Exemplo do algoritmo de assinatura com RSA PKCS#1 e SHA-256</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-c1">// Algoritmo RS256</span>
-<span class="tok-kd">var</span> <span class="tok-nx">hash</span> <span class="tok-o">=</span> <span class="tok-nx">sha256</span><span class="tok-p">(</span>
-    <span class="tok-nx">base64UrlEncode</span><span class="tok-p">(</span><span class="tok-nx">header</span><span class="tok-p">)</span> <span class="tok-o">+</span> <span class="tok-s2">&quot;.&quot;</span> <span class="tok-o">+</span>
-    <span class="tok-nx">base64UrlEncode</span><span class="tok-p">(</span><span class="tok-nx">payload</span><span class="tok-p">));</span>
-<span class="tok-kd">var</span> <span class="tok-nx">signature</span> <span class="tok-o">=</span> <span class="tok-nx">rsaPKCS1</span><span class="tok-p">(</span><span class="tok-nx">hash</span><span class="tok-p">,</span> <span class="tok-nx">key</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="javascript"><span style="color: #408080; font-style: italic">// Algoritmo RS256</span>
+<span style="color: #008000; font-weight: bold">var</span> hash <span style="color: #666666">=</span> sha256(
+    base64UrlEncode(header) <span style="color: #666666">+</span> <span style="color: #BA2121">&quot;.&quot;</span> <span style="color: #666666">+</span>
+    base64UrlEncode(payload));
+<span style="color: #008000; font-weight: bold">var</span> signature <span style="color: #666666">=</span> rsaPKCS1(hash, key);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -422,29 +419,29 @@ pontos. Como demonstrado no exemplo logo abaixo.</p>
 <div class="listingblock">
 <div class="title">Cabeçalho</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
-    <span class="tok-nt">&quot;alg&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;HS256&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;typ&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;JWT&quot;</span>
-<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json">{
+    <span style="color: #008000; font-weight: bold">&quot;alg&quot;</span>: <span style="color: #BA2121">&quot;HS256&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;typ&quot;</span>: <span style="color: #BA2121">&quot;JWT&quot;</span>
+}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Informação Útil</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
-    <span class="tok-nt">&quot;sub&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;1234567890&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;name&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;John Doe&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;admin&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span>
-<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json">{
+    <span style="color: #008000; font-weight: bold">&quot;sub&quot;</span>: <span style="color: #BA2121">&quot;1234567890&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;name&quot;</span>: <span style="color: #BA2121">&quot;John Doe&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;admin&quot;</span>: <span style="color: #008000; font-weight: bold">true</span>
+}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Assinatura</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-nx">hmacSha256</span><span class="tok-p">(</span>
-    <span class="tok-nx">base64UrlEncode</span><span class="tok-p">(</span><span class="tok-nx">header</span><span class="tok-p">)</span> <span class="tok-o">+</span> <span class="tok-s2">&quot;.&quot;</span> <span class="tok-o">+</span>
-    <span class="tok-nx">base64UrlEncode</span><span class="tok-p">(</span><span class="tok-nx">payload</span><span class="tok-p">),</span>
-    <span class="tok-s2">&quot;secret&quot;</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="javascript">hmacSha256(
+    base64UrlEncode(header) <span style="color: #666666">+</span> <span style="color: #BA2121">&quot;.&quot;</span> <span style="color: #666666">+</span>
+    base64UrlEncode(payload),
+    <span style="color: #BA2121">&quot;secret&quot;</span>);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -482,10 +479,10 @@ gerar uma assinatura para o <em>token</em>.</p>
 <div class="listingblock">
 <div class="title">Exemplo de cabeçalho JWT com algoritmo nulo</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
-    <span class="tok-nt">&quot;alg&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;none&quot;</span><span class="tok-p">,</span>
-    <span class="tok-nt">&quot;typ&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;JWT&quot;</span>
-<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json">{
+    <span style="color: #008000; font-weight: bold">&quot;alg&quot;</span>: <span style="color: #BA2121">&quot;none&quot;</span>,
+    <span style="color: #008000; font-weight: bold">&quot;typ&quot;</span>: <span style="color: #BA2121">&quot;JWT&quot;</span>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
