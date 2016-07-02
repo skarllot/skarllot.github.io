@@ -33,7 +33,7 @@ v1.0, 2016-05-22
 :theme: flask
 :toc2:
 :toclevels: 2
-:imagesdir: /images/2016-05-22
+:imagesdir: https://fgodoy.me/images/2016-05-22
 ifdef::ebook-format[:front-cover-image: image:cover.png[width=793,height=1122]]
 ifndef::ebook-format[:leveloffset: 1]
 
