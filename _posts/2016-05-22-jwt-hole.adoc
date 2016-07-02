@@ -12,8 +12,8 @@ tags:
   - json
 title: Entendendo a vulnerabilidade de segurança do JWT
 excerpt: >
-  Em março de 2015 Tim McLean publicou em um {Auth0Blog} que após analisar
-  várias implementações do JSON Web Token ({JWT}) descobriu vulnerabilidades que
+  Em março de 2015 Tim McLean publicou em um blog que após analisar várias
+  implementações do JSON Web Token (JWT) descobriu vulnerabilidades que
   permitiam que a etapa de verificação pudesse ser burlada.
 ---
 = Entendendo a vulnerabilidade de segurança do JWT

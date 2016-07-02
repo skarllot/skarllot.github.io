@@ -28,6 +28,7 @@ gems:
 
 asciidoctor:
   attributes:
+    - basedir=:source
     - idseparator=_
     - imagesdir=/images
     - source-highlighter=pygments
