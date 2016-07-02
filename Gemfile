@@ -8,6 +8,6 @@ gem 'jekyll-plantuml', '~> 1.1'
 gem 'jekyll-paginate', '~> 1.1.0'
 
 group :jekyll_plugins do
-  gem "jekyll-asciidoc", '~> 1.0.0'
-  gem 'asciidoctor-diagram'
+  gem "jekyll-asciidoc", '~> 1.1.2'
+  gem 'asciidoctor-diagram', '~> 1.5.0'
 end
