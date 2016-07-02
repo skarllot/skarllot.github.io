@@ -1,5 +1,6 @@
 ---
 layout: post
+liquid:
 categories:
   - Programação
 tags:
@@ -33,7 +34,7 @@ v1.0, 2016-05-22
 :theme: flask
 :toc2:
 :toclevels: 2
-:imagesdir: images
+:imagesdir: /images/jwt-hole
 ifdef::ebook-format[:front-cover-image: image:cover.png[width=793,height=1122]]
 ifndef::ebook-format[:leveloffset: 1]
 
@@ -49,8 +50,8 @@ ifndef::ebook-format[:leveloffset: 1]
 :figure-caption: Figura
 :table-caption: Tabela
 
-include::jwt-hole/intro.adoc[]
-include::jwt-hole/base-concepts.adoc[]
-include::jwt-hole/analysis.adoc[]
+include::_posts/jwt-hole/intro.adoc[]
+include::_posts/jwt-hole/base-concepts.adoc[]
+include::_posts/jwt-hole/analysis.adoc[]
 
 // vim: ts=4 sw=4 et

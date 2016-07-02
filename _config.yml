@@ -28,8 +28,6 @@ gems:
 
 asciidoctor:
   attributes:
-    - basedir=:docdir
-    - safe=unsafe
     - idseparator=_
     - imagesdir=/images
     - source-highlighter=pygments
