@@ -49,8 +49,8 @@ ifndef::ebook-format[:leveloffset: 1]
 :figure-caption: Figura
 :table-caption: Tabela
 
-include::_posts/jwt-hole/intro.adoc[]
-include::_posts/jwt-hole/base-concepts.adoc[]
-include::_posts/jwt-hole/analysis.adoc[]
+//include::_posts/jwt-hole/intro.adoc[]
+//include::_posts/jwt-hole/base-concepts.adoc[]
+//include::_posts/jwt-hole/analysis.adoc[]
 
 // vim: ts=4 sw=4 et
