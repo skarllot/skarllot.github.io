@@ -213,28 +213,28 @@ encontrados.</p>
 <div class="listingblock">
 <div class="title">configure.ac</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="m4">#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic">#                                               -*- Autoconf -*-</span>
+<span style="color: #408080; font-style: italic"># Process this file with autoconf to produce a configure script.</span>
 
-AC_PREREQ([2.54])
-AC_INIT([Hello World], [0.1.0], [myemail@server.com], [hello-world])
-AC_CONFIG_SRCDIR([src])
-AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
+AC_PREREQ<span style="color: #666666">([</span>2.54<span style="color: #666666">])</span>
+AC_INIT<span style="color: #666666">([</span>Hello World<span style="color: #666666">]</span>, <span style="color: #666666">[</span>0.1.0<span style="color: #666666">]</span>, <span style="color: #666666">[</span>myemail@server.com<span style="color: #666666">]</span>, <span style="color: #666666">[</span>hello-world<span style="color: #666666">])</span>
+AC_CONFIG_SRCDIR<span style="color: #666666">([</span>src<span style="color: #666666">])</span>
+AC_CONFIG_HEADERS<span style="color: #666666">([</span>config.h<span style="color: #666666">])</span>
+AM_INIT_AUTOMAKE<span style="color: #666666">([</span>1.9 -Wall -Werror<span style="color: #666666">])</span>
 
-# Checks for programs.
+<span style="color: #408080; font-style: italic"># Checks for programs.</span>
 AC_PROG_CXX
 
-# Checks for libraries.
+<span style="color: #408080; font-style: italic"># Checks for libraries.</span>
 
-# Checks for header files.
+<span style="color: #408080; font-style: italic"># Checks for header files.</span>
 
-# Checks for typedefs, structures, and compiler characteristics.
+<span style="color: #408080; font-style: italic"># Checks for typedefs, structures, and compiler characteristics.</span>
 
-# Checks for library functions.
+<span style="color: #408080; font-style: italic"># Checks for library functions.</span>
 
-AC_CONFIG_FILES([Makefile
-src/Makefile])
+AC_CONFIG_FILES<span style="color: #666666">([</span>Makefile
+src/Makefile<span style="color: #666666">])</span>
 AC_OUTPUT</code></pre>
 </div>
 </div>

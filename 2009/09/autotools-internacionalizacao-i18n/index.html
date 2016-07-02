@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Internacionalização (I18n) com Autotools</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/images/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/images/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+  
+  <meta itemprop="datePublished" content="14 September 2009" />
+
+
+  <meta itemprop="keywords" content="autotools, getlocale, gettext, intltool, intltoolize, libintl" />
+
+<meta itemprop="url" content="https://fgodoy.me/2009/09/autotools-internacionalizacao-i18n/" />
+
+<meta name="description" content="Nesse post explicarei como internacionalizar, ou seja, tornar um programa traduzível.">
+<link rel="canonical" href="https://fgodoy.me/2009/09/autotools-internacionalizacao-i18n/">
+<link rel="alternate" type="application/rss+xml" title="Blog do Fabrício" href="https://fgodoy.me/feed.xml">
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Blog do Fabrício</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+          <a class="page-link" href="/about/">Sobre Mim</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+
+
+
+
+
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Internacionalização (I18n) com Autotools</h1>
+    <p class="post-meta"><time datetime="2009-09-14T00:00:00+00:00" itemprop="datePublished">14 de Setembro de 2009</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Fabrício Godoy</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Explicarei como <em>internacionalizar</em>, ou seja, tornar um programa
+traduzível.</p>
+</div>
+<div class="paragraph">
+<p>Tomarei como exemplo o projeto hello-world do post anterior.</p>
+</div>
+<div class="paragraph">
+<p>Você pode baixar o pacote final do projeto do post anterior em
+<a href="http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz" class="bare">http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz</a>.</p>
+</div>
+<div class="paragraph">
+<p>Será necessário as seguintes ferramentas: intltool e gettext.</p>
+</div>
+<div class="paragraph">
+<p>Adicione o seguinte código no arquivo configure.ac:</p>
+</div>
+<div class="listingblock">
+<div class="title">configure.ac</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># Checks for libraries.</span>
+PKG_CHECK_MODULES<span style="color: #666666">([</span>DEPS<span style="color: #666666">]</span>,<span style="color: #666666">[</span>glib-2.0<span style="color: #666666">])</span> <i class="conum" data-value="1"></i><b>(1)</b>
+AC_SUBST<span style="color: #666666">(</span>DEPS_CFLAGS<span style="color: #666666">)</span> <i class="conum" data-value="2"></i><b>(2)</b>
+AC_SUBST<span style="color: #666666">(</span>DEPS_LIBS<span style="color: #666666">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+
+<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
+<span style="color: #408080; font-style: italic"># Internationalization</span>
+<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
+<span style="color: #19177C">GETTEXT_PACKAGE</span><span style="color: #666666">=</span>hello-world <i class="conum" data-value="4"></i><b>(4)</b>
+AC_SUBST<span style="color: #666666">(</span>GETTEXT_PACKAGE<span style="color: #666666">)</span> <i class="conum" data-value="5"></i><b>(5)</b>
+AC_DEFINE_UNQUOTED<span style="color: #666666">([</span>GETTEXT_PACKAGE<span style="color: #666666">]</span>, <span style="color: #666666">[</span><span style="color: #BA2121">&quot;$GETTEXT_PACKAGE&quot;</span><span style="color: #666666">]</span>,
+ <span style="color: #666666">[</span>the gettext translation domain<span style="color: #666666">])</span> <i class="conum" data-value="6"></i><b>(6)</b>
+
+AM_GLIB_GNU_GETTEXT <i class="conum" data-value="7"></i><b>(7)</b>
+GLIB_DEFINE_LOCALEDIR<span style="color: #666666">(</span>HELLO_WORLD_LOCALEDIR<span style="color: #666666">)</span> <i class="conum" data-value="8"></i><b>(8)</b>
+
+IT_PROG_INTLTOOL<span style="color: #666666">([</span>0.35.1<span style="color: #666666">])</span> <i class="conum" data-value="9"></i><b>(9)</b>
+
+<span style="color: #408080; font-style: italic"># -------------------------------------------------</span>
+<span style="color: #408080; font-style: italic"># Check OS-specific platform</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Procura pela biblioteca <em>glib-2.0</em> e define as variáveis <em>DEPS_CFLAGS</em> e
+<em>DEPS_LIBS</em> (detalhes abaixo). Caso a biblioteca não seja encontrada é retornado
+um erro.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Faz com que <em>@DEPS_CFLAGS@</em> ou <em>$(DEPS_CFLAGS)</em>, nos arquivos de saída do
+autoconf, seja substituído pelo valor da variável.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>O mesmo que o comando acima, mas com a variável <em>DEPS_LIBS</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Está sendo definida uma variável local.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>O mesmo que as macros <em>AC_SUBST</em> acima, mas com a variável
+<em>GETTEXT_PACKAGE</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Igual a macro <em>AC_DEFINE</em> com o diferencial de expandir expressões de shell
+(ver "Definindo símbolos"). Define, no arquivo <em>config.h</em>, o símbolo
+GETTEXT_PACKAGE com o valor da variável GETTEXT_PACKAGE.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Faz verificações se o gettext pode ser usado, define o símbolo
+<em>HAVE_GETTEXT</em> no arquivo <em>config.h</em> entre outros.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Define o nome do símbolo que conterá o caminho do diretório de localização.
+É o caminho do diretório de onde os catálogos de mensagens de cada língua será
+instalado.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Faz verificações se o intltool pode ser usado e define a versão mínima
+necessária.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ainda no arquivo <em>configure.ac</em> adicione o arquivo "po/Makefile.in" em
+<em>AC_CONFIG_FILES</em>. Desta maneira o arquivo <em>Makefile</em> que será criado
+no diretório <em>po</em> fará parte da compilação.</p>
+</div>
+<div class="listingblock">
+<div class="title">configure.ac</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">AC_CONFIG_FILES<span style="color: #666666">([</span>Makefile
+    src/Makefile
+    po/Makefile.in<span style="color: #666666">])</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para que se possa fazer o uso da biblioteca <em>glib-2.0</em> é necessário
+indicar ao compilador onde achar os arquivos de cabeçalho e os objetos
+de ligação. Para isso é necessário modificar o arquivo <em>Makefile.am</em>
+como abaixo:</p>
+</div>
+<div class="listingblock">
+<div class="title">Makefile.am</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">bin_PROGRAMS</span> <span style="color: #666666">=</span> hello-world
+
+<span style="color: #19177C">hello_world_SOURCES</span> <span style="color: #666666">=</span> main.cpp
+<span style="color: #008000; font-weight: bold">if</span> OS_WIN32
+hello_world_SOURCES +<span style="color: #666666">=</span> windowsdef.h
+endif
+
+<span style="color: #19177C">hello_world_LDADD</span> <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">$(</span>DEPS_LIBS<span style="color: #008000; font-weight: bold">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span style="color: #19177C">hello_world_CXXFLAGS</span> <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">$(</span>DEPS_CFLAGS<span style="color: #008000; font-weight: bold">)</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>DEPS_LIBS</strong> é a variável com os caminhos para os objetos de ligação.
+Esses objetos têm a listagem e endereçamento de cada função.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>DEPS_CFLAGS</strong> é a variável com os caminhos para os arquivos de cabeçalho.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Crie o diretório <em>po</em> no diretório raíz do projeto, este diretório
+conterá os catálogos de cada língua.</p>
+</div>
+<div class="paragraph">
+<p>Crie um arquivo vazio com o nome <em>LINGUAS</em>, neste arquivo será listado
+os códigos de cada idioma com suporte.</p>
+</div>
+<div class="paragraph">
+<p>Crie um arquivo vazio com o nome <em>POTFILES.in</em>, neste arquivo será
+listado todos os arquivos com mensagens traduzíveis.</p>
+</div>
+<div class="paragraph">
+<p>No arquivo <em>Makefile.am</em> do diretório raíz do projeto adicione o
+diretório <em>po</em> em <em>SUBDIRS</em>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Makefile.am</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">SUBDIRS</span> <span style="color: #666666">=</span> src po</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>É necessário adicionar os scripts de internacionalização ao pacote de
+distribuição, para isso adicione o código  abaixo ao arquivo
+<em>Makefile.am</em> do diretório raíz.</p>
+</div>
+<div class="listingblock">
+<div class="title">Makefile.am</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">SUBDIRS</span> <span style="color: #666666">=</span> src po
+
+<span style="color: #19177C">INTLTOOL_FILES</span> <span style="color: #666666">=</span> <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
+ intltool-extract.in <span style="color: #BB6622; font-weight: bold">\</span>
+ intltool-merge.in <span style="color: #BB6622; font-weight: bold">\</span>
+ intltool-update.in
+
+<span style="color: #19177C">EXTRA_DIST</span> <span style="color: #666666">=</span> <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="2"></i><b>(2)</b>
+ <span style="color: #008000; font-weight: bold">$(</span>INTLTOOL_FILES<span style="color: #008000; font-weight: bold">)</span>
+
+<span style="color: #19177C">DISTCLEANFILES</span> <span style="color: #666666">=</span> <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="3"></i><b>(3)</b>
+ intltool-extract <span style="color: #BB6622; font-weight: bold">\</span>
+ intltool-merge <span style="color: #BB6622; font-weight: bold">\</span>
+ intltool-update <span style="color: #BB6622; font-weight: bold">\</span>
+ po/.intltool-merge-cache</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>INTLTOOL_FILES</strong> é uma variável com a lista de scripts usados pelo intltool.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>EXTRA_DIST</strong> define arquivos adicionais que serão adicionados ao
+pacote de distribuição.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>DISTCLEANFILES</strong> define os arquivos adicionais que serão removidos
+pelo comando "<em>make distclean</em>".</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Para atualizar os scripts com as mudanças execute o comando
+"<em>autoreconf</em>".</p>
+</div>
+<div class="paragraph">
+<p>Para preparar o projeto para o intltool, execute o comando
+"<em>intltoolize</em>" no diretório raíz do projeto.</p>
+</div>
+<div class="paragraph">
+<p>Agora é necessário inicializar o <em>libintl</em> e marcar as strings como
+traduzíveis. Para isso modifique o arquivo <em>main.cpp</em> como a seguir:</p>
+</div>
+<div class="listingblock">
+<div class="title">main.cpp</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#ifdef HAVE_CONFIG_H</span>
+<span style="color: #BC7A00">#include &lt;config.h&gt; </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span style="color: #BC7A00">#endif</span>
+
+<span style="color: #BC7A00">#ifdef WINNT</span>
+<span style="color: #BC7A00">#include &quot;windowsdef.h&quot;</span>
+<span style="color: #BC7A00">#endif</span>
+
+<span style="color: #BC7A00">#include &lt;iostream&gt;</span>
+<span style="color: #BC7A00">#include &lt;glib/gi18n.h&gt; </span><i class="conum" data-value="2"></i><b>(2)</b>
+
+<span style="color: #B00040">int</span> <span style="color: #0000FF">main</span>()
+{
+  <span style="color: #408080; font-style: italic">// Gettext initialization</span>
+  setlocale(LC_ALL, <span style="color: #BA2121">&quot;&quot;</span>); <i class="conum" data-value="3"></i><b>(3)</b>
+  bindtextdomain(GETTEXT_PACKAGE, HELLO_WORLD_LOCALEDIR); <i class="conum" data-value="4"></i><b>(4)</b>
+  bind_textdomain_codeset(GETTEXT_PACKAGE, <span style="color: #BA2121">&quot;UTF-8&quot;</span>); <i class="conum" data-value="5"></i><b>(5)</b>
+  textdomain(GETTEXT_PACKAGE); <i class="conum" data-value="6"></i><b>(6)</b>
+
+  std<span style="color: #666666">::</span>cout <span style="color: #666666">&lt;&lt;</span> _(<span style="color: #BA2121">&quot;Hello World!&quot;</span>) <span style="color: #666666">&lt;&lt;</span> std<span style="color: #666666">::</span>endl; <i class="conum" data-value="7"></i><b>(7)</b>
+  <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Para usar os símbolos <em>GETTEXT_PACKAGE</em> e <em>HELLO_WORLD_LOCALEDIR</em> é
+necessário incluir o cabeçalho <em>config.h</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>O cabeçalho <em>gi18n.h</em> inclui o cabeçalho <em>libintl.h</em>, que contém as
+funções de internacionalização, e define símbolos comumente usados na
+internacionalização.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>A função <em>setlocale()</em> define a localização atual que será usada pelo
+gettext.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>A função <em>bindtextdomain()</em> define o caminho do catálogo de
+<em>GETTEXT_PACKAGE</em> para <em>HELLO_WORLD_LOCALEDIR</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>A função <em>bind_textdomain_codeset()</em> define a codificação das mensagens
+do catálogo de <em>GETTEXT_PACKAGE</em> para UTF-8.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>A função <em>textdomain()</em> define o catálogo de mensagens padrão para
+<em>GETTEXT_PACKAGE</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>A função <em>_()</em> é um símbolo que foi definido pelo <em>gi18n.h</em> que é um
+apelido para a função <em>gettext()</em> do cabeçalho <em>libintl.h</em>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Agora o projeto está pronto para ser traduzido (localizado).</p>
+</div>
+<div class="paragraph">
+<p>O pacote final pode ser acessado neste link:
+<a href="http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.3.0.tar.gz" class="bare">http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.3.0.tar.gz</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referências">Referências</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Definindo símbolos:
+<a href="http://www.gnu.org/software/hello/manual/autoconf/Defining-Symbols.html" class="bare">http://www.gnu.org/software/hello/manual/autoconf/Defining-Symbols.html</a></p>
+</div>
+<div class="paragraph">
+<p>Internacionalização:
+<a href="http://www.gtkmm.org/docs/gtkmm-2.4/docs/tutorial/html/chapter-internationalization.html" class="bare">http://www.gtkmm.org/docs/gtkmm-2.4/docs/tutorial/html/chapter-internationalization.html</a></p>
+</div>
+<div class="paragraph">
+<p>pkg-config: <a href="http://pkg-config.freedesktop.org/" class="bare">http://pkg-config.freedesktop.org/</a></p>
+</div>
+<div class="paragraph">
+<p>setlocale:
+<a href="http://www.opengroup.org/onlinepubs/009695399/functions/setlocale.html" class="bare">http://www.opengroup.org/onlinepubs/009695399/functions/setlocale.html</a></p>
+</div>
+</div>
+</div>
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Blog do Fabrício</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Fabrício Godoy</li>
+          <li><a href="mailto:contato@fgodoy.me">contato@fgodoy.me</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/skarllot"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">skarllot</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/skarllot"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">skarllot</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Desenvolvedor C#, Java, Javascript e Go que procura sempre acompanhar o mercado que está em constante mutação.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80191858-1', 'auto');
+ga('send', 'pageview');
+
+  </script>
+
+</footer>
+
+
+  </body>
+
+</html>

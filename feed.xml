@@ -6,9 +6,345 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jul 2016 16:08:31 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Jul 2016 16:08:31 +0000</lastBuildDate>
+    <pubDate>Sat, 02 Jul 2016 04:16:52 +0000</pubDate>
+    <lastBuildDate>Sat, 02 Jul 2016 04:16:52 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Internacionalização (I18n) com Autotools</title>
+        <description>&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Explicarei como &lt;em&gt;internacionalizar&lt;/em&gt;, ou seja, tornar um programa
+traduzível.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Tomarei como exemplo o projeto hello-world do post anterior.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Você pode baixar o pacote final do projeto do post anterior em
+&lt;a href=&quot;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz&quot; class=&quot;bare&quot;&gt;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Será necessário as seguintes ferramentas: intltool e gettext.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Adicione o seguinte código no arquivo configure.ac:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for libraries.&lt;/span&gt;
+PKG_CHECK_MODULES&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;DEPS&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;glib-2.0&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+AC_SUBST&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;DEPS_CFLAGS&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+AC_SUBST&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;DEPS_LIBS&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Internationalization&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+&lt;span style=&quot;color: #19177C&quot;&gt;GETTEXT_PACKAGE&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt;hello-world &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;
+AC_SUBST&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;GETTEXT_PACKAGE&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;(5)&lt;/b&gt;
+AC_DEFINE_UNQUOTED&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;GETTEXT_PACKAGE&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;$GETTEXT_PACKAGE&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;,
+ &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;the gettext translation domain&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;(6)&lt;/b&gt;
+
+AM_GLIB_GNU_GETTEXT &lt;i class=&quot;conum&quot; data-value=&quot;7&quot;&gt;&lt;/i&gt;&lt;b&gt;(7)&lt;/b&gt;
+GLIB_DEFINE_LOCALEDIR&lt;span style=&quot;color: #666666&quot;&gt;(&lt;/span&gt;HELLO_WORLD_LOCALEDIR&lt;span style=&quot;color: #666666&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;8&quot;&gt;&lt;/i&gt;&lt;b&gt;(8)&lt;/b&gt;
+
+IT_PROG_INTLTOOL&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;0.35.1&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;9&quot;&gt;&lt;/i&gt;&lt;b&gt;(9)&lt;/b&gt;
+
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# -------------------------------------------------&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Check OS-specific platform&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Procura pela biblioteca &lt;em&gt;glib-2.0&lt;/em&gt; e define as variáveis &lt;em&gt;DEPS_CFLAGS&lt;/em&gt; e
+&lt;em&gt;DEPS_LIBS&lt;/em&gt; (detalhes abaixo). Caso a biblioteca não seja encontrada é retornado
+um erro.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Faz com que &lt;em&gt;@DEPS_CFLAGS@&lt;/em&gt; ou &lt;em&gt;$(DEPS_CFLAGS)&lt;/em&gt;, nos arquivos de saída do
+autoconf, seja substituído pelo valor da variável.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;O mesmo que o comando acima, mas com a variável &lt;em&gt;DEPS_LIBS&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;4&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Está sendo definida uma variável local.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;5&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;O mesmo que as macros &lt;em&gt;AC_SUBST&lt;/em&gt; acima, mas com a variável
+&lt;em&gt;GETTEXT_PACKAGE&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;6&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Igual a macro &lt;em&gt;AC_DEFINE&lt;/em&gt; com o diferencial de expandir expressões de shell
+(ver &quot;Definindo símbolos&quot;). Define, no arquivo &lt;em&gt;config.h&lt;/em&gt;, o símbolo
+GETTEXT_PACKAGE com o valor da variável GETTEXT_PACKAGE.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;7&quot;&gt;&lt;/i&gt;&lt;b&gt;7&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Faz verificações se o gettext pode ser usado, define o símbolo
+&lt;em&gt;HAVE_GETTEXT&lt;/em&gt; no arquivo &lt;em&gt;config.h&lt;/em&gt; entre outros.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;8&quot;&gt;&lt;/i&gt;&lt;b&gt;8&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Define o nome do símbolo que conterá o caminho do diretório de localização.
+É o caminho do diretório de onde os catálogos de mensagens de cada língua será
+instalado.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;9&quot;&gt;&lt;/i&gt;&lt;b&gt;9&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Faz verificações se o intltool pode ser usado e define a versão mínima
+necessária.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ainda no arquivo &lt;em&gt;configure.ac&lt;/em&gt; adicione o arquivo &quot;po/Makefile.in&quot; em
+&lt;em&gt;AC_CONFIG_FILES&lt;/em&gt;. Desta maneira o arquivo &lt;em&gt;Makefile&lt;/em&gt; que será criado
+no diretório &lt;em&gt;po&lt;/em&gt; fará parte da compilação.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;AC_CONFIG_FILES&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;Makefile
+    src/Makefile
+    po/Makefile.in&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Para que se possa fazer o uso da biblioteca &lt;em&gt;glib-2.0&lt;/em&gt; é necessário
+indicar ao compilador onde achar os arquivos de cabeçalho e os objetos
+de ligação. Para isso é necessário modificar o arquivo &lt;em&gt;Makefile.am&lt;/em&gt;
+como abaixo:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;bin_PROGRAMS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; hello-world
+
+&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_SOURCES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; main.cpp
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;if&lt;/span&gt; OS_WIN32
+hello_world_SOURCES +&lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; windowsdef.h
+endif
+
+&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_LDADD&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$(&lt;/span&gt;DEPS_LIBS&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+&lt;span style=&quot;color: #19177C&quot;&gt;hello_world_CXXFLAGS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$(&lt;/span&gt;DEPS_CFLAGS&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;)&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;DEPS_LIBS&lt;/strong&gt; é a variável com os caminhos para os objetos de ligação.
+Esses objetos têm a listagem e endereçamento de cada função.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;DEPS_CFLAGS&lt;/strong&gt; é a variável com os caminhos para os arquivos de cabeçalho.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Crie o diretório &lt;em&gt;po&lt;/em&gt; no diretório raíz do projeto, este diretório
+conterá os catálogos de cada língua.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Crie um arquivo vazio com o nome &lt;em&gt;LINGUAS&lt;/em&gt;, neste arquivo será listado
+os códigos de cada idioma com suporte.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Crie um arquivo vazio com o nome &lt;em&gt;POTFILES.in&lt;/em&gt;, neste arquivo será
+listado todos os arquivos com mensagens traduzíveis.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;No arquivo &lt;em&gt;Makefile.am&lt;/em&gt; do diretório raíz do projeto adicione o
+diretório &lt;em&gt;po&lt;/em&gt; em &lt;em&gt;SUBDIRS&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; src po&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;É necessário adicionar os scripts de internacionalização ao pacote de
+distribuição, para isso adicione o código  abaixo ao arquivo
+&lt;em&gt;Makefile.am&lt;/em&gt; do diretório raíz.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Makefile.am&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #19177C&quot;&gt;SUBDIRS&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; src po
+
+&lt;span style=&quot;color: #19177C&quot;&gt;INTLTOOL_FILES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+ intltool-extract.in &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
+ intltool-merge.in &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
+ intltool-update.in
+
+&lt;span style=&quot;color: #19177C&quot;&gt;EXTRA_DIST&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+ &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$(&lt;/span&gt;INTLTOOL_FILES&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;)&lt;/span&gt;
+
+&lt;span style=&quot;color: #19177C&quot;&gt;DISTCLEANFILES&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+ intltool-extract &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
+ intltool-merge &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
+ intltool-update &lt;span style=&quot;color: #BB6622; font-weight: bold&quot;&gt;\&lt;/span&gt;
+ po/.intltool-merge-cache&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;INTLTOOL_FILES&lt;/strong&gt; é uma variável com a lista de scripts usados pelo intltool.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;EXTRA_DIST&lt;/strong&gt; define arquivos adicionais que serão adicionados ao
+pacote de distribuição.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;DISTCLEANFILES&lt;/strong&gt; define os arquivos adicionais que serão removidos
+pelo comando &quot;&lt;em&gt;make distclean&lt;/em&gt;&quot;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Para atualizar os scripts com as mudanças execute o comando
+&quot;&lt;em&gt;autoreconf&lt;/em&gt;&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Para preparar o projeto para o intltool, execute o comando
+&quot;&lt;em&gt;intltoolize&lt;/em&gt;&quot; no diretório raíz do projeto.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Agora é necessário inicializar o &lt;em&gt;libintl&lt;/em&gt; e marcar as strings como
+traduzíveis. Para isso modifique o arquivo &lt;em&gt;main.cpp&lt;/em&gt; como a seguir:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;main.cpp&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef HAVE_CONFIG_H&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;config.h&amp;gt; &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#ifdef WINNT&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;quot;windowsdef.h&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#endif&lt;/span&gt;
+
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#include &amp;lt;glib/gi18n.h&amp;gt; &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+
+&lt;span style=&quot;color: #B00040&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #0000FF&quot;&gt;main&lt;/span&gt;()
+{
+  &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;// Gettext initialization&lt;/span&gt;
+  setlocale(LC_ALL, &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;); &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+  bindtextdomain(GETTEXT_PACKAGE, HELLO_WORLD_LOCALEDIR); &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;
+  bind_textdomain_codeset(GETTEXT_PACKAGE, &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;UTF-8&amp;quot;&lt;/span&gt;); &lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;(5)&lt;/b&gt;
+  textdomain(GETTEXT_PACKAGE); &lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;(6)&lt;/b&gt;
+
+  std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;cout &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; _(&lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt;) &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; std&lt;span style=&quot;color: #666666&quot;&gt;::&lt;/span&gt;endl; &lt;i class=&quot;conum&quot; data-value=&quot;7&quot;&gt;&lt;/i&gt;&lt;b&gt;(7)&lt;/b&gt;
+  &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;0&lt;/span&gt;;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Para usar os símbolos &lt;em&gt;GETTEXT_PACKAGE&lt;/em&gt; e &lt;em&gt;HELLO_WORLD_LOCALEDIR&lt;/em&gt; é
+necessário incluir o cabeçalho &lt;em&gt;config.h&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;O cabeçalho &lt;em&gt;gi18n.h&lt;/em&gt; inclui o cabeçalho &lt;em&gt;libintl.h&lt;/em&gt;, que contém as
+funções de internacionalização, e define símbolos comumente usados na
+internacionalização.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A função &lt;em&gt;setlocale()&lt;/em&gt; define a localização atual que será usada pelo
+gettext.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;4&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A função &lt;em&gt;bindtextdomain()&lt;/em&gt; define o caminho do catálogo de
+&lt;em&gt;GETTEXT_PACKAGE&lt;/em&gt; para &lt;em&gt;HELLO_WORLD_LOCALEDIR&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;5&quot;&gt;&lt;/i&gt;&lt;b&gt;5&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A função &lt;em&gt;bind_textdomain_codeset()&lt;/em&gt; define a codificação das mensagens
+do catálogo de &lt;em&gt;GETTEXT_PACKAGE&lt;/em&gt; para UTF-8.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;6&quot;&gt;&lt;/i&gt;&lt;b&gt;6&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A função &lt;em&gt;textdomain()&lt;/em&gt; define o catálogo de mensagens padrão para
+&lt;em&gt;GETTEXT_PACKAGE&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;7&quot;&gt;&lt;/i&gt;&lt;b&gt;7&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A função &lt;em&gt;_()&lt;/em&gt; é um símbolo que foi definido pelo &lt;em&gt;gi18n.h&lt;/em&gt; que é um
+apelido para a função &lt;em&gt;gettext()&lt;/em&gt; do cabeçalho &lt;em&gt;libintl.h&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Agora o projeto está pronto para ser traduzido (localizado).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O pacote final pode ser acessado neste link:
+&lt;a href=&quot;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.3.0.tar.gz&quot; class=&quot;bare&quot;&gt;http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.3.0.tar.gz&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Definindo símbolos:
+&lt;a href=&quot;http://www.gnu.org/software/hello/manual/autoconf/Defining-Symbols.html&quot; class=&quot;bare&quot;&gt;http://www.gnu.org/software/hello/manual/autoconf/Defining-Symbols.html&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Internacionalização:
+&lt;a href=&quot;http://www.gtkmm.org/docs/gtkmm-2.4/docs/tutorial/html/chapter-internationalization.html&quot; class=&quot;bare&quot;&gt;http://www.gtkmm.org/docs/gtkmm-2.4/docs/tutorial/html/chapter-internationalization.html&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;pkg-config: &lt;a href=&quot;http://pkg-config.freedesktop.org/&quot; class=&quot;bare&quot;&gt;http://pkg-config.freedesktop.org/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;setlocale:
+&lt;a href=&quot;http://www.opengroup.org/onlinepubs/009695399/functions/setlocale.html&quot; class=&quot;bare&quot;&gt;http://www.opengroup.org/onlinepubs/009695399/functions/setlocale.html&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Mon, 14 Sep 2009 00:00:00 +0000</pubDate>
+        <link>https://fgodoy.me/2009/09/autotools-internacionalizacao-i18n/</link>
+        <guid isPermaLink="true">https://fgodoy.me/2009/09/autotools-internacionalizacao-i18n/</guid>
+        
+        <category>autotools</category>
+        
+        <category>getlocale</category>
+        
+        <category>gettext</category>
+        
+        <category>intltool</category>
+        
+        <category>intltoolize</category>
+        
+        <category>libintl</category>
+        
+        
+        <category>Programação</category>
+        
+      </item>
     
       <item>
         <title>Identificando o ambiente de destino com Autotools</title>
@@ -332,28 +668,28 @@ encontrados.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;configure.ac&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;m4&quot;&gt;#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;#                                               -*- Autoconf -*-&lt;/span&gt;
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Process this file with autoconf to produce a configure script.&lt;/span&gt;
 
-AC_PREREQ([2.54])
-AC_INIT([Hello World], [0.1.0], [myemail@server.com], [hello-world])
-AC_CONFIG_SRCDIR([src])
-AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
+AC_PREREQ&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;2.54&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+AC_INIT&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;Hello World&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;0.1.0&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;myemail@server.com&lt;span style=&quot;color: #666666&quot;&gt;]&lt;/span&gt;, &lt;span style=&quot;color: #666666&quot;&gt;[&lt;/span&gt;hello-world&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+AC_CONFIG_SRCDIR&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;src&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+AC_CONFIG_HEADERS&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;config.h&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
+AM_INIT_AUTOMAKE&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;1.9 -Wall -Werror&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
 
-# Checks for programs.
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for programs.&lt;/span&gt;
 AC_PROG_CXX
 
-# Checks for libraries.
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for libraries.&lt;/span&gt;
 
-# Checks for header files.
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for header files.&lt;/span&gt;
 
-# Checks for typedefs, structures, and compiler characteristics.
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for typedefs, structures, and compiler characteristics.&lt;/span&gt;
 
-# Checks for library functions.
+&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Checks for library functions.&lt;/span&gt;
 
-AC_CONFIG_FILES([Makefile
-src/Makefile])
+AC_CONFIG_FILES&lt;span style=&quot;color: #666666&quot;&gt;([&lt;/span&gt;Makefile
+src/Makefile&lt;span style=&quot;color: #666666&quot;&gt;])&lt;/span&gt;
 AC_OUTPUT&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
