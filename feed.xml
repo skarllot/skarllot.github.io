@@ -6,8 +6,8 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 Jul 2016 16:53:45 -0300</pubDate>
-    <lastBuildDate>Sat, 02 Jul 2016 16:53:45 -0300</lastBuildDate>
+    <pubDate>Sat, 02 Jul 2016 17:52:19 -0300</pubDate>
+    <lastBuildDate>Sat, 02 Jul 2016 17:52:19 -0300</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -474,6 +474,204 @@ possibilidade de sucesso em ataques dessa natureza estarão quase nulos.&lt;/p&g
         
         
         <category>Programação</category>
+        
+      </item>
+    
+      <item>
+        <title>Configurações de /proc/sys/net/ipv4/route</title>
+        <description>&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Vou falar um pouco das configurações de roteamento disponíveis em
+&lt;em&gt;/proc/sys/net/ipv4/route&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;error_burst&lt;/strong&gt;: Define, em interrupções de timer, o tempo máximo
+contabilizado para exibir uma mensagem. O valor predefinido corresponde
+a 5 segundos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;error_cost&lt;/strong&gt;: Define, em interrupções de timer, o tempo mínimo para
+exibir uma mensagem. O valor predefinido corresponde a 1 segundo.&lt;/p&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Os valores predefinidos de &lt;em&gt;error_burst&lt;/em&gt; e &lt;em&gt;error_cost&lt;/em&gt; limitam a uma
+mensagem a cada 5 segundos.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;flush&lt;/strong&gt;: Escrever nesse arquivo faz com que o cache de roteamento seja
+descartado.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;gc_elasticity&lt;/strong&gt;: É usado para definir o tamanho médio da lista de
+rotas, quando excedido a coleta de lixo na tabela de rotas se torna
+muito agressiva
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;gc_interval&lt;/strong&gt;: Define, em segundos, o intervalo entre coletas lixo na
+tabela de rotas. Existe uma recomendação para que a coleta não seja
+muito frequente pois é uma operação muito pesada
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnote_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;gc_min_interval&lt;/strong&gt;: Obsoleto, usar gc_min_interval_ms
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnote_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;gc_min_interval_ms&lt;/strong&gt;: Define, em milissegundos, o intervalo mínimo
+entre coletas
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnote_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;.
+Predefinido em 500 milissegundos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;gc_thresh&lt;/strong&gt;: Define a quantidade mínima de rotas para que rotas
+comecem a ser descartadas na coleta de rotas
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnote_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;gc_timeout&lt;/strong&gt;: Define, em segundos, o tempo máximo que uma rota é mantida. A
+rota é descartada mesmo se está em uso
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_6&quot; class=&quot;footnote&quot; href=&quot;#_footnote_6&quot; title=&quot;View footnote.&quot;&gt;6&lt;/a&gt;]&lt;/sup&gt;.
+Predefinido em 300 segundos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;max_size&lt;/strong&gt;: Define o número máximo de rotas a serem mantidas. As rotas
+mais antigas serão descartadas quando o número máximo é alcançado.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;min_adv_mss&lt;/strong&gt;: Define, em bytes, a quantidade mínima de dados pode ser
+enviada em um segmento
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_7&quot; class=&quot;footnote&quot; href=&quot;#_footnote_7&quot; title=&quot;View footnote.&quot;&gt;7&lt;/a&gt;]&lt;/sup&gt;.
+Predefinido em 256 bytes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;min_pmtu&lt;/strong&gt;: Define, em bytes, o valor mínimo de PMTU permitido. Se o
+valor descoberto for menor então o valor mínimo definido aqui prevalece
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_8&quot; class=&quot;footnote&quot; href=&quot;#_footnote_8&quot; title=&quot;View footnote.&quot;&gt;8&lt;/a&gt;]&lt;/sup&gt;.
+Predefinido em 552 bytes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;mtu_expires&lt;/strong&gt;: Define, em segundos, o tempo que o PMTU de uma rota é
+mantido em cache
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_9&quot; class=&quot;footnote&quot; href=&quot;#_footnote_9&quot; title=&quot;View footnote.&quot;&gt;9&lt;/a&gt;]&lt;/sup&gt;.
+Predefinido em 600 segundos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;redirect_load&lt;/strong&gt;: Define um tempo mínimo entre tentativas de
+redirecionamentos ICMP, por rota
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_10&quot; class=&quot;footnote&quot; href=&quot;#_footnote_10&quot; title=&quot;View footnote.&quot;&gt;10&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;redirect_number&lt;/strong&gt;: Define o número máximo de redirecionamentos ICMP
+ignorados, por rota
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_11&quot; class=&quot;footnote&quot; href=&quot;#_footnote_11&quot; title=&quot;View footnote.&quot;&gt;11&lt;/a&gt;]&lt;/sup&gt;
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_12&quot; class=&quot;footnote&quot; href=&quot;#_footnote_12&quot; title=&quot;View footnote.&quot;&gt;12&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;redirect_silence&lt;/strong&gt;: Define, em interrupções de timer, o tempo máximo
+de espera por um redirecionamento ICMP. Após esse tempo é enviada um
+novo redirecionamento, mesmo que o mesmo tenha sido ignorado por causa
+de &lt;em&gt;redirect_load&lt;/em&gt; ou &lt;em&gt;redirect_number&lt;/em&gt;. Predefinido em 20,48
+segundos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;secret_interval&lt;/strong&gt;: Define, em segundos, o intervalo entre
+descarregamento de cache. Predefinido em 600 segundos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As informações encontradas aqui podem estar incorretas, pois se baseiam
+em minhas conclusões.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Documentação do sistema de arquivos /proc:
+&lt;a href=&quot;http://www.linuxinsight.com/proc_sys_net_ipv4_route.html&quot; class=&quot;bare&quot;&gt;http://www.linuxinsight.com/proc_sys_net_ipv4_route.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Configurações
+do kernel obscuras: &lt;a href=&quot;http://lartc.org/howto/lartc.kernel.obscure.html&quot; class=&quot;bare&quot;&gt;http://lartc.org/howto/lartc.kernel.obscure.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Determinando a quantidade de interrupções de timer:
+&lt;a href=&quot;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1005802&quot; class=&quot;bare&quot;&gt;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1005802&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PMTU: &lt;a href=&quot;http://www.netheaven.com/pmtu.html&quot; class=&quot;bare&quot;&gt;http://www.netheaven.com/pmtu.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1178&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1178&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L950&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L950&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L3109&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L3109&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L957&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L957&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_5&quot;&gt;
+&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L967&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L967&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_6&quot;&gt;
+&lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L842&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L842&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_7&quot;&gt;
+&lt;a href=&quot;#_footnoteref_7&quot;&gt;7&lt;/a&gt;. &lt;a href=&quot;http://www.tcpipguide.com/free/t_TCPMaximumSegmentSizeMSSandRelationshiptoIPDatagra.htm&quot; class=&quot;bare&quot;&gt;http://www.tcpipguide.com/free/t_TCPMaximumSegmentSizeMSSandRelationshiptoIPDatagra.htm&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_8&quot;&gt;
+&lt;a href=&quot;#_footnoteref_8&quot;&gt;8&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1701&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1701&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_9&quot;&gt;
+&lt;a href=&quot;#_footnoteref_9&quot;&gt;9&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1706&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1706&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_10&quot;&gt;
+&lt;a href=&quot;#_footnoteref_10&quot;&gt;10&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1557&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1557&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_11&quot;&gt;
+&lt;a href=&quot;#_footnoteref_11&quot;&gt;11&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1549&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1549&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_12&quot;&gt;
+&lt;a href=&quot;#_footnoteref_12&quot;&gt;12&lt;/a&gt;. &lt;a href=&quot;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1512&quot; class=&quot;bare&quot;&gt;http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1512&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Mon, 06 Sep 2010 22:46:08 -0300</pubDate>
+        <link>https://fgodoy.me/2010/09/configuracoes-de-proc-sys-net-ipv4-route/</link>
+        <guid isPermaLink="true">https://fgodoy.me/2010/09/configuracoes-de-proc-sys-net-ipv4-route/</guid>
+        
+        <category>advanced</category>
+        
+        <category>linux</category>
+        
+        <category>net</category>
+        
+        <category>proc</category>
+        
+        <category>route</category>
+        
+        <category>routing</category>
+        
+        
+        <category>Linha de comando</category>
+        
+        <category>Linux</category>
         
       </item>
     

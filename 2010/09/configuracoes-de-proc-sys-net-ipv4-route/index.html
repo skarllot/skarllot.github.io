@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Configurações de /proc/sys/net/ipv4/route</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/images/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/images/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+  
+  <meta itemprop="datePublished" content="06 September 2010" />
+
+
+  <meta itemprop="keywords" content="advanced, linux, net, proc, route, routing" />
+
+<meta itemprop="url" content="https://fgodoy.me/2010/09/configuracoes-de-proc-sys-net-ipv4-route/" />
+
+<meta name="description" content="Nesse post abordarei  um pouco das configurações de roteamento disponíveis em /proc/sys/net/ipv4/route.">
+<link rel="canonical" href="https://fgodoy.me/2010/09/configuracoes-de-proc-sys-net-ipv4-route/">
+<link rel="alternate" type="application/rss+xml" title="Blog do Fabrício" href="https://fgodoy.me/feed.xml">
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Blog do Fabrício</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+          <a class="page-link" href="/about/">Sobre Mim</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+
+
+
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Configurações de /proc/sys/net/ipv4/route</h1>
+    <p class="post-meta">
+      <time datetime="2010-09-06T22:46:08-03:00" itemprop="datePublished">06 de Setembro de 2010</time>
+       • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Fabrício Godoy</span></span>
+      • <span class="reading-time" title="Tempo estimado de leitura">
+  
+  
+    3 mins
+  
+</span>
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vou falar um pouco das configurações de roteamento disponíveis em
+<em>/proc/sys/net/ipv4/route</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>error_burst</strong>: Define, em interrupções de timer, o tempo máximo
+contabilizado para exibir uma mensagem. O valor predefinido corresponde
+a 5 segundos.</p>
+</li>
+<li>
+<p><strong>error_cost</strong>: Define, em interrupções de timer, o tempo mínimo para
+exibir uma mensagem. O valor predefinido corresponde a 1 segundo.</p>
+<div class="paragraph">
+<p>Os valores predefinidos de <em>error_burst</em> e <em>error_cost</em> limitam a uma
+mensagem a cada 5 segundos.</p>
+</div>
+</li>
+<li>
+<p><strong>flush</strong>: Escrever nesse arquivo faz com que o cache de roteamento seja
+descartado.</p>
+</li>
+<li>
+<p><strong>gc_elasticity</strong>: É usado para definir o tamanho médio da lista de
+rotas, quando excedido a coleta de lixo na tabela de rotas se torna
+muito agressiva
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
+</li>
+<li>
+<p><strong>gc_interval</strong>: Define, em segundos, o intervalo entre coletas lixo na
+tabela de rotas. Existe uma recomendação para que a coleta não seja
+muito frequente pois é uma operação muito pesada
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>.</p>
+</li>
+<li>
+<p><strong>gc_min_interval</strong>: Obsoleto, usar gc_min_interval_ms
+<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>.</p>
+</li>
+<li>
+<p><strong>gc_min_interval_ms</strong>: Define, em milissegundos, o intervalo mínimo
+entre coletas
+<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup>.
+Predefinido em 500 milissegundos.</p>
+</li>
+<li>
+<p><strong>gc_thresh</strong>: Define a quantidade mínima de rotas para que rotas
+comecem a ser descartadas na coleta de rotas
+<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</sup>.</p>
+</li>
+<li>
+<p><strong>gc_timeout</strong>: Define, em segundos, o tempo máximo que uma rota é mantida. A
+rota é descartada mesmo se está em uso
+<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</sup>.
+Predefinido em 300 segundos.</p>
+</li>
+<li>
+<p><strong>max_size</strong>: Define o número máximo de rotas a serem mantidas. As rotas
+mais antigas serão descartadas quando o número máximo é alcançado.</p>
+</li>
+<li>
+<p><strong>min_adv_mss</strong>: Define, em bytes, a quantidade mínima de dados pode ser
+enviada em um segmento
+<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</sup>.
+Predefinido em 256 bytes.</p>
+</li>
+<li>
+<p><strong>min_pmtu</strong>: Define, em bytes, o valor mínimo de PMTU permitido. Se o
+valor descoberto for menor então o valor mínimo definido aqui prevalece
+<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</sup>.
+Predefinido em 552 bytes.</p>
+</li>
+<li>
+<p><strong>mtu_expires</strong>: Define, em segundos, o tempo que o PMTU de uma rota é
+mantido em cache
+<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</sup>.
+Predefinido em 600 segundos.</p>
+</li>
+<li>
+<p><strong>redirect_load</strong>: Define um tempo mínimo entre tentativas de
+redirecionamentos ICMP, por rota
+<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</sup>.</p>
+</li>
+<li>
+<p><strong>redirect_number</strong>: Define o número máximo de redirecionamentos ICMP
+ignorados, por rota
+<sup class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</sup>
+<sup class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnote_12" title="View footnote.">12</a>]</sup>.</p>
+</li>
+<li>
+<p><strong>redirect_silence</strong>: Define, em interrupções de timer, o tempo máximo
+de espera por um redirecionamento ICMP. Após esse tempo é enviada um
+novo redirecionamento, mesmo que o mesmo tenha sido ignorado por causa
+de <em>redirect_load</em> ou <em>redirect_number</em>. Predefinido em 20,48
+segundos.</p>
+</li>
+<li>
+<p><strong>secret_interval</strong>: Define, em segundos, o intervalo entre
+descarregamento de cache. Predefinido em 600 segundos.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As informações encontradas aqui podem estar incorretas, pois se baseiam
+em minhas conclusões.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referências">Referências</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Documentação do sistema de arquivos /proc:
+<a href="http://www.linuxinsight.com/proc_sys_net_ipv4_route.html" class="bare">http://www.linuxinsight.com/proc_sys_net_ipv4_route.html</a></p>
+</li>
+<li>
+<p>Configurações
+do kernel obscuras: <a href="http://lartc.org/howto/lartc.kernel.obscure.html" class="bare">http://lartc.org/howto/lartc.kernel.obscure.html</a></p>
+</li>
+<li>
+<p>Determinando a quantidade de interrupções de timer:
+<a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1005802" class="bare">http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1005802</a></p>
+</li>
+<li>
+<p>PMTU: <a href="http://www.netheaven.com/pmtu.html" class="bare">http://www.netheaven.com/pmtu.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1178" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1178</a>
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L950" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L950</a>
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L3109" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L3109</a>
+</div>
+<div class="footnote" id="_footnote_4">
+<a href="#_footnoteref_4">4</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L957" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L957</a>
+</div>
+<div class="footnote" id="_footnote_5">
+<a href="#_footnoteref_5">5</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L967" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L967</a>
+</div>
+<div class="footnote" id="_footnote_6">
+<a href="#_footnoteref_6">6</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L842" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L842</a>
+</div>
+<div class="footnote" id="_footnote_7">
+<a href="#_footnoteref_7">7</a>. <a href="http://www.tcpipguide.com/free/t_TCPMaximumSegmentSizeMSSandRelationshiptoIPDatagra.htm" class="bare">http://www.tcpipguide.com/free/t_TCPMaximumSegmentSizeMSSandRelationshiptoIPDatagra.htm</a>
+</div>
+<div class="footnote" id="_footnote_8">
+<a href="#_footnoteref_8">8</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1701" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1701</a>
+</div>
+<div class="footnote" id="_footnote_9">
+<a href="#_footnoteref_9">9</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1706" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1706</a>
+</div>
+<div class="footnote" id="_footnote_10">
+<a href="#_footnoteref_10">10</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1557" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1557</a>
+</div>
+<div class="footnote" id="_footnote_11">
+<a href="#_footnoteref_11">11</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1549" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1549</a>
+</div>
+<div class="footnote" id="_footnote_12">
+<a href="#_footnoteref_12">12</a>. <a href="http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1512" class="bare">http://lxr.free-electrons.com/source/net/ipv4/route.c?v=2.6.35#L1512</a>
+</div>
+</div>
+  </div>
+
+</article>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://fgodoy.me/2010/09/configuracoes-de-proc-sys-net-ipv4-route/';
+        this.page.identifier = '/2010/09/configuracoes-de-proc-sys-net-ipv4-route';
+        this.language = "pt_BR";
+    };
+    var disqus_shortname = 'fgodoy';
+    (function() {
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Blog do Fabrício</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Fabrício Godoy</li>
+          <li><a href="mailto:contato@fgodoy.me">contato@fgodoy.me</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Desenvolvedor C#, Java, Javascript e Go que procura sempre acompanhar o mercado que está em constante mutação.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80191858-1', 'auto');
+ga('send', 'pageview');
+
+  </script>
+
+</footer>
+
+
+  </body>
+
+</html>
