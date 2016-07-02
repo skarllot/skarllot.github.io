@@ -10,6 +10,7 @@ title: Identificando o ambiente de destino com Autotools
 excerpt: >
   Nesse post explicarei como identificar qual o ambiente de destino de
   compilação, ou seja, o ambiente no qual será executado o binário.
+comments: true
 ---
 = Identificando o ambiente de destino com Autotools
 Fabrício Godoy <contato@fgodoy.me>

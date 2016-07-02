@@ -1,0 +1,12 @@
+<span class="reading-time" title="Tempo estimado de leitura">
+  {% if post %}
+    {% assign words = post.content | number_of_words %}
+  {% else %}
+    {% assign words = page.content | number_of_words %}
+  {% endif %}
+  {% if words < 360 %}
+    1 min
+  {% else %}
+    {{ words | divided_by:180 }} mins
+  {% endif %}
+</span>

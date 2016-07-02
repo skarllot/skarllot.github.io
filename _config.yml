@@ -8,13 +8,14 @@ description: > # this means to ignore newlines until "baseurl:"
   Desenvolvedor C#, Java, Javascript e Go que procura sempre
   acompanhar o mercado que está em constante mutação.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://fgodoy.me" # the base hostname & protocol for your site
-twitter_username: skarllot
-github_username:  skarllot
+url: "https://fgodoy.me"
+timezone: America/Sao_Paulo
 exclude: [Gemfile, Gemfile.lock, Rakefile]
 
-google_analytics:
-  account: UA-80191858-1
+google_analytics: UA-80191858-1
+disqus: fgodoy
+twitter: skarllot
+github: skarllot
 
 # Build settings
 markdown: kramdown

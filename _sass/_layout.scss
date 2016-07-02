@@ -183,11 +183,27 @@
     > li {
         margin-bottom: $spacing-unit;
     }
+
+    h2 {
+        margin-bottom: 5px;
+    }
 }
 
 .post-meta {
     font-size: $small-font-size;
     color: $grey-color;
+
+    list-style: outside none none;
+    margin-bottom: 10px;
+    margin-top: 0;
+    margin-left: 0;
+    padding-left: 0;
+
+    li {
+        display: inline;
+        margin-right: 9.5px;
+        white-space: nowrap;
+    }
 }
 
 .post-link {

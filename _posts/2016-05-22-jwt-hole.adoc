@@ -15,6 +15,7 @@ excerpt: >
   Em março de 2015 Tim McLean publicou em um blog que após analisar várias
   implementações do JSON Web Token (JWT) descobriu vulnerabilidades que
   permitiam que a etapa de verificação pudesse ser burlada.
+comments: true
 ---
 = Entendendo a vulnerabilidade de segurança do JWT
 Fabrício Godoy <contato@fgodoy.me>

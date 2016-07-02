@@ -13,6 +13,7 @@ title: Hello World com Autotools
 excerpt: >
   Nesse post irei explicar como fazer um programa que exibe "Hello World!" no
   console configurado com Autotools.
+comments: true
 ---
 = Hello World com Autotools
 Fabrício Godoy <contato@fgodoy.me>

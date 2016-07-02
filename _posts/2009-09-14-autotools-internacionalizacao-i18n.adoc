@@ -13,6 +13,7 @@ title: Internacionalização (I18n) com Autotools
 excerpt: >
   Nesse post explicarei como internacionalizar, ou seja, tornar um programa
   traduzível.
+comments: true
 ---
 = Internacionalização (I18n) com Autotools
 Fabrício Godoy <contato@fgodoy.me>
