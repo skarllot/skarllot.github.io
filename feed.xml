@@ -6,8 +6,8 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 Jul 2016 14:47:28 -0300</pubDate>
-    <lastBuildDate>Sat, 02 Jul 2016 14:47:28 -0300</lastBuildDate>
+    <pubDate>Sat, 02 Jul 2016 16:28:27 -0300</pubDate>
+    <lastBuildDate>Sat, 02 Jul 2016 16:28:27 -0300</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -471,6 +471,147 @@ possibilidade de sucesso em ataques dessa natureza estarão quase nulos.&lt;/p&g
         <category>criptografia</category>
         
         <category>json</category>
+        
+        
+        <category>Programação</category>
+        
+      </item>
+    
+      <item>
+        <title>Como criar um repositório Git remoto usando o SSH</title>
+        <description>&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Abordarei a criação de um repositório Git remoto usando o SSH num
+ambiente Linux.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Não incluirei detalhes da configuração do SSH.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;É necessário que os seguintes pacotes estejam instalados: &lt;strong&gt;git&lt;/strong&gt;,
+&lt;strong&gt;openssh-server&lt;/strong&gt; e &lt;strong&gt;openssh-client&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Primeiro configure o SSH editando o arquivo &lt;strong&gt;/etc/ssh/sshd_config&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Eu recomendo algumas configurações
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;sshd_config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;Protocol &lt;span style=&quot;color: #666666&quot;&gt;2&lt;/span&gt;    &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Permite apenas a versão 2 do protocolo (mais seguro)&lt;/span&gt;
+PermitRootLogin no    &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Não permite login como root&lt;/span&gt;
+PasswordAuthentication no    &lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;# Não permite login por senha&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Não esqueça de iniciar ou &lt;strong&gt;reiniciar&lt;/strong&gt; o servidor SSH.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Agora é necessário criar um usuário para acesso ao Git através do SSH.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Eu recomendo que o nome do usuário seja &lt;strong&gt;git&lt;/strong&gt; e que seja criado com o
+seguinte comando
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnote_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;useradd -r -m --shell /usr/bin/git-shell git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Definindo o shell do usuário para &lt;strong&gt;/usr/bin/git-shell&lt;/strong&gt; o acesso do
+usuário será restrito aos comandos do Git
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnote_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O diretório pessoal do usuário git será criado em &lt;strong&gt;/home/git&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Se você não tem uma chave para o SSH, crie-a com o comando &lt;strong&gt;ssh-keygen&lt;/strong&gt;
+(usando seu usuário).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Será criada uma chave pública e privada em &lt;strong&gt;~/.ssh&lt;/strong&gt;, a chave pública
+tem o sufixo &lt;strong&gt;.pub&lt;/strong&gt; (nunca compartilhe sua chave privada).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Agora é necessário adicionar sua chave pública a lista de chaves
+autorizadas do usuário &lt;strong&gt;git&lt;/strong&gt;, para isso faça o seguinte:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;mkdir /home/git/.ssh
+cat /home/seu_usuario/.ssh/id_rsa.pub &amp;gt;&amp;gt; /home/git/.ssh/authorized_keys&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Supondo que o nome de sua chave pública seja &lt;strong&gt;id_rsa.pub&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Agora será necessário criar um repositório no diretório pessoal do
+usuário &lt;strong&gt;git&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Para criar um repositório para o projeto &lt;strong&gt;ProjetoTeste&lt;/strong&gt;, faça o
+seguinte:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;mkdir /home/git/ProjetoTeste &lt;span style=&quot;color: #008000&quot;&gt;cd&lt;/span&gt; /home/git/ProjetoTeste git init --bare&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Agora é necessário garantir que tudo pertença ao usuário git, faça o
+seguinte:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #008000&quot;&gt;cd&lt;/span&gt; /home/git chown -R git.git . &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Não esqueça do ponto no final&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Isso é tudo.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Para clonar o repositório use o seguinte comando:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;git clone git@ip_do_servidor:ProjetoTeste&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;http://linux.die.net/man/5/sshd_config&quot; class=&quot;bare&quot;&gt;http://linux.die.net/man/5/sshd_config&lt;/a&gt; ou &lt;strong&gt;man 5 sshd_config&lt;/strong&gt;.
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;http://linux.die.net/man/8/useradd&quot; class=&quot;bare&quot;&gt;http://linux.die.net/man/8/useradd&lt;/a&gt; ou &lt;strong&gt;man 8 useradd&lt;/strong&gt;.
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;http://linux.die.net/man/1/git-shell&quot; class=&quot;bare&quot;&gt;http://linux.die.net/man/1/git-shell&lt;/a&gt; ou &lt;strong&gt;man 1 git-shell&lt;/strong&gt;.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sun, 15 Nov 2009 00:59:25 -0200</pubDate>
+        <link>https://fgodoy.me/2009/11/criar_git_remoto_ssh/</link>
+        <guid isPermaLink="true">https://fgodoy.me/2009/11/criar_git_remoto_ssh/</guid>
+        
+        <category>git</category>
+        
+        <category>linux</category>
+        
+        <category>ssh</category>
         
         
         <category>Programação</category>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Como criar um repositório Git remoto usando o SSH</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/images/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/images/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+  
+  <meta itemprop="datePublished" content="15 November 2009" />
+
+
+  <meta itemprop="keywords" content="git, linux, ssh" />
+
+<meta itemprop="url" content="https://fgodoy.me/2009/11/criar_git_remoto_ssh/" />
+
+<meta name="description" content="Nesse post abordarei a criação de um repositório Git remoto usando o SSH num ambiente Linux.">
+<link rel="canonical" href="https://fgodoy.me/2009/11/criar_git_remoto_ssh/">
+<link rel="alternate" type="application/rss+xml" title="Blog do Fabrício" href="https://fgodoy.me/feed.xml">
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Blog do Fabrício</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+          <a class="page-link" href="/about/">Sobre Mim</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+
+
+
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Como criar um repositório Git remoto usando o SSH</h1>
+    <p class="post-meta">
+      <time datetime="2009-11-15T00:59:25-02:00" itemprop="datePublished">15 de Novembro de 2009</time>
+       • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Fabrício Godoy</span></span>
+      • <span class="reading-time" title="Tempo estimado de leitura">
+  
+  
+    2 mins
+  
+</span>
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>Abordarei a criação de um repositório Git remoto usando o SSH num
+ambiente Linux.</p>
+</div>
+<div class="paragraph">
+<p>Não incluirei detalhes da configuração do SSH.</p>
+</div>
+<div class="paragraph">
+<p>É necessário que os seguintes pacotes estejam instalados: <strong>git</strong>,
+<strong>openssh-server</strong> e <strong>openssh-client</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Primeiro configure o SSH editando o arquivo <strong>/etc/ssh/sshd_config</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Eu recomendo algumas configurações
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>:</p>
+</div>
+<div class="listingblock">
+<div class="title">sshd_config</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">Protocol <span style="color: #666666">2</span>    <span style="color: #408080; font-style: italic"># Permite apenas a versão 2 do protocolo (mais seguro)</span>
+PermitRootLogin no    <span style="color: #408080; font-style: italic"># Não permite login como root</span>
+PasswordAuthentication no    <span style="color: #408080; font-style: italic"># Não permite login por senha</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Não esqueça de iniciar ou <strong>reiniciar</strong> o servidor SSH.</p>
+</div>
+<div class="paragraph">
+<p>Agora é necessário criar um usuário para acesso ao Git através do SSH.</p>
+</div>
+<div class="paragraph">
+<p>Eu recomendo que o nome do usuário seja <strong>git</strong> e que seja criado com o
+seguinte comando
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">useradd -r -m --shell /usr/bin/git-shell git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Definindo o shell do usuário para <strong>/usr/bin/git-shell</strong> o acesso do
+usuário será restrito aos comandos do Git
+<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>.</p>
+</div>
+<div class="paragraph">
+<p>O diretório pessoal do usuário git será criado em <strong>/home/git</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Se você não tem uma chave para o SSH, crie-a com o comando <strong>ssh-keygen</strong>
+(usando seu usuário).</p>
+</div>
+<div class="paragraph">
+<p>Será criada uma chave pública e privada em <strong>~/.ssh</strong>, a chave pública
+tem o sufixo <strong>.pub</strong> (nunca compartilhe sua chave privada).</p>
+</div>
+<div class="paragraph">
+<p>Agora é necessário adicionar sua chave pública a lista de chaves
+autorizadas do usuário <strong>git</strong>, para isso faça o seguinte:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">mkdir /home/git/.ssh
+cat /home/seu_usuario/.ssh/id_rsa.pub &gt;&gt; /home/git/.ssh/authorized_keys</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Supondo que o nome de sua chave pública seja <strong>id_rsa.pub</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Agora será necessário criar um repositório no diretório pessoal do
+usuário <strong>git</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para criar um repositório para o projeto <strong>ProjetoTeste</strong>, faça o
+seguinte:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">mkdir /home/git/ProjetoTeste <span style="color: #008000">cd</span> /home/git/ProjetoTeste git init --bare</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Agora é necessário garantir que tudo pertença ao usuário git, faça o
+seguinte:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #008000">cd</span> /home/git chown -R git.git . <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Não esqueça do ponto no final</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Isso é tudo.</p>
+</div>
+<div class="paragraph">
+<p>Para clonar o repositório use o seguinte comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">git clone git@ip_do_servidor:ProjetoTeste</code></pre>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. <a href="http://linux.die.net/man/5/sshd_config" class="bare">http://linux.die.net/man/5/sshd_config</a> ou <strong>man 5 sshd_config</strong>.
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. <a href="http://linux.die.net/man/8/useradd" class="bare">http://linux.die.net/man/8/useradd</a> ou <strong>man 8 useradd</strong>.
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. <a href="http://linux.die.net/man/1/git-shell" class="bare">http://linux.die.net/man/1/git-shell</a> ou <strong>man 1 git-shell</strong>.
+</div>
+</div>
+  </div>
+
+</article>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://fgodoy.me/2009/11/criar_git_remoto_ssh/';
+        this.page.identifier = '/2009/11/criar_git_remoto_ssh';
+        this.language = "pt_BR";
+    };
+    var disqus_shortname = 'fgodoy';
+    (function() {
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Blog do Fabrício</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Fabrício Godoy</li>
+          <li><a href="mailto:contato@fgodoy.me">contato@fgodoy.me</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Desenvolvedor C#, Java, Javascript e Go que procura sempre acompanhar o mercado que está em constante mutação.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80191858-1', 'auto');
+ga('send', 'pageview');
+
+  </script>
+
+</footer>
+
+
+  </body>
+
+</html>
