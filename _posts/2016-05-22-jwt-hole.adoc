@@ -33,7 +33,7 @@ v1.0, 2016-05-22
 :theme: flask
 :toc2:
 :toclevels: 2
-:imagesdir: https://fgodoy.me/images/2016-05-22
+:imagesdir: /images/2016-05-22
 ifdef::ebook-format[:front-cover-image: image:cover.png[width=793,height=1122]]
 ifndef::ebook-format[:leveloffset: 1]
 
@@ -50,7 +50,341 @@ ifndef::ebook-format[:leveloffset: 1]
 :table-caption: Tabela
 
 //include::_posts/jwt-hole/intro.adoc[]
+[[intro]]
+= Introdução
+
+// External links
+:Auth0Blog: https://auth0.com/blog/2015/03/31/critical-vulnerabilities-in-json-web-token-libraries/[blog]
+:JWT: https://tools.ietf.org/html/rfc7519[JWT]
+
+[small]#9 min de leitura#
+
+Em março de 2015 Tim McLean publicou em um {Auth0Blog} que após analisar várias
+implementações do JSON Web Token ({JWT}) descobriu vulnerabilidades que
+permitiam que a etapa de verificação pudesse ser burlada.
+
+E nesse artigo vamos entender exatamente como essas vulnerabilidades podem ser
+exploradas, tanto para auditar uma biblioteca existente quanto para evitar erros
+ao utilizar quaisquer bibliotecas existentes.
+
 //include::_posts/jwt-hole/base-concepts.adoc[]
+// External links
+:RFC: https://tools.ietf.org/html/rfc7519[RFC 7519]
+:JSON: http://www.json.org/[JSON]
+:Base64Url: https://en.wikipedia.org/wiki/Base64[Base64Url]
+:JwtIo: https://jwt.io/[jwt.io]
+
+[[base-concepts]]
+= Conceitos Iniciais
+
+Antes de analisarmos a vulnerabilidade, irei revisar os conceitos básicos
+necessários para entender os problemas.
+
+== Hash (Checksum)
+
+Os algoritmos de soma hash são algoritmos que retornam um resultado de
+*comprimento fixo* independente do tamanho da entrada, e esse resultado é
+*quase* exclusivo para os dados de entrada. Os algoritmos mais conhecidos são:
+MD5, SHA-1 e SHA-2.
+
+Como os resultados retornados por tais algoritmos são apenas apenas uma soma dos
+dados de entrada não há como inferir os dados de entrada através do resultado.
+Esses resultados são muito úteis para verificação de integridade, pois se espera
+que qualquer alteração nos dados de entrada os resultados sejam diferentes.
+
+.Exemplos de Hashes
+[cols="<1,<2",frame="none",grid="rows",options="header"]
+|===
+|Mensagem|Hash
+|Oi|lxFc
+|Olá, como vai?|R+bU
+|Bem-vindo|IB84
+|===
+
+== Criptografia Simétrica
+
+Os algoritmos de criptografia simétrica utilizam apenas uma chave para
+criptografar um dado qualquer, que pode ser uma mensagem, um arquivo, um pacote
+de dados etc. Os algoritmos mais conhecidos são: DES, TripleDES, AES, RC4 e RC5.
+
+A principal vantagem de algoritmos de criptografia simétrica é que são muito
+rápidos, o que se traduz em baixa latência e pouco uso de CPU. Já a
+principal desvantagem é que por utilizar a mesma chave quanto para criptografar
+quanto para descriptografar, essa chave precisa ser compartilhada com o
+receptor.
+
+.Envio de Dados com Criptografia Simétrica
+image::crypt-sym-alg.png[scaledwidth="95%",alt="Diagrama conceitual"]
+
+.Recebimento de Dados com Criptografia Simétrica
+image::crypt-sym-alg2.png[scaledwidth="95%",alt="Diagrama conceitual"]
+
+
+== Criptografia Assimétrica
+
+Os algoritmos de criptografia assimétrica utilizam duas chaves complementares
+para criptografar e descriptografar. Uma das chaves é guardada em segredo e não
+é revelada ninguém e outra pode ser publicada a qualquer um livremente. Os
+algoritmos mais conhecidos são: RSA e ECDSA.
+
+Um grande diferencial dessa classe de algoritmos é que um dado criptografado com
+uma chave pode apenas ser descriptografado com outra e vice-versa. Essa
+característica permite que estranhos mantenham uma comunicação segura mesmo que
+o meio de comunicação não o seja, e além disso, não há a necessidade de um meio
+seguro para que a troca de chave ocorra.
+
+Algoritmos de criptografia assimétrica são muito custosos em termos de CPU, por
+esse motivo as comunicações, normalmente, os utilizam como meio de troca de
+chave simétrica. Diminuindo, assim o tempo e recursos da CPU.
+
+.Envio de Dados com Criptografia Assimétrica
+image::crypt-asym-alg.png[scaledwidth="95%",alt="Diagrama conceitual"]
+
+.Recebimento de Dados com Criptografia Assimétrica
+image::crypt-asym-alg2.png[scaledwidth="95%",alt="Diagrama conceitual"]
+
+== Assinaturas
+
+Há também outro uso muito comum para a criptografia assimétrica, além de ser
+utilizada para garantir privacidade, também é utilizada em assinaturas para
+garantir identidade.
+
+Quando Anderson quer enviar um dado sigiloso para Roberta, ele utiliza a chave
+pública de Roberta para garantir que apenas Roberta consiga descriptografar o
+dado enviado. Entretanto, quando Roberto quer confirmar que um dado foi gerado
+por ele, o mesmo pode utilizar a chave privada para criptografar o dado e assim
+qualquer um com sua chave pública pode confirmar a identidade descriptografando
+o dado.
+
+Apesar de eficaz, criptografar todo o dado para garantir identidade não é muito
+usual. O problema é que dependendo da aplicação é um gasto de recursos
+desnecessário.
+
+Quando queremos apenas confirmar identidade o dado não é privado, pois a chave
+pública está disponível a qualquer um, o que permite que os
+mesmos acessem os dados. Assim, uma maneira eficiente de alcançar o mesmo
+objetivo, com quase a mesma eficiência, é gerar uma soma Hash (Checksum) do dado
+e criptografar esse resultado. Então a confirmação de identidade passaria a ser
+da seguinte maneira: gerar uma soma Hash do dado recebido, descriptografar a
+assinatura recebida e por fim comparar se os resultados são iguais.
+
+.Assinatura de Dados com Criptografia Assimétrica
+image::sign-alg.png[scaledwidth="95%",alt="Diagrama conceitual"]
+
+Por fim existe a possibilidade combinar a garantia de identidade e a garantia de
+de privacidade ao mesmo tempo. Para tal basta realizar todo o processo de
+assinatura e, antes de enviar os dados, criptografar tudo utilizando a chave
+pública do destinatário.
+
+== JSON Web Token (JWT)
+
+O padrão JSON Web Token ({RFC}) define uma maneira segura, compacta e
+independente de transmitir informações usando como base objetos {JSON}. A
+confiabilidade das informações são asseguradas via assinaturas, conforme a
+técnica que abordamos na seção anterior.
+
+O padrão JWT permite as informações sejam assinadas tanto com criptografia
+simétrica (com o algoritmo HMAC) quanto com criptografia assimétrica (com os
+algoritmos RSA e ECDSA).
+
+JWTs são compactos de uma maneira que permite que os mesmos sejam transmitidos
+junto ao cabeçalho de uma requisição HTTP ou até na URL. Adicionalmente, JWTs
+são independentes pois os mesmos podem carregar toda informação necessária sem
+que seja necessário uma consulta no banco de dados.
+
+Os JWTs são muito utilizados no processo de autenticação permitindo que o
+processo de autorização de acesso a recursos seja mais rápido e escalável.
+Mais rápido porque por ser independente retira da equação o tempo de latência
+de acesso ao banco de dados ou outro mecanismo de cache. E mais escalável pois
+permite que serviços totalmente independentes compartilhem a mesma autenticação
+sem necessitar de comunicação entre os mesmos.
+
+=== Estrutura
+
+A estrutura de um JWT contém três partes separadas por pontos (`.`), que são: o
+cabeçalho, informação útil e a assinatura.
+
+==== Cabeçalho
+
+A implementação mais básica do cabeçalho contém dois campos: um que define o
+tipo de token e outro que define o algoritmo utilizado. O tipo de token sempre é
+`JWT` e o algoritmo é uma combinação de soma Hash com algoritmo de criptografia.
+
+.Exemplo de cabeçalho JWT (RSA + SHA-384)
+[source,json]
+----
+{
+    "alg": "RS384",
+    "typ": "JWT"
+}
+----
+
+Esse cabeçalho é codificado utilizando o algoritmo {Base64Url}, antes de compor
+um JWT.
+
+==== Informação Útil (Payload)
+
+Essa parte do JWT contém as afirmações (_claims_, em inglês). As afirmações são
+confirmações sobre uma entidade, normalmente um usuário, e alguns dados
+adicionais.
+
+Há um conjunto de afirmações pré-definidas pelo padrão que são reservadas, como
+`iss` (emissor), `exp` (data de expiração), `sub` (entidade), `aud`
+(destinatário) etc.
+
+.Exemplo de _payload_ JWT
+[source,json]
+----
+{
+    "iss": "accounts.google.com",
+    "sub": "110169484474386276334",
+    "aud": "1008719970978-hb24n2dstb40o45d4feuo2ukqmcc6381.apps.googleusercontent.com",
+    "iat": "1433978353",
+    "exp": "1433981953",
+    "email": "testuser@gmail.com"
+}
+----
+
+A _informação útil_ também é codificada utilizando o algoritmo {Base64Url}, antes
+de compor a segunda parte do JWT.
+
+==== Assinatura
+
+A assinatura é criada a partir das seguintes informações: cabeçalho codificado
+com Base64Url, a _informação útil_ codificada com Base64Url, uma chave para
+criptografia e um algoritmo de soma Hash e criptografia.
+
+.Exemplo do algoritmo de assinatura com RSA PKCS#1 e SHA-256
+[source,javascript]
+----
+// Algoritmo RS256
+var hash = sha256(
+    base64UrlEncode(header) + "." +
+    base64UrlEncode(payload));
+var signature = rsaPKCS1(hash, key);
+----
+
+Da mesma maneira que nas partes anteriores a assinatura também é codificada
+utilizando o algoritmo {Base64Url}, antes de compor o JWT.
+
+==== Conclusão
+
+O resultado final são três partes codificadas com `Base64Url` e separadas por
+pontos. Como demonstrado no exemplo logo abaixo.
+
+.Exemplo do resultado final de um JWT
+[source]
+----
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+----
+
+O resultado do exemplo acima foi calculado utilizando os seguintes dados:
+
+.Cabeçalho
+[source,json]
+----
+{
+    "alg": "HS256",
+    "typ": "JWT"
+}
+----
+
+.Informação Útil
+[source,json]
+----
+{
+    "sub": "1234567890",
+    "name": "John Doe",
+    "admin": true
+}
+----
+
+.Assinatura
+[source,javascript]
+----
+hmacSha256(
+    base64UrlEncode(header) + "." +
+    base64UrlEncode(payload),
+    "secret");
+----
+
+Você pode realizar testes e colocar esses conceitos em prática no site {JwtIo}.
+Lá você pode decodificar, verificar e gerar JWTs, tudo online no navegador.
+
 //include::_posts/jwt-hole/analysis.adoc[]
+[[analysis]]
+= Análise das Vulnerabilidades
+
+Finalmente irei abordar as vulnerabilidades encontradas nas implementações do
+JSON Web Token.
+
+== Algoritmo Nulo
+
+Quando um _token_ precisa ser validado o primeiro passo é determinar o algoritmo
+utilizado pelo mesmo, como é indicado pelo campo `alg` do cabeçalho.
+
+Isso significa que entramos num dilema, o próprio _token_ indica qual algoritmo
+deve ser utilizado para validar a si próprio. E isso pode ser desastroso,
+dependendo da implementação.
+
+No padrão JWT há a opção de algoritmo identificado como `none` indicando um
+algoritmo nulo, o que significa que não foi utilizado nenhum algoritmo para
+gerar uma assinatura para o _token_.
+
+.Exemplo de cabeçalho JWT com algoritmo nulo
+[source,json]
+----
+{
+    "alg": "none",
+    "typ": "JWT"
+}
+----
+
+O problema é que algumas bibliotecas aceitam _tokens_ com algoritmo nulo como se
+tivessem uma assinatura válida. O que abre uma vulnerabilidade enorme,
+permitindo que qualquer atacante possa criar um _token_ válido.
+
+A maioria das implementações resolveram esse problema rejeitando algoritmos
+nulos quando uma chave de criptografia é passada como parâmetro.
+
+== Criptografia Simétrica vs Assimétrica
+
+Aceitar algoritmos nulos não é o real problema, o problema é aceitar que
+atacantes controlem o algoritmo de criptografia.
+
+Se a biblioteca aceita que um _token_ seja validado sem especificar o algoritmo
+esperado, outra vulnerabilidade grave é aberta. Exatamente no caso esperarmos
+que o _token_ use uma criptografia assimétrica e o atacante utiliza uma
+criptografia simétrica.
+
+.Lógica de validação de assinatura JWT
+image::jwt-alg.png[scaledwidth="95%",alt="Diagrama de Atividade"]
+
+O problema com essa lógica é que o atacante pode obter a chave pública e assinar
+um _token_ qualquer utilizando um algoritmo simétrico (HMAC) e indicar no
+cabeçalho o mesmo algoritmo. Assim quando um recurso protegido utilizar o mesmo
+algoritmo e a mesma chave o token será considerado válido, pois a *assinatura
+gerada* será igual a *assinatura do token*.
+
+Lembrando que nesse caso como os tokens válidos estão sendo assinados com a
+chave privada os mesmos devem ser validados com a chave pública. Por isso o
+atacante terá sucesso, pois tem a certeza que o token está sendo validado com a
+chave pública.
+
+== Recomendações
+
+Desenvolvedores deveriam exigir que o algoritmo utilizado para validação seja
+passado como parâmetro. Assim garante-se que será utilizado o algoritmo
+apropriado para a chave fornecida.
+
+Caso seja necessária a utilização de mais de um algoritmo com chaves diferentes,
+a solução é atribuir um identificador para cada chave e indicá-la no campo `kid`
+do cabeçalho (_key identifier_, em inglês). Assim será possível inferir o
+algoritmo de acordo com a chave utilizada. Dessa maneira o campo `alg` não terá
+utilidade alguma além de, talvez, validar se ele indica o algoritmo esperado.
+
+Ao utilizar uma implementação do padrão JWT, você deve auditar de maneira
+consistente se ela rejeita efetivamente algoritmos além do esperado. Assim a
+possibilidade de sucesso em ataques dessa natureza estarão quase nulos.
 
 // vim: ts=4 sw=4 et
