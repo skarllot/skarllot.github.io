@@ -1,0 +1,253 @@
+---
+layout: post
+categories:
+  - Programação
+tags:
+  - autotools
+  - getlocale
+  - gettext
+  - intltool
+  - intltoolize
+  - libintl
+title: Internacionalização (I18n) com Autotools
+excerpt: >
+  Nesse post explicarei como internacionalizar, ou seja, tornar um programa
+  traduzível.
+---
+= Internacionalização (I18n) com Autotools
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2009-06-14
+:lang: pt-BR
+:revdate: 2009-06-14 21:07:52+00:00
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+:icons: font
+:source-highlighter: pygments
+
+Explicarei como _internacionalizar_, ou seja, tornar um programa
+traduzível.
+
+Tomarei como exemplo o projeto hello-world do post anterior.
+
+Você pode baixar o pacote final do projeto do post anterior em
+http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.2.0.tar.gz.
+
+Será necessário as seguintes ferramentas: intltool e gettext.
+
+Adicione o seguinte código no arquivo configure.ac:
+
+[source,bash]
+.configure.ac
+----
+# Checks for libraries.
+PKG_CHECK_MODULES([DEPS],[glib-2.0]) <1>
+AC_SUBST(DEPS_CFLAGS) <2>
+AC_SUBST(DEPS_LIBS) <3>
+
+# -------------------------------------------------
+# Internationalization
+# -------------------------------------------------
+GETTEXT_PACKAGE=hello-world <4>
+AC_SUBST(GETTEXT_PACKAGE) <5>
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
+ [the gettext translation domain]) <6>
+
+AM_GLIB_GNU_GETTEXT <7>
+GLIB_DEFINE_LOCALEDIR(HELLO_WORLD_LOCALEDIR) <8>
+
+IT_PROG_INTLTOOL([0.35.1]) <9>
+
+# -------------------------------------------------
+# Check OS-specific platform
+----
+<1> Procura pela biblioteca _glib-2.0_ e define as variáveis _DEPS_CFLAGS_ e
+_DEPS_LIBS_ (detalhes abaixo). Caso a biblioteca não seja encontrada é retornado
+um erro.
+
+<2> Faz com que _@DEPS_CFLAGS@_ ou _$(DEPS_CFLAGS)_, nos arquivos de saída do
+autoconf, seja substituído pelo valor da variável.
+
+<3> O mesmo que o comando acima, mas com a variável _DEPS_LIBS_.
+
+<4> Está sendo definida uma variável local.
+
+<5> O mesmo que as macros _AC_SUBST_ acima, mas com a variável
+_GETTEXT_PACKAGE_.
+
+<6> Igual a macro _AC_DEFINE_ com o diferencial de expandir expressões de shell
+(ver "Definindo símbolos"). Define, no arquivo _config.h_, o símbolo
+GETTEXT_PACKAGE com o valor da variável GETTEXT_PACKAGE.
+
+<7> Faz verificações se o gettext pode ser usado, define o símbolo
+_HAVE_GETTEXT_ no arquivo _config.h_ entre outros.
+
+<8> Define o nome do símbolo que conterá o caminho do diretório de localização.
+É o caminho do diretório de onde os catálogos de mensagens de cada língua será
+instalado.
+
+<9> Faz verificações se o intltool pode ser usado e define a versão mínima
+necessária.
+
+Ainda no arquivo _configure.ac_ adicione o arquivo "po/Makefile.in" em
+_AC_CONFIG_FILES_. Desta maneira o arquivo _Makefile_ que será criado
+no diretório _po_ fará parte da compilação.
+
+[source,bash]
+.configure.ac
+----
+AC_CONFIG_FILES([Makefile
+    src/Makefile
+    po/Makefile.in])
+----
+
+Para que se possa fazer o uso da biblioteca _glib-2.0_ é necessário
+indicar ao compilador onde achar os arquivos de cabeçalho e os objetos
+de ligação. Para isso é necessário modificar o arquivo _Makefile.am_
+como abaixo:
+
+[source,bash]
+.Makefile.am
+----
+bin_PROGRAMS = hello-world
+
+hello_world_SOURCES = main.cpp
+if OS_WIN32
+hello_world_SOURCES += windowsdef.h
+endif
+
+hello_world_LDADD = $(DEPS_LIBS) <1>
+hello_world_CXXFLAGS = $(DEPS_CFLAGS) <2>
+----
+
+<1> *DEPS_LIBS* é a variável com os caminhos para os objetos de ligação.
+Esses objetos têm a listagem e endereçamento de cada função.
+
+<2> *DEPS_CFLAGS* é a variável com os caminhos para os arquivos de cabeçalho.
+
+Crie o diretório _po_ no diretório raíz do projeto, este diretório
+conterá os catálogos de cada língua.
+
+Crie um arquivo vazio com o nome _LINGUAS_, neste arquivo será listado
+os códigos de cada idioma com suporte.
+
+Crie um arquivo vazio com o nome _POTFILES.in_, neste arquivo será
+listado todos os arquivos com mensagens traduzíveis.
+
+No arquivo _Makefile.am_ do diretório raíz do projeto adicione o
+diretório _po_ em _SUBDIRS_.
+
+[source,bash]
+.Makefile.am
+----
+SUBDIRS = src po
+----
+
+É necessário adicionar os scripts de internacionalização ao pacote de
+distribuição, para isso adicione o código  abaixo ao arquivo
+_Makefile.am_ do diretório raíz.
+
+[source,bash]
+.Makefile.am
+----
+SUBDIRS = src po
+
+INTLTOOL_FILES = \ <1>
+ intltool-extract.in \
+ intltool-merge.in \
+ intltool-update.in
+
+EXTRA_DIST = \ <2>
+ $(INTLTOOL_FILES)
+
+DISTCLEANFILES = \ <3>
+ intltool-extract \
+ intltool-merge \
+ intltool-update \
+ po/.intltool-merge-cache
+----
+
+<1> *INTLTOOL_FILES* é uma variável com a lista de scripts usados pelo intltool.
+
+<2> *EXTRA_DIST* define arquivos adicionais que serão adicionados ao
+pacote de distribuição.
+
+<3> *DISTCLEANFILES* define os arquivos adicionais que serão removidos
+pelo comando "_make distclean_".
+
+Para atualizar os scripts com as mudanças execute o comando
+"_autoreconf_".
+
+Para preparar o projeto para o intltool, execute o comando
+"_intltoolize_" no diretório raíz do projeto.
+
+Agora é necessário inicializar o _libintl_ e marcar as strings como
+traduzíveis. Para isso modifique o arquivo _main.cpp_ como a seguir:
+
+[source,cpp]
+.main.cpp
+----
+#ifdef HAVE_CONFIG_H
+#include <config.h> <1>
+#endif
+
+#ifdef WINNT
+#include "windowsdef.h"
+#endif
+
+#include <iostream>
+#include <glib/gi18n.h> <2>
+
+int main()
+{
+  // Gettext initialization
+  setlocale(LC_ALL, ""); <3>
+  bindtextdomain(GETTEXT_PACKAGE, HELLO_WORLD_LOCALEDIR); <4>
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8"); <5>
+  textdomain(GETTEXT_PACKAGE); <6>
+
+  std::cout << _("Hello World!") << std::endl; <7>
+  return 0;
+}
+----
+
+<1> Para usar os símbolos _GETTEXT_PACKAGE_ e _HELLO_WORLD_LOCALEDIR_ é
+necessário incluir o cabeçalho _config.h_.
+
+<2> O cabeçalho _gi18n.h_ inclui o cabeçalho _libintl.h_, que contém as
+funções de internacionalização, e define símbolos comumente usados na
+internacionalização.
+
+<3> A função _setlocale()_ define a localização atual que será usada pelo
+gettext.
+
+<4> A função _bindtextdomain()_ define o caminho do catálogo de
+_GETTEXT_PACKAGE_ para _HELLO_WORLD_LOCALEDIR_.
+
+<5> A função _bind_textdomain_codeset()_ define a codificação das mensagens
+do catálogo de _GETTEXT_PACKAGE_ para UTF-8.
+
+<6> A função _textdomain()_ define o catálogo de mensagens padrão para
+_GETTEXT_PACKAGE_.
+
+<7> A função __()_ é um símbolo que foi definido pelo _gi18n.h_ que é um
+apelido para a função _gettext()_ do cabeçalho _libintl.h_.
+
+Agora o projeto está pronto para ser traduzido (localizado).
+
+O pacote final pode ser acessado neste link:
+http://dl.getdropbox.com/u/1671797/Blog/hello-world-0.3.0.tar.gz.
+
+== Referências
+
+Definindo símbolos:
+http://www.gnu.org/software/hello/manual/autoconf/Defining-Symbols.html
+
+Internacionalização:
+http://www.gtkmm.org/docs/gtkmm-2.4/docs/tutorial/html/chapter-internationalization.html
+
+pkg-config: http://pkg-config.freedesktop.org/
+
+setlocale:
+http://www.opengroup.org/onlinepubs/009695399/functions/setlocale.html
+

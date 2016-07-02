@@ -108,7 +108,7 @@ _configure.log_ pode ser excluído.
 
 7. Modifique o arquivo configure.ac como abaixo.
 +
-[source,m4]
+[source,bash]
 .configure.ac
 ----
 #                                               -*- Autoconf -*-
