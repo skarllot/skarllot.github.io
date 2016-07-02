@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Dividir um PDF com página dupla em dois</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/asciidoctor.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/images/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/images/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+  
+  <meta itemprop="datePublished" content="17 July 2010" />
+
+
+  <meta itemprop="keywords" content="cortar, crop, dividir, double, linux, page, pagina, pdf, split" />
+
+<meta itemprop="url" content="https://fgodoy.me/2010/07/dividir-pdf/" />
+
+<meta name="description" content="Nesse post explicarei como dividir a página de um arquivo PDF que contém duas páginas em uma.">
+<link rel="canonical" href="https://fgodoy.me/2010/07/dividir-pdf/">
+<link rel="alternate" type="application/rss+xml" title="Blog do Fabrício" href="https://fgodoy.me/feed.xml">
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Blog do Fabrício</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+          <a class="page-link" href="/about/">Sobre Mim</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+
+
+
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Dividir um PDF com página dupla em dois</h1>
+    <p class="post-meta">
+      <time datetime="2010-07-17T23:47:27-03:00" itemprop="datePublished">17 de Julho de 2010</time>
+       • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Fabrício Godoy</span></span>
+      • <span class="reading-time" title="Tempo estimado de leitura">
+  
+  
+    1 min
+  
+</span>
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>Abaixo publico um código Perl que divide verticalmente cada página em
+duas páginas.</p>
+</div>
+<div class="paragraph">
+<p>Um caminho para o arquivo PDF deve ser fornecido como argumento e o
+arquivo dividido será criado no mesmo local.</p>
+</div>
+<div class="paragraph">
+<p>Instale o <a href="http://search.cpan.org/dist/PDF-API2/">PDF-API2</a> (pacote
+<strong>libpdf-api2-perl</strong> no Debian/Ubuntu ou <strong>perl-PDF-API2</strong> no
+RHEL/CentOS/Fedora).</p>
+</div>
+<div class="listingblock">
+<div class="title">split_pdf.pl</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="perl"><span style="color: #408080; font-style: italic">#!/usr/bin/env perl</span>
+<span style="color: #008000; font-weight: bold">use</span> strict; <span style="color: #008000; font-weight: bold">use</span> warnings;
+<span style="color: #008000; font-weight: bold">use</span> <span style="color: #0000FF; font-weight: bold">PDF::</span>API2;
+
+<span style="color: #008000; font-weight: bold">my</span> <span style="color: #19177C">$filename</span> <span style="color: #666666">=</span> <span style="color: #008000">shift</span> <span style="color: #666666">||</span> <span style="color: #BA2121">&#39;test.pdf&#39;</span>;
+<span style="color: #008000; font-weight: bold">my</span> <span style="color: #19177C">$oldpdf</span> <span style="color: #666666">=</span> <span style="color: #0000FF; font-weight: bold">PDF::</span>API2<span style="color: #666666">-&gt;</span><span style="color: #008000">open</span>(<span style="color: #19177C">$filename</span>);
+<span style="color: #008000; font-weight: bold">my</span> <span style="color: #19177C">$newpdf</span> <span style="color: #666666">=</span> <span style="color: #0000FF; font-weight: bold">PDF::</span>API2<span style="color: #666666">-&gt;</span><span style="color: #008000; font-weight: bold">new</span>;
+
+<span style="color: #008000; font-weight: bold">for</span> <span style="color: #008000; font-weight: bold">my</span> <span style="color: #19177C">$page_nb</span> (<span style="color: #666666">1..</span><span style="color: #19177C">$oldpdf</span><span style="color: #666666">-&gt;</span>pages) {
+  <span style="color: #008000; font-weight: bold">my</span> (<span style="color: #19177C">$page</span>, <span style="color: #19177C">@cropdata</span>);
+
+  <span style="color: #19177C">$page</span> <span style="color: #666666">=</span> <span style="color: #19177C">$newpdf</span><span style="color: #666666">-&gt;</span>importpage(<span style="color: #19177C">$oldpdf</span>, <span style="color: #19177C">$page_nb</span>);
+  <span style="color: #19177C">@cropdata</span> <span style="color: #666666">=</span> <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>get_mediabox;
+  <span style="color: #19177C">$cropdata</span>[<span style="color: #666666">2</span>] <span style="color: #666666">/=</span> <span style="color: #666666">2</span>;
+  <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>cropbox(<span style="color: #19177C">@cropdata</span>);
+  <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>trimbox(<span style="color: #19177C">@cropdata</span>);
+  <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>mediabox(<span style="color: #19177C">@cropdata</span>);
+
+  <span style="color: #19177C">$page</span> <span style="color: #666666">=</span> <span style="color: #19177C">$newpdf</span><span style="color: #666666">-&gt;</span>importpage(<span style="color: #19177C">$oldpdf</span>, <span style="color: #19177C">$page_nb</span>);
+  <span style="color: #19177C">@cropdata</span> <span style="color: #666666">=</span> <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>get_mediabox;
+  <span style="color: #19177C">$cropdata</span>[<span style="color: #666666">0</span>] <span style="color: #666666">=</span> <span style="color: #19177C">$cropdata</span>[<span style="color: #666666">2</span>] <span style="color: #666666">/</span> <span style="color: #666666">2</span>;
+  <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>cropbox(<span style="color: #19177C">@cropdata</span>);
+  <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>trimbox(<span style="color: #19177C">@cropdata</span>);
+  <span style="color: #19177C">$page</span><span style="color: #666666">-&gt;</span>mediabox(<span style="color: #19177C">@cropdata</span>);
+}
+
+(<span style="color: #008000; font-weight: bold">my</span> <span style="color: #19177C">$newfilename</span> <span style="color: #666666">=</span> <span style="color: #19177C">$filename</span>) <span style="color: #666666">=~</span> <span style="color: #BB6688">s/(.*)\.(\w+)$/$1.clean.$2/</span>;
+<span style="color: #19177C">$newpdf</span><span style="color: #666666">-&gt;</span>saveas(<span style="color: #19177C">$newfilename</span>);
+
+___END___</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esse post foi baseado no post em
+<a href="http://snipplr.com/view/18924/split-crop-double-page-pdfs-in-two/" class="bare">http://snipplr.com/view/18924/split-crop-double-page-pdfs-in-two/</a></p>
+</div>
+  </div>
+
+</article>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://fgodoy.me/2010/07/dividir-pdf/';
+        this.page.identifier = '/2010/07/dividir-pdf';
+        this.language = "pt_BR";
+    };
+    var disqus_shortname = 'fgodoy';
+    (function() {
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Blog do Fabrício</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Fabrício Godoy</li>
+          <li><a href="mailto:contato@fgodoy.me">contato@fgodoy.me</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Desenvolvedor C#, Java, Javascript e Go que procura sempre acompanhar o mercado que está em constante mutação.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80191858-1', 'auto');
+ga('send', 'pageview');
+
+  </script>
+
+</footer>
+
+
+  </body>
+
+</html>

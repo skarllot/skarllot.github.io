@@ -6,8 +6,8 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 Jul 2016 16:37:34 -0300</pubDate>
-    <lastBuildDate>Sat, 02 Jul 2016 16:37:34 -0300</lastBuildDate>
+    <pubDate>Sat, 02 Jul 2016 16:53:45 -0300</pubDate>
+    <lastBuildDate>Sat, 02 Jul 2016 16:53:45 -0300</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -474,6 +474,89 @@ possibilidade de sucesso em ataques dessa natureza estarão quase nulos.&lt;/p&g
         
         
         <category>Programação</category>
+        
+      </item>
+    
+      <item>
+        <title>Dividir um PDF com página dupla em dois</title>
+        <description>&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Abaixo publico um código Perl que divide verticalmente cada página em
+duas páginas.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Um caminho para o arquivo PDF deve ser fornecido como argumento e o
+arquivo dividido será criado no mesmo local.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Instale o &lt;a href=&quot;http://search.cpan.org/dist/PDF-API2/&quot;&gt;PDF-API2&lt;/a&gt; (pacote
+&lt;strong&gt;libpdf-api2-perl&lt;/strong&gt; no Debian/Ubuntu ou &lt;strong&gt;perl-PDF-API2&lt;/strong&gt; no
+RHEL/CentOS/Fedora).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;split_pdf.pl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;perl&quot;&gt;&lt;span style=&quot;color: #408080; font-style: italic&quot;&gt;#!/usr/bin/env perl&lt;/span&gt;
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;use&lt;/span&gt; strict; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;use&lt;/span&gt; warnings;
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;use&lt;/span&gt; &lt;span style=&quot;color: #0000FF; font-weight: bold&quot;&gt;PDF::&lt;/span&gt;API2;
+
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;my&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$filename&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #008000&quot;&gt;shift&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;||&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;#39;test.pdf&amp;#39;&lt;/span&gt;;
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;my&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$oldpdf&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #0000FF; font-weight: bold&quot;&gt;PDF::&lt;/span&gt;API2&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;open&lt;/span&gt;(&lt;span style=&quot;color: #19177C&quot;&gt;$filename&lt;/span&gt;);
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;my&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$newpdf&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #0000FF; font-weight: bold&quot;&gt;PDF::&lt;/span&gt;API2&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;new&lt;/span&gt;;
+
+&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;for&lt;/span&gt; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;my&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$page_nb&lt;/span&gt; (&lt;span style=&quot;color: #666666&quot;&gt;1..&lt;/span&gt;&lt;span style=&quot;color: #19177C&quot;&gt;$oldpdf&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;pages) {
+  &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;my&lt;/span&gt; (&lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;, &lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt;);
+
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$newpdf&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;importpage(&lt;span style=&quot;color: #19177C&quot;&gt;$oldpdf&lt;/span&gt;, &lt;span style=&quot;color: #19177C&quot;&gt;$page_nb&lt;/span&gt;);
+  &lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;get_mediabox;
+  &lt;span style=&quot;color: #19177C&quot;&gt;$cropdata&lt;/span&gt;[&lt;span style=&quot;color: #666666&quot;&gt;2&lt;/span&gt;] &lt;span style=&quot;color: #666666&quot;&gt;/=&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;2&lt;/span&gt;;
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;cropbox(&lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt;);
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;trimbox(&lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt;);
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;mediabox(&lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt;);
+
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$newpdf&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;importpage(&lt;span style=&quot;color: #19177C&quot;&gt;$oldpdf&lt;/span&gt;, &lt;span style=&quot;color: #19177C&quot;&gt;$page_nb&lt;/span&gt;);
+  &lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;get_mediabox;
+  &lt;span style=&quot;color: #19177C&quot;&gt;$cropdata&lt;/span&gt;[&lt;span style=&quot;color: #666666&quot;&gt;0&lt;/span&gt;] &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$cropdata&lt;/span&gt;[&lt;span style=&quot;color: #666666&quot;&gt;2&lt;/span&gt;] &lt;span style=&quot;color: #666666&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;2&lt;/span&gt;;
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;cropbox(&lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt;);
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;trimbox(&lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt;);
+  &lt;span style=&quot;color: #19177C&quot;&gt;$page&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;mediabox(&lt;span style=&quot;color: #19177C&quot;&gt;@cropdata&lt;/span&gt;);
+}
+
+(&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;my&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$newfilename&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #19177C&quot;&gt;$filename&lt;/span&gt;) &lt;span style=&quot;color: #666666&quot;&gt;=~&lt;/span&gt; &lt;span style=&quot;color: #BB6688&quot;&gt;s/(.*)\.(\w+)$/$1.clean.$2/&lt;/span&gt;;
+&lt;span style=&quot;color: #19177C&quot;&gt;$newpdf&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;-&amp;gt;&lt;/span&gt;saveas(&lt;span style=&quot;color: #19177C&quot;&gt;$newfilename&lt;/span&gt;);
+
+___END___&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Esse post foi baseado no post em
+&lt;a href=&quot;http://snipplr.com/view/18924/split-crop-double-page-pdfs-in-two/&quot; class=&quot;bare&quot;&gt;http://snipplr.com/view/18924/split-crop-double-page-pdfs-in-two/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sat, 17 Jul 2010 23:47:27 -0300</pubDate>
+        <link>https://fgodoy.me/2010/07/dividir-pdf/</link>
+        <guid isPermaLink="true">https://fgodoy.me/2010/07/dividir-pdf/</guid>
+        
+        <category>cortar</category>
+        
+        <category>crop</category>
+        
+        <category>dividir</category>
+        
+        <category>double</category>
+        
+        <category>linux</category>
+        
+        <category>page</category>
+        
+        <category>pagina</category>
+        
+        <category>pdf</category>
+        
+        <category>split</category>
+        
+        
+        <category>Linha de comando</category>
+        
+        <category>Linux</category>
         
       </item>
     
