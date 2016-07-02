@@ -274,10 +274,21 @@ pre {
   list-style: none; }
   .post-list > li {
     margin-bottom: 30px; }
+  .post-list h2 {
+    margin-bottom: 5px; }
 
 .post-meta {
   font-size: 14px;
-  color: #828282; }
+  color: #828282;
+  list-style: outside none none;
+  margin-bottom: 10px;
+  margin-top: 0;
+  margin-left: 0;
+  padding-left: 0; }
+  .post-meta li {
+    display: inline;
+    margin-right: 9.5px;
+    white-space: nowrap; }
 
 .post-link {
   display: block;

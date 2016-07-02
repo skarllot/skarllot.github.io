@@ -4,5 +4,8 @@ https://github.com/danhaywood/danhaywood.github.io
 https://github.com/gacha/gacha.id.lv
 https://github.com/eshepelyuk/eshepelyuk.github.io
 
+https://github.com/yegor256/blog
+https://github.com/caarlos0/caarlos0.github.com
+
 https://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/
 http://jekyllbootstrap.com/
