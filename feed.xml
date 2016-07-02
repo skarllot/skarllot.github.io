@@ -6,13 +6,457 @@
 </description>
     <link>https://fgodoy.me/</link>
     <atom:link href="https://fgodoy.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 Jul 2016 05:50:11 +0000</pubDate>
-    <lastBuildDate>Sat, 02 Jul 2016 05:50:11 +0000</lastBuildDate>
+    <pubDate>Sat, 02 Jul 2016 06:27:42 +0000</pubDate>
+    <lastBuildDate>Sat, 02 Jul 2016 06:27:42 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>Entendendo a vulnerabilidade de segurança do JWT</title>
-        <description></description>
+        <description>&lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Introdução&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#base-concepts&quot;&gt;Conceitos Iniciais&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#hash_checksum&quot;&gt;Hash (Checksum)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#criptografia_simétrica&quot;&gt;Criptografia Simétrica&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#criptografia_assimétrica&quot;&gt;Criptografia Assimétrica&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#assinaturas&quot;&gt;Assinaturas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#json_web_token_jwt&quot;&gt;JSON Web Token (JWT)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#analysis&quot;&gt;Análise das Vulnerabilidades&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#algoritmo_nulo&quot;&gt;Algoritmo Nulo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#criptografia_simétrica_vs_assimétrica&quot;&gt;Criptografia Simétrica vs Assimétrica&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#recomendações&quot;&gt;Recomendações&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;intro&quot;&gt;Introdução&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;span class=&quot;small&quot;&gt;9 min de leitura&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Em março de 2015 Tim McLean publicou em um &lt;a href=&quot;https://auth0.com/blog/2015/03/31/critical-vulnerabilities-in-json-web-token-libraries/&quot;&gt;blog&lt;/a&gt; que após analisar várias
+implementações do JSON Web Token (&lt;a href=&quot;https://tools.ietf.org/html/rfc7519&quot;&gt;JWT&lt;/a&gt;) descobriu vulnerabilidades que
+permitiam que a etapa de verificação pudesse ser burlada.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;E nesse artigo vamos entender exatamente como essas vulnerabilidades podem ser
+exploradas, tanto para auditar uma biblioteca existente quanto para evitar erros
+ao utilizar quaisquer bibliotecas existentes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;base-concepts&quot;&gt;Conceitos Iniciais&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Antes de analisarmos a vulnerabilidade, irei revisar os conceitos básicos
+necessários para entender os problemas.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;hash_checksum&quot;&gt;Hash (Checksum)&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Os algoritmos de soma hash são algoritmos que retornam um resultado de
+&lt;strong&gt;comprimento fixo&lt;/strong&gt; independente do tamanho da entrada, e esse resultado é
+&lt;strong&gt;quase&lt;/strong&gt; exclusivo para os dados de entrada. Os algoritmos mais conhecidos são:
+MD5, SHA-1 e SHA-2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Como os resultados retornados por tais algoritmos são apenas apenas uma soma dos
+dados de entrada não há como inferir os dados de entrada através do resultado.
+Esses resultados são muito úteis para verificação de integridade, pois se espera
+que qualquer alteração nos dados de entrada os resultados sejam diferentes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-none grid-rows spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Tabela 1. Exemplos de Hashes&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 33.3333%;&quot;&gt;
+&lt;col style=&quot;width: 66.6667%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Mensagem&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Hash&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Oi&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;lxFc&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Olá, como vai?&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;R+bU&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Bem-vindo&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;IB84&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;criptografia_simétrica&quot;&gt;Criptografia Simétrica&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Os algoritmos de criptografia simétrica utilizam apenas uma chave para
+criptografar um dado qualquer, que pode ser uma mensagem, um arquivo, um pacote
+de dados etc. Os algoritmos mais conhecidos são: DES, TripleDES, AES, RC4 e RC5.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A principal vantagem de algoritmos de criptografia simétrica é que são muito
+rápidos, o que se traduz em baixa latência e pouco uso de CPU. Já a
+principal desvantagem é que por utilizar a mesma chave quanto para criptografar
+quanto para descriptografar, essa chave precisa ser compartilhada com o
+receptor.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://fgodoy.me/images/2016-05-22/crypt-sym-alg.png&quot; alt=&quot;Diagrama conceitual&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figura 1. Envio de Dados com Criptografia Simétrica&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://fgodoy.me/images/2016-05-22/crypt-sym-alg2.png&quot; alt=&quot;Diagrama conceitual&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figura 2. Recebimento de Dados com Criptografia Simétrica&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;criptografia_assimétrica&quot;&gt;Criptografia Assimétrica&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Os algoritmos de criptografia assimétrica utilizam duas chaves complementares
+para criptografar e descriptografar. Uma das chaves é guardada em segredo e não
+é revelada ninguém e outra pode ser publicada a qualquer um livremente. Os
+algoritmos mais conhecidos são: RSA e ECDSA.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Um grande diferencial dessa classe de algoritmos é que um dado criptografado com
+uma chave pode apenas ser descriptografado com outra e vice-versa. Essa
+característica permite que estranhos mantenham uma comunicação segura mesmo que
+o meio de comunicação não o seja, e além disso, não há a necessidade de um meio
+seguro para que a troca de chave ocorra.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Algoritmos de criptografia assimétrica são muito custosos em termos de CPU, por
+esse motivo as comunicações, normalmente, os utilizam como meio de troca de
+chave simétrica. Diminuindo, assim o tempo e recursos da CPU.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://fgodoy.me/images/2016-05-22/crypt-asym-alg.png&quot; alt=&quot;Diagrama conceitual&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figura 3. Envio de Dados com Criptografia Assimétrica&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://fgodoy.me/images/2016-05-22/crypt-asym-alg2.png&quot; alt=&quot;Diagrama conceitual&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figura 4. Recebimento de Dados com Criptografia Assimétrica&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;assinaturas&quot;&gt;Assinaturas&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Há também outro uso muito comum para a criptografia assimétrica, além de ser
+utilizada para garantir privacidade, também é utilizada em assinaturas para
+garantir identidade.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Quando Anderson quer enviar um dado sigiloso para Roberta, ele utiliza a chave
+pública de Roberta para garantir que apenas Roberta consiga descriptografar o
+dado enviado. Entretanto, quando Roberto quer confirmar que um dado foi gerado
+por ele, o mesmo pode utilizar a chave privada para criptografar o dado e assim
+qualquer um com sua chave pública pode confirmar a identidade descriptografando
+o dado.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Apesar de eficaz, criptografar todo o dado para garantir identidade não é muito
+usual. O problema é que dependendo da aplicação é um gasto de recursos
+desnecessário.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Quando queremos apenas confirmar identidade o dado não é privado, pois a chave
+pública está disponível a qualquer um, o que permite que os
+mesmos acessem os dados. Assim, uma maneira eficiente de alcançar o mesmo
+objetivo, com quase a mesma eficiência, é gerar uma soma Hash (Checksum) do dado
+e criptografar esse resultado. Então a confirmação de identidade passaria a ser
+da seguinte maneira: gerar uma soma Hash do dado recebido, descriptografar a
+assinatura recebida e por fim comparar se os resultados são iguais.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://fgodoy.me/images/2016-05-22/sign-alg.png&quot; alt=&quot;Diagrama conceitual&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figura 5. Assinatura de Dados com Criptografia Assimétrica&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Por fim existe a possibilidade combinar a garantia de identidade e a garantia de
+de privacidade ao mesmo tempo. Para tal basta realizar todo o processo de
+assinatura e, antes de enviar os dados, criptografar tudo utilizando a chave
+pública do destinatário.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;json_web_token_jwt&quot;&gt;JSON Web Token (JWT)&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O padrão JSON Web Token (&lt;a href=&quot;https://tools.ietf.org/html/rfc7519&quot;&gt;RFC 7519&lt;/a&gt;) define uma maneira segura, compacta e
+independente de transmitir informações usando como base objetos &lt;a href=&quot;http://www.json.org/&quot;&gt;JSON&lt;/a&gt;. A
+confiabilidade das informações são asseguradas via assinaturas, conforme a
+técnica que abordamos na seção anterior.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O padrão JWT permite as informações sejam assinadas tanto com criptografia
+simétrica (com o algoritmo HMAC) quanto com criptografia assimétrica (com os
+algoritmos RSA e ECDSA).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;JWTs são compactos de uma maneira que permite que os mesmos sejam transmitidos
+junto ao cabeçalho de uma requisição HTTP ou até na URL. Adicionalmente, JWTs
+são independentes pois os mesmos podem carregar toda informação necessária sem
+que seja necessário uma consulta no banco de dados.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Os JWTs são muito utilizados no processo de autenticação permitindo que o
+processo de autorização de acesso a recursos seja mais rápido e escalável.
+Mais rápido porque por ser independente retira da equação o tempo de latência
+de acesso ao banco de dados ou outro mecanismo de cache. E mais escalável pois
+permite que serviços totalmente independentes compartilhem a mesma autenticação
+sem necessitar de comunicação entre os mesmos.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;estrutura&quot;&gt;Estrutura&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A estrutura de um JWT contém três partes separadas por pontos (&lt;code&gt;.&lt;/code&gt;), que são: o
+cabeçalho, informação útil e a assinatura.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect4&quot;&gt;
+&lt;h5 id=&quot;cabeçalho&quot;&gt;Cabeçalho&lt;/h5&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A implementação mais básica do cabeçalho contém dois campos: um que define o
+tipo de token e outro que define o algoritmo utilizado. O tipo de token sempre é
+&lt;code&gt;JWT&lt;/code&gt; e o algoritmo é uma combinação de soma Hash com algoritmo de criptografia.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Exemplo de cabeçalho JWT (RSA + SHA-384)&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;alg&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;RS384&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;typ&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;JWT&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Esse cabeçalho é codificado utilizando o algoritmo &lt;a href=&quot;https://en.wikipedia.org/wiki/Base64&quot;&gt;Base64Url&lt;/a&gt;, antes de compor
+um JWT.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect4&quot;&gt;
+&lt;h5 id=&quot;informação_Útil_payload&quot;&gt;Informação Útil (Payload)&lt;/h5&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Essa parte do JWT contém as afirmações (&lt;em&gt;claims&lt;/em&gt;, em inglês). As afirmações são
+confirmações sobre uma entidade, normalmente um usuário, e alguns dados
+adicionais.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Há um conjunto de afirmações pré-definidas pelo padrão que são reservadas, como
+&lt;code&gt;iss&lt;/code&gt; (emissor), &lt;code&gt;exp&lt;/code&gt; (data de expiração), &lt;code&gt;sub&lt;/code&gt; (entidade), &lt;code&gt;aud&lt;/code&gt;
+(destinatário) etc.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Exemplo de &lt;em&gt;payload&lt;/em&gt; JWT&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;iss&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;accounts.google.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;sub&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;110169484474386276334&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;aud&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;1008719970978-hb24n2dstb40o45d4feuo2ukqmcc6381.apps.googleusercontent.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;iat&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;1433978353&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;exp&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;1433981953&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;testuser@gmail.com&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A &lt;em&gt;informação útil&lt;/em&gt; também é codificada utilizando o algoritmo &lt;a href=&quot;https://en.wikipedia.org/wiki/Base64&quot;&gt;Base64Url&lt;/a&gt;, antes
+de compor a segunda parte do JWT.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect4&quot;&gt;
+&lt;h5 id=&quot;assinatura&quot;&gt;Assinatura&lt;/h5&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A assinatura é criada a partir das seguintes informações: cabeçalho codificado
+com Base64Url, a &lt;em&gt;informação útil&lt;/em&gt; codificada com Base64Url, uma chave para
+criptografia e um algoritmo de soma Hash e criptografia.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Exemplo do algoritmo de assinatura com RSA PKCS#1 e SHA-256&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;tok-c1&quot;&gt;// Algoritmo RS256&lt;/span&gt;
+&lt;span class=&quot;tok-kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;sha256&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;tok-nx&quot;&gt;base64UrlEncode&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;.&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;tok-nx&quot;&gt;base64UrlEncode&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;tok-kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;signature&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;rsaPKCS1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Da mesma maneira que nas partes anteriores a assinatura também é codificada
+utilizando o algoritmo &lt;a href=&quot;https://en.wikipedia.org/wiki/Base64&quot;&gt;Base64Url&lt;/a&gt;, antes de compor o JWT.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect4&quot;&gt;
+&lt;h5 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h5&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O resultado final são três partes codificadas com &lt;code&gt;Base64Url&lt;/code&gt; e separadas por
+pontos. Como demonstrado no exemplo logo abaixo.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Exemplo do resultado final de um JWT&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code&gt;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O resultado do exemplo acima foi calculado utilizando os seguintes dados:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Cabeçalho&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;alg&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;HS256&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;typ&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;JWT&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Informação Útil&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;sub&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;1234567890&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;John Doe&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;admin&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-kc&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Assinatura&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;tok-nx&quot;&gt;hmacSha256&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;tok-nx&quot;&gt;base64UrlEncode&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;.&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;tok-nx&quot;&gt;base64UrlEncode&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;secret&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Você pode realizar testes e colocar esses conceitos em prática no site &lt;a href=&quot;https://jwt.io/&quot;&gt;jwt.io&lt;/a&gt;.
+Lá você pode decodificar, verificar e gerar JWTs, tudo online no navegador.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;analysis&quot;&gt;Análise das Vulnerabilidades&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Finalmente irei abordar as vulnerabilidades encontradas nas implementações do
+JSON Web Token.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;algoritmo_nulo&quot;&gt;Algoritmo Nulo&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Quando um &lt;em&gt;token&lt;/em&gt; precisa ser validado o primeiro passo é determinar o algoritmo
+utilizado pelo mesmo, como é indicado pelo campo &lt;code&gt;alg&lt;/code&gt; do cabeçalho.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Isso significa que entramos num dilema, o próprio &lt;em&gt;token&lt;/em&gt; indica qual algoritmo
+deve ser utilizado para validar a si próprio. E isso pode ser desastroso,
+dependendo da implementação.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;No padrão JWT há a opção de algoritmo identificado como &lt;code&gt;none&lt;/code&gt; indicando um
+algoritmo nulo, o que significa que não foi utilizado nenhum algoritmo para
+gerar uma assinatura para o &lt;em&gt;token&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Exemplo de cabeçalho JWT com algoritmo nulo&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;alg&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;none&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;typ&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;JWT&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O problema é que algumas bibliotecas aceitam &lt;em&gt;tokens&lt;/em&gt; com algoritmo nulo como se
+tivessem uma assinatura válida. O que abre uma vulnerabilidade enorme,
+permitindo que qualquer atacante possa criar um &lt;em&gt;token&lt;/em&gt; válido.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A maioria das implementações resolveram esse problema rejeitando algoritmos
+nulos quando uma chave de criptografia é passada como parâmetro.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;criptografia_simétrica_vs_assimétrica&quot;&gt;Criptografia Simétrica vs Assimétrica&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Aceitar algoritmos nulos não é o real problema, o problema é aceitar que
+atacantes controlem o algoritmo de criptografia.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Se a biblioteca aceita que um &lt;em&gt;token&lt;/em&gt; seja validado sem especificar o algoritmo
+esperado, outra vulnerabilidade grave é aberta. Exatamente no caso esperarmos
+que o &lt;em&gt;token&lt;/em&gt; use uma criptografia assimétrica e o atacante utiliza uma
+criptografia simétrica.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://fgodoy.me/images/2016-05-22/jwt-alg.png&quot; alt=&quot;Diagrama de Atividade&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figura 6. Lógica de validação de assinatura JWT&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;O problema com essa lógica é que o atacante pode obter a chave pública e assinar
+um &lt;em&gt;token&lt;/em&gt; qualquer utilizando um algoritmo simétrico (HMAC) e indicar no
+cabeçalho o mesmo algoritmo. Assim quando um recurso protegido utilizar o mesmo
+algoritmo e a mesma chave o token será considerado válido, pois a &lt;strong&gt;assinatura
+gerada&lt;/strong&gt; será igual a &lt;strong&gt;assinatura do token&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lembrando que nesse caso como os tokens válidos estão sendo assinados com a
+chave privada os mesmos devem ser validados com a chave pública. Por isso o
+atacante terá sucesso, pois tem a certeza que o token está sendo validado com a
+chave pública.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;recomendações&quot;&gt;Recomendações&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Desenvolvedores deveriam exigir que o algoritmo utilizado para validação seja
+passado como parâmetro. Assim garante-se que será utilizado o algoritmo
+apropriado para a chave fornecida.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Caso seja necessária a utilização de mais de um algoritmo com chaves diferentes,
+a solução é atribuir um identificador para cada chave e indicá-la no campo &lt;code&gt;kid&lt;/code&gt;
+do cabeçalho (&lt;em&gt;key identifier&lt;/em&gt;, em inglês). Assim será possível inferir o
+algoritmo de acordo com a chave utilizada. Dessa maneira o campo &lt;code&gt;alg&lt;/code&gt; não terá
+utilidade alguma além de, talvez, validar se ele indica o algoritmo esperado.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ao utilizar uma implementação do padrão JWT, você deve auditar de maneira
+consistente se ela rejeita efetivamente algoritmos além do esperado. Assim a
+possibilidade de sucesso em ataques dessa natureza estarão quase nulos.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
         <pubDate>Sun, 22 May 2016 00:00:00 +0000</pubDate>
         <link>https://fgodoy.me/2016/05/jwt-hole/</link>
         <guid isPermaLink="true">https://fgodoy.me/2016/05/jwt-hole/</guid>
