@@ -1,0 +1,20 @@
+---
+layout: page
+permalink: /tools/
+title: Ferramentas
+sitemap:
+  priority: 1.0
+  changefreq: 'weekly'
+  lastmod: 2016-11-05
+---
+= Ferramentas
+Fabrício Godoy <contato@fgodoy.me>
+v1.0, 2016-11-05
+:lang: pt-BR
+:revdate: 2016-11-05 18:43:35-02:00
+:author: Fabrício Godoy
+:creator: Fabrício Godoy
+:producer: Fabrício Godoy
+
+Gerar vetores C# de dados JSON: https://fgodoy.me/json2csarray/[json2csarray]
+
