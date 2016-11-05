@@ -16,5 +16,5 @@ v1.0, 2016-11-05
 :creator: Fabrício Godoy
 :producer: Fabrício Godoy
 
-Gerar vetores C# de dados JSON: https://fgodoy.me/json2csarray/[json2csarray]
+Gerar vetores C# a partir de dados JSON: https://fgodoy.me/json2csarray/[json2csarray]
 
